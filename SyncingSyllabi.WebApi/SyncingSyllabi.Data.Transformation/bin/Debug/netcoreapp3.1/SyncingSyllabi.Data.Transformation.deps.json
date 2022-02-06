@@ -1171,7 +1171,8 @@
           "EntityFramework": "6.4.4",
           "LinqKit": "1.2.0",
           "Microsoft.EntityFrameworkCore": "3.1.10",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10"
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10",
+          "SyncingSyllabi.Data": "1.0.0"
         },
         "runtime": {
           "SyncingSyllabi.Contexts.dll": {}
