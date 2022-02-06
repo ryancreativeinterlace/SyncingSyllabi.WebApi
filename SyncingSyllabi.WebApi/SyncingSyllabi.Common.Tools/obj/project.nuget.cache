@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9nNjAwdTSpoNL9LfIBj6LYMvnAdkFq5eiEC97z7bRCB+k0BTIQwboVdg+DQdfsnaJz2mZKHouAWniqfwt8/RJg==",
+  "success": true,
+  "projectFilePath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Common.Tools\\SyncingSyllabi.Common.Tools.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\My PC\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.15\\microsoft.extensions.dependencyinjection.abstractions.3.1.15.nupkg.sha512"
+  ],
+  "logs": []
+}

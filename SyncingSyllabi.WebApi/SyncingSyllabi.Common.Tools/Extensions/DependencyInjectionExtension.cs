@@ -3,7 +3,7 @@ using System;
 
 namespace SyncingSyllabi.Common.Tools
 {
-    public static class DependencyInjectionExtensions
+    public static class DependencyInjectionExtension
     {
         public static IServiceCollection AddScopedTraced<T, TImplementation>(this IServiceCollection services) where T : class
                                                                                                                     where TImplementation : class, T

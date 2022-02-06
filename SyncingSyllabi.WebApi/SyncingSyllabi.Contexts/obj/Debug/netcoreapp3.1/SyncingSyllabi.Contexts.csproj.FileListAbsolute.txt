@@ -9,3 +9,4 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Contexts\obj\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Contexts\obj\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Contexts\obj\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.genruntimeconfig.cache
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Contexts\obj\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.csprojAssemblyReference.cache
