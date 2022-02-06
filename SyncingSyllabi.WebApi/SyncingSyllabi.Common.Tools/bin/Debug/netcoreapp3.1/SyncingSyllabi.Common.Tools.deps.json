@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "SyncingSyllabi.Common.Tools/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.15"
+        },
+        "runtime": {
+          "SyncingSyllabi.Common.Tools.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.15": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "3.1.15.0",
+            "fileVersion": "3.100.1521.21405"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SyncingSyllabi.Common.Tools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LqpcQzbu/L8GYrq0eDb8sFe0tjLMngsDycd6iheY833Wy6eGP3b45HmgDULq9ZT+SYlz2lyk4ZDt/7U3ZwGK3Q==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/3.1.15",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.3.1.15.nupkg.sha512"
+    }
+  }
+}

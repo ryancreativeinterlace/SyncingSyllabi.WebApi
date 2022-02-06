@@ -4,7 +4,9 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.pdb
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.csprojAssemblyReference.cache
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.AssemblyInfoInputs.cache
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.AssemblyInfo.cs
@@ -13,5 +15,3 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.genruntimeconfig.cache
-D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.dll
-D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data.Transformation\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.pdb

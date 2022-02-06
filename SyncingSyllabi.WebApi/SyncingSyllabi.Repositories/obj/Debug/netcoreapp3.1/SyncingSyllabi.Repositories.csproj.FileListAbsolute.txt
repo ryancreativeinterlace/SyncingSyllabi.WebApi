@@ -1,4 +1,6 @@
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.deps.json
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.runtimeconfig.json
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.runtimeconfig.dev.json
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\obj\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.AssemblyInfoInputs.cache
@@ -6,3 +8,4 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\obj\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.csproj.CoreCompileInputs.cache
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\obj\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\obj\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.pdb
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Repositories\obj\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.genruntimeconfig.cache
