@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZshogBBR93ymQpB0IEgiRAwNplLgwnwZjRidZ9MnTLQmxPJLhGImIQcDyas64qwXxkJiL0Xil0YHeOA3aM9jCQ==",
+  "dgSpecHash": "3bQgSfxVSXWDQnDOmHq2fe5BKbldO8xdfq8QMTfcorPruhGShsvJEtdEcC0RQAtuPsmMCWIMO2jp1iFL3sMl+Q==",
   "success": true,
-  "projectFilePath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.WebApi\\SyncingSyllabi.WebApi.csproj",
+  "projectFilePath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.WebApi\\SyncingSyllabi.Host.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

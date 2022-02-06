@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "7r4tboTnn387cTDhkenqyRn25LKsouoiDFBnRpMagO+aaC9w6VTrfkafhN1gQi1hbQwPD4xexO1X0ooodqwekA==",
+  "success": true,
+  "projectFilePath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Data.Transformation\\SyncingSyllabi.Data.Transformation.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\My PC\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\My PC\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
