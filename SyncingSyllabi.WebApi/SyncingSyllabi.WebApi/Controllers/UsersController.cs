@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Services.Interfaces;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace SyncingSyllabi.Main.WebApi.Controllers
 {
-    public class UserController : ControllerBase
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsersController : ControllerBase
     {
-
         IMapper _mapper;
         IUserService _userService;
 
-        public UserController
+        public UsersController
         (
             IMapper mapper,
             IUserService userService
@@ -25,15 +27,16 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
             _userService = userService;
         }
 
-
         [HttpGet]
-        [Route("GetUserById/{id}")]
-        public IActionResult GetUserById(long userId)
+        [Route("getuserbyid")]
+        public IActionResult GetUserById()
         {
             try
             {
+                long userId = 1;
+
                 var result = _userService.GetUserById(userId);
-                var response = _mapper.Map<IEnumerable<UserModel>>(result);
+                var response = _mapper.Map<UserModel>(result);
 
                 return Ok(response);
             }

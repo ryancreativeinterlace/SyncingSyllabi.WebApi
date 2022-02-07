@@ -38,15 +38,21 @@ namespace SyncingSyllabi.Main.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
+            app.UseFileServer();
+
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "api/{controller=healthcheck}/{action=Monitor}/{id?}");
             });
         }
     }
