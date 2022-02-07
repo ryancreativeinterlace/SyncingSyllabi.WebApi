@@ -47,6 +47,13 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Serilog.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.File.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Serilog.Formatting.Compact.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Serilog.Sinks.Async.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Serilog.Sinks.File.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\Serilog.Sinks.RollingFile.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\System.CodeDom.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll

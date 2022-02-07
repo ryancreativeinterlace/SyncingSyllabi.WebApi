@@ -34,13 +34,13 @@ namespace SyncingSyllabi.Contexts.Contexts
                             errorNumbersToAdd: null);
                 });
 
-//#if DEBUG
-//            var loggerFactory = LoggerFactory.Create(builder =>
-//            {
-//                builder.AddFilter(@"D:\Logs\ss-ef.log");
-//            });
-//            optionsBuilder.UseLoggerFactory(loggerFactory);
-//#endif
+#if DEBUG
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddFile(@"D:\Logs\ss-ef.log");
+            });
+            optionsBuilder.UseLoggerFactory(loggerFactory);
+#endif
         }
         public DbSet<IntegrationStatusCode> IntegrationStatusCodes { get; set; }
 
