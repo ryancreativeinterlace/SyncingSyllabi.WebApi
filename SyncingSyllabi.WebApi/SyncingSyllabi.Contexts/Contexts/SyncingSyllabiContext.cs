@@ -2,6 +2,7 @@
 using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Contexts.Mappings;
 
+
 namespace SyncingSyllabi.Contexts.Contexts
 {
     public class SyncingSyllabiContext : SyncingSyllabiDataContext

@@ -10,10 +10,23 @@
         "dependencies": {
           "EntityFramework": "6.4.4",
           "Microsoft.EntityFrameworkCore": "3.1.10",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10"
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10",
+          "SyncingSyllabi.Contexts": "1.0.0",
+          "SyncingSyllabi.Data": "1.0.0"
         },
         "runtime": {
           "SyncingSyllabi.Repositories.dll": {}
+        }
+      },
+      "AutoMapper/11.0.1": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.1.0"
+          }
         }
       },
       "EntityFramework/6.4.4": {
@@ -32,6 +45,26 @@
           "lib/netstandard2.1/EntityFramework.dll": {
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "6.400.420.21404"
+          }
+        }
+      },
+      "LinqKit/1.2.0": {
+        "dependencies": {
+          "EntityFramework": "6.4.4",
+          "LinqKit.Core": "1.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/LinqKit.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "LinqKit.Core/1.2.0": {
+        "runtime": {
+          "lib/netstandard2.1/LinqKit.Core.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
           }
         }
       },
@@ -1130,6 +1163,24 @@
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XmlDocument": "4.3.0"
         }
+      },
+      "SyncingSyllabi.Contexts/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "11.0.1",
+          "EntityFramework": "6.4.4",
+          "LinqKit": "1.2.0",
+          "Microsoft.EntityFrameworkCore": "3.1.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10",
+          "SyncingSyllabi.Data": "1.0.0"
+        },
+        "runtime": {
+          "SyncingSyllabi.Contexts.dll": {}
+        }
+      },
+      "SyncingSyllabi.Data/1.0.0": {
+        "runtime": {
+          "SyncingSyllabi.Data.dll": {}
+        }
       }
     }
   },
@@ -1139,12 +1190,33 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AutoMapper/11.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WIadGC1pIwbnyTubvI577p3F++Bsj9q2Q3OaAc1I0QS+JhupN1xkdrPBhI9bPIeg63zM81tZplUNYkqU1HE5jQ==",
+      "path": "automapper/11.0.1",
+      "hashPath": "automapper.11.0.1.nupkg.sha512"
+    },
     "EntityFramework/6.4.4": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-yj1+/4tci7Panu3jKDHYizxwVm0Jvm7b7m057b5h4u8NUHGCR8WIWirBTw+8EptRffwftIWPBeIRGNKD1ewEMQ==",
       "path": "entityframework/6.4.4",
       "hashPath": "entityframework.6.4.4.nupkg.sha512"
+    },
+    "LinqKit/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rkzpiMBh+15FNuq8d1VuDuFuxpr8a/LMKo7ZXmELigeIJqZfrF40UnMSktMcgSVu6/NpyC1JkY41v/lZ4dm7sw==",
+      "path": "linqkit/1.2.0",
+      "hashPath": "linqkit.1.2.0.nupkg.sha512"
+    },
+    "LinqKit.Core/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TaALTy7hPWt9+BMuF+TpQ0DyOXwTzXIDIWOQaP41lNZP5Zo7x3U6xL6wD2DhiPDJndE8TOLbNd2ml1c0QC2dhw==",
+      "path": "linqkit.core/1.2.0",
+      "hashPath": "linqkit.core.1.2.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",
@@ -1866,6 +1938,16 @@
       "sha512": "sha512-VShQJhOxgD/5M2Z1IWm1vMaSqlbjo1zdFf8H7Ahte6bTvSUhUko/gDpAVVhGgGgTDeue4QyNg1fu1Zz2GKSEuQ==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "SyncingSyllabi.Contexts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SyncingSyllabi.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

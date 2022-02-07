@@ -1,16 +1,19 @@
-﻿using SyncingSyllabi.Contexts.Contexts;
+﻿using AutoMapper;
+using SyncingSyllabi.Contexts.Contexts;
 using SyncingSyllabi.Contexts.Interfaces;
 using SyncingSyllabi.Data.Settings;
+using SyncingSyllabi.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SyncingSyllabi.Contexts.Repositories
+namespace SyncingSyllabi.Repositories.Repositories
 {
-    public partial class ContextRepository : IContextRepository, IBaseRepository<SyncingSyllabiDataContext>
+    public partial class UserBaseRepository : IUserBaseRepository, IBaseRepository<SyncingSyllabiDataContext>
     {
         DatabaseSettings _databaseSettings;
+        IMapper _mapper;
 
         private SyncingSyllabiContext NewDataContext()
         {

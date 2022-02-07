@@ -72,9 +72,11 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Services.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Common.Tools.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.Transformation.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.pdb
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Services.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\obj\Debug\netcoreapp3.1\SyncingSyllabi.Main.WebApi.csprojAssemblyReference.cache

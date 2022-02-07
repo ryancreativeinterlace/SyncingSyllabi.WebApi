@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
   </ItemGroup>
 
@@ -16,6 +12,7 @@
     <ProjectReference Include="..\SyncingSyllabi.Common.Tools\SyncingSyllabi.Common.Tools.csproj" />
     <ProjectReference Include="..\SyncingSyllabi.Data.Transformation\SyncingSyllabi.Data.Transformation.csproj" />
     <ProjectReference Include="..\SyncingSyllabi.Repositories\SyncingSyllabi.Repositories.csproj" />
+    <ProjectReference Include="..\SyncingSyllabi.Services\SyncingSyllabi.Services.csproj" />
   </ItemGroup>
 
 

@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "oPH4uqNhCDq6+LdOxym8mmmtMwSCrZWHRb9taVwOUV7iQXylBq4ml7FxuRt2cpxhN5m2wmy9jAuWjZHkqKsBUA==",
+  "dgSpecHash": "BccNmeeUAGzOaze/SzOT8kbNY8Itd1Er+tpkfjS3z7llCHovmw1iENXwa1yaDQFISDQEZxGE2zv3z2BlkWVxlA==",
   "success": true,
   "projectFilePath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Repositories\\SyncingSyllabi.Repositories.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\My PC\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\My PC\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\My PC\\.nuget\\packages\\linqkit\\1.2.0\\linqkit.1.2.0.nupkg.sha512",
+    "C:\\Users\\My PC\\.nuget\\packages\\linqkit.core\\1.2.0\\linqkit.core.1.2.0.nupkg.sha512",
     "C:\\Users\\My PC\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\My PC\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\My PC\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

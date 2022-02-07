@@ -20,7 +20,7 @@ namespace SyncingSyllabi.Main.WebApi.Loaders
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
 
-            services.AddScopedTraced<IUserRepository, UserRepository>();
+            services.AddScopedTraced<IUserBaseRepository, UserBaseRepository>();
 
             var databaseSettings = ConfigurationFactory.GetConfig<DatabaseSettings>("DatabaseSettings");
             services.AddSingleton<DatabaseSettings>(databaseSettings);

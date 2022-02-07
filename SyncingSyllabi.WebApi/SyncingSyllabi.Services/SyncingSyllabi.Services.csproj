@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SyncingSyllabi.Data\SyncingSyllabi.Data.csproj" />
+    <ProjectReference Include="..\SyncingSyllabi.Repositories\SyncingSyllabi.Repositories.csproj" />
+  </ItemGroup>
+
 </Project>
