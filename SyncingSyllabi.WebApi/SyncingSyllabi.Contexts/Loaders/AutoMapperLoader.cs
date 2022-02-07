@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using SyncingSyllabi.Contexts.Entities;
+using SyncingSyllabi.Data.Dtos.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +14,7 @@ namespace SyncingSyllabi.Contexts.Loaders
             var config = new MapperConfigurationExpression();
 
             // Sample
-            // config.CreateMap<CampaignDelivery, CampaignDeliveryDto>(MemberList.None).ReverseMap();
+            config.CreateMap<UserEntity, UserDto>(MemberList.None).ReverseMap();
 
             var mapperConfig = new MapperConfiguration(config);
             mapperConfig.AssertConfigurationIsValid();

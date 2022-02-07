@@ -14,7 +14,7 @@ namespace SyncingSyllabi.Contexts.Mappings
         {
             base.Configure(builder);
 
-            builder.ToTable("users");
+            builder.ToTable("Users");
 
             builder.Property(e => e.FirstName).HasColumnName("first_name");
             builder.Property(e => e.LastName).HasColumnName("last_name");

@@ -1,6 +1,7 @@
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.deps.json
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.pdb
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.csprojAssemblyReference.cache
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.AssemblyInfoInputs.cache
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.AssemblyInfo.cs
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Data\obj\Debug\netcoreapp3.1\SyncingSyllabi.Data.csproj.CoreCompileInputs.cache

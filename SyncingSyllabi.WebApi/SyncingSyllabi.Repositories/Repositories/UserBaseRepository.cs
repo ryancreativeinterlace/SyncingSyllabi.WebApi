@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SyncingSyllabi.Contexts.Contexts;
 using SyncingSyllabi.Contexts.Interfaces;
+using SyncingSyllabi.Contexts.Loaders;
 using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Repositories.Interfaces;
 using System;
@@ -14,6 +15,13 @@ namespace SyncingSyllabi.Repositories.Repositories
     {
         DatabaseSettings _databaseSettings;
         IMapper _mapper;
+
+        public UserBaseRepository(DatabaseSettings databaseSettings)
+        {
+            _databaseSettings = databaseSettings;
+
+            _mapper = AutoMapperLoader.Load();
+        }
 
         private SyncingSyllabiContext NewDataContext()
         {

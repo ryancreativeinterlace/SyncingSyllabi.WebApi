@@ -13,9 +13,9 @@ namespace SyncingSyllabi.Contexts.Mappings
         {
             base.Configure(builder);
 
-            builder.Property(t => t.DateCreated).HasColumnName("created_on");
+            builder.Property(t => t.DateCreated).HasColumnName("date_created");
             builder.Property(t => t.CreatedBy).HasColumnName("created_by");
-            builder.Property(t => t.DateUpdated).HasColumnName("updated_on");
+            builder.Property(t => t.DateUpdated).HasColumnName("date_updated");
             builder.Property(t => t.UpdatedBy).HasColumnName("updated_by");
         }
     }
