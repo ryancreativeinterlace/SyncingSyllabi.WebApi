@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Response;
 using SyncingSyllabi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,10 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
             try
             {
                 var result = _userService.GetUserById(userId);
-                var response = _mapper.Map<UserModel>(result);
+                var item = _mapper.Map<UserModel>(result);
+
+                var response = new UserResponseModel();
+                response.Data.Item = item;
 
                 return Ok(response);
             }
