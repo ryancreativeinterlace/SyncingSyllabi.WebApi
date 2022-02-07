@@ -5,6 +5,8 @@ using SyncingSyllabi.Common.Tools.Utilities;
 using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Repositories.Repositories;
+using SyncingSyllabi.Services.Interfaces;
+using SyncingSyllabi.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,14 @@ namespace SyncingSyllabi.Main.WebApi.Loaders
         private static void LoadServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
 
+            //Repositories
             services.AddScopedTraced<IUserBaseRepository, UserBaseRepository>();
+
+            //Services
+            services.AddScopedTraced<IUserService, UserService>();
 
             var databaseSettings = ConfigurationFactory.GetConfig<DatabaseSettings>("DatabaseSettings");
             services.AddSingleton<DatabaseSettings>(databaseSettings);

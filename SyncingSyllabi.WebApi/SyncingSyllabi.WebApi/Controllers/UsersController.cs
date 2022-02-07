@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace SyncingSyllabi.Main.WebApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class UsersController : ControllerBase
     {
         IMapper _mapper;
@@ -28,13 +29,11 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("getuserbyid")]
-        public IActionResult GetUserById()
+        [Route("GetUserById/{userId}")]
+        public IActionResult GetUserById(long userId)
         {
             try
             {
-                long userId = 1;
-
                 var result = _userService.GetUserById(userId);
                 var response = _mapper.Map<UserModel>(result);
 

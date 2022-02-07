@@ -10,6 +10,7 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Main.WebApi.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\SyncingSyllabi.Main.WebApi.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\AutoMapper.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\EntityFramework.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\bin\Debug\netcoreapp3.1\LinqKit.dll
