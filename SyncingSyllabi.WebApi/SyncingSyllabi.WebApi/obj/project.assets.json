@@ -1898,7 +1898,8 @@
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "6.0.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "6.0.0",
           "Microsoft.Extensions.Configuration.Json": "6.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.15"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.15",
+          "SyncingSyllabi.Data": "1.0.0"
         },
         "compile": {
           "bin/placeholder/SyncingSyllabi.Common.Tools.dll": {}

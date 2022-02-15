@@ -34,7 +34,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Data\\SyncingSyllabi.Data.csproj": {
+                "projectPath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Data\\SyncingSyllabi.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
