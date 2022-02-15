@@ -28,7 +28,6 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 if (getUser == null)
                 {
-                    user.Active = true;
                     ctx.Users.Add(user);
 
                     user.FillCreated(user.Id);

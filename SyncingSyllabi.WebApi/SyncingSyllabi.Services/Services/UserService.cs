@@ -27,11 +27,17 @@ namespace SyncingSyllabi.Services.Services
 
         public UserDto CreateUser(UserModel userModel)
         {
+            UserDto userResult = null;
+
             UserDto user = _mapper.Map<UserDto>(userModel);
+            
+            if(user != null)
+            {
+                user.Active = true;
+                userResult = _userBaseRepository.CreateUser(user);
+            }
 
-            var userDetail = _userBaseRepository.CreateUser(user);
-
-            return userDetail;
+            return userResult;
         }
 
         public UserDto GetUserById(long userId)
