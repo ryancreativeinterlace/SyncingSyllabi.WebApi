@@ -7,5 +7,6 @@ namespace SyncingSyllabi.Data.Dtos.Base
     public class BaseDto
     {
         public Int64 Id { get; set; }
+        public bool Active { get; set; }
     }
 }

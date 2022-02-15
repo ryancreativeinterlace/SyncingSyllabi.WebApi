@@ -7,5 +7,6 @@ namespace SyncingSyllabi.Contexts.Interfaces
     public interface IEntity
     {
         Int64 Id { get; set; }
+        bool Active { get; set; }
     }
 }
