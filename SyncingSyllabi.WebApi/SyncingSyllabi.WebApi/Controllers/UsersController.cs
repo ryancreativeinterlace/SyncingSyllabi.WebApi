@@ -29,6 +29,26 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
             _userService = userService;
         }
 
+        [HttpPost]
+        [Route("CreateUser")]
+        public IActionResult CreateUser([FromBody] UserModel userModel)
+        {
+            try
+            {
+                var result = _userService.CreateUser(userModel);
+                var item = _mapper.Map<UserModel>(result);
+
+                var response = new UserResponseModel();
+                response.Data.Item = item;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet]
         [Route("GetUserById/{userId}")]
         public IActionResult GetUserById(long userId)
