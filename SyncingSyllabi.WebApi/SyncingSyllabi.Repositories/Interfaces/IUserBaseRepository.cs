@@ -8,5 +8,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
     public interface IUserBaseRepository
     {
         UserDto GetUserById(long userId);
+        UserDto GetUserByEmail(string email);
     }
 }

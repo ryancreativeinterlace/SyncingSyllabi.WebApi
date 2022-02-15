@@ -8,5 +8,6 @@ namespace SyncingSyllabi.Services.Interfaces
     public interface IUserService
     {
         UserDto GetUserById(long userId);
+        UserDto GetUserByEmail(string email);
     }
 }

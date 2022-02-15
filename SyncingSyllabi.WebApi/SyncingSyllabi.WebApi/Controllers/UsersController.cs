@@ -48,5 +48,25 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetUserByEmail/{email}")]
+        public IActionResult GetUserByEmail(string email)
+        {
+            try
+            {
+                var result = _userService.GetUserByEmail(email);
+                var item = _mapper.Map<UserModel>(result);
+
+                var response = new UserResponseModel();
+                response.Data.Item = item;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

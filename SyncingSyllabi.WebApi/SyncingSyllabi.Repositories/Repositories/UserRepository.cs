@@ -26,5 +26,21 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             return result;
         }
+
+        public UserDto GetUserByEmail(string email)
+        {
+            UserDto result = null;
+
+            UseDataContext(ctx =>
+            {
+                result = ctx.Users
+                             .AsNoTracking()
+                             .Where(w => w.Email.ToLower() == email.ToLower())
+                             .Select(s => _mapper.Map<UserDto>(s))
+                             .FirstOrDefault();
+            });
+
+            return result;
+        }
     }
 }

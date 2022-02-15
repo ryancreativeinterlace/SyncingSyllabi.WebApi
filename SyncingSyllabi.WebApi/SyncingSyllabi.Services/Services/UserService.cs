@@ -23,9 +23,16 @@ namespace SyncingSyllabi.Services.Services
 
         public UserDto GetUserById(long userId)
         {
-            var rawUser = _userBaseRepository.GetUserById(userId);
+            var userDetail = _userBaseRepository.GetUserById(userId);
 
-            return rawUser;
+            return userDetail;
+        }
+
+        public UserDto GetUserByEmail(string email)
+        {
+            var userDetail = _userBaseRepository.GetUserByEmail(email);
+
+            return userDetail;
         }
     }
 }
