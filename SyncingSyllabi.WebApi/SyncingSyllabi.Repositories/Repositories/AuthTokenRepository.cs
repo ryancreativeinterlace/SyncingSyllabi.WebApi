@@ -12,7 +12,7 @@ namespace SyncingSyllabi.Repositories.Repositories
     {
         public AuthTokenDto CreateAuthToken(AuthTokenDto authTokenDto)
         {
-            AuthTokenDto result = null;
+            AuthTokenDto authTokenResult = null;
 
             var authToken = _mapper.Map<AuthTokenEntity>(authTokenDto);
 
@@ -28,16 +28,34 @@ namespace SyncingSyllabi.Repositories.Repositories
                 {
                     ctx.AuthTokens.Add(authToken);
 
-                    authToken.FillCreated(authTokenDto.Id);
-                    authToken.FillUpdated(authTokenDto.Id);
+                    authToken.FillCreated(authTokenDto.UserId);
+                    authToken.FillUpdated(authTokenDto.UserId);
 
                     ctx.SaveChanges();
 
-                    result = _mapper.Map<AuthTokenDto>(getAuth);
+                    authTokenResult = _mapper.Map<AuthTokenDto>(authTokenDto);
                 }
             });
 
-            return result;
+            return authTokenResult;
+        }
+
+        public AuthTokenDto GetAuthToken(long userId)
+        {
+            AuthTokenDto authTokenResult = null;
+
+            UseDataContext(ctx =>
+            {
+                var getAuth = ctx.AuthTokens
+                             .AsNoTracking()
+                             .Where(w => w.UserId == userId)
+                             .Select(s => _mapper.Map<AuthTokenDto>(s))
+                             .FirstOrDefault();
+
+                authTokenResult = _mapper.Map<AuthTokenDto>(getAuth);
+            });
+
+            return authTokenResult;
         }
     }
 }

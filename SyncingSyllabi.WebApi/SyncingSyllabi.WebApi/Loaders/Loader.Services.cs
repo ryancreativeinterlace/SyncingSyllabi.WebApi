@@ -23,6 +23,13 @@ namespace SyncingSyllabi.Main.WebApi.Loaders
 
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
 
+            //Settings
+            var databaseSettings = ConfigurationUtility.GetConfig<DatabaseSettings>("DatabaseSettings");
+            services.AddSingleton<DatabaseSettings>(databaseSettings);
+
+            var authSettings = ConfigurationUtility.GetConfig<AuthSettings>("AuthSettings");
+            services.AddSingleton<AuthSettings>(authSettings);
+
             //Repositories
             services.AddScopedTraced<IUserBaseRepository, UserBaseRepository>();
             services.AddScopedTraced<IAuthTokenBaseRepository, AuthTokenBaseRepository>();
@@ -30,9 +37,6 @@ namespace SyncingSyllabi.Main.WebApi.Loaders
             //Services
             services.AddScopedTraced<IUserService, UserService>();
             services.AddScopedTraced<IAuthService, AuthService>();
-
-            var databaseSettings = ConfigurationUtility.GetConfig<DatabaseSettings>("DatabaseSettings");
-            services.AddSingleton<DatabaseSettings>(databaseSettings);
         }
     }
 }

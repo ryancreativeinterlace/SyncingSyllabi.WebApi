@@ -14,7 +14,6 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
     public class UsersController : ControllerBase
     {
         IMapper _mapper;

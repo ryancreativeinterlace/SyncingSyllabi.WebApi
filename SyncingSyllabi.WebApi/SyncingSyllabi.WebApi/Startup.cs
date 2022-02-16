@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SyncingSyllabi.Common.Tools.Extensions;
 using SyncingSyllabi.Main.WebApi.Loaders;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,9 @@ namespace SyncingSyllabi.Main.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             Loader.Load(services);
+
+
+            services.AddJWTAuthentication();
             services.AddControllers();
         }
 

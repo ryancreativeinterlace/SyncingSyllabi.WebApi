@@ -23,6 +23,7 @@ namespace SyncingSyllabi.Contexts.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new AuthTokenMap());
         }
     }
 }

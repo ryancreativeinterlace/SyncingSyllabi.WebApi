@@ -8,5 +8,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
     public interface IAuthTokenBaseRepository
     {
         AuthTokenDto CreateAuthToken(AuthTokenDto authTokenDto);
+        AuthTokenDto GetAuthToken(long userId);
     }
 }

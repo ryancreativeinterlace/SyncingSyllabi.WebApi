@@ -6,18 +6,17 @@ using System.Text;
 
 namespace SyncingSyllabi.Data.Models.Response
 {
-
-    public class UserResponseModel : BaseResponseModel<UserResponseDataModel>
+    public class AuthResponseModel : BaseResponseModel<AuthResponseDataModel>
     {
-        public UserResponseModel()
+        public AuthResponseModel()
         {
-            Data = new UserResponseDataModel();
+            Data = new AuthResponseDataModel();
         }
     }
 
-    public class UserResponseDataModel
+    public class AuthResponseDataModel
     {
-        public UserModel Item { get; set; }
+        public AuthModel Item { get; set; }
         public bool Success { get; set; } = true;
     }
 }
