@@ -32,13 +32,14 @@ namespace SyncingSyllabi.Services.Services
             userModel.FirstName.Trim();
             userModel.LastName.Trim();
             userModel.Email.Trim();
+            userModel.Active = true;
+            PasswordUtility.EncryptPassword(userModel.Password.Trim());
 
             UserDto userResult = null;
             UserDto user = _mapper.Map<UserDto>(userModel);
             
             if(user != null)
             {
-                user.Active = true;
                 userResult = _userBaseRepository.CreateUser(user);
             }
 
@@ -47,10 +48,7 @@ namespace SyncingSyllabi.Services.Services
 
         public UserDto GetActiveUserLogin(AuthRequestModel authRequestModel)
         {
-            UserDto userLogin = null;
-
-            userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, PasswordUtility.EncryptPassword(authRequestModel.Password));
-
+            var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, PasswordUtility.EncryptPassword(authRequestModel.Password));
 
             return userLogin;
         }
