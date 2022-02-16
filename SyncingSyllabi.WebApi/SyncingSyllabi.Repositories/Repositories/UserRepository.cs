@@ -69,7 +69,9 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 result = ctx.Users
                              .AsNoTracking()
-                             .Where(w => w.Id == userId)
+                             .Where(w => 
+                                    w.Id == userId &&
+                                    w.Active)
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
             });
@@ -85,7 +87,9 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 result = ctx.Users
                              .AsNoTracking()
-                             .Where(w => w.Email.ToLower() == email.ToLower())
+                             .Where(w => 
+                                    w.Email.ToLower() == email.ToLower() &&
+                                    w.Active)
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
             });
