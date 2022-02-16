@@ -458,6 +458,9 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
+              "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Common.Tools\\SyncingSyllabi.Common.Tools.csproj": {
+                "projectPath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Common.Tools\\SyncingSyllabi.Common.Tools.csproj"
+              },
               "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Data\\SyncingSyllabi.Data.csproj": {
                 "projectPath": "D:\\Draguz Projects\\Creative Interlace\\SyncingSyllabiBE\\SyncingSyllabi.WebApi\\SyncingSyllabi.Data\\SyncingSyllabi.Data.csproj"
               },

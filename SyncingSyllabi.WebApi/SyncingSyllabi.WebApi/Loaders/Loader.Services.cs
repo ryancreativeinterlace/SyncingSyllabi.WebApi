@@ -25,11 +25,13 @@ namespace SyncingSyllabi.Main.WebApi.Loaders
 
             //Repositories
             services.AddScopedTraced<IUserBaseRepository, UserBaseRepository>();
+            services.AddScopedTraced<IAuthTokenBaseRepository, AuthTokenBaseRepository>();
 
             //Services
             services.AddScopedTraced<IUserService, UserService>();
+            services.AddScopedTraced<IAuthService, AuthService>();
 
-            var databaseSettings = ConfigurationFactory.GetConfig<DatabaseSettings>("DatabaseSettings");
+            var databaseSettings = ConfigurationUtility.GetConfig<DatabaseSettings>("DatabaseSettings");
             services.AddSingleton<DatabaseSettings>(databaseSettings);
         }
     }

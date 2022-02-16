@@ -42,6 +42,25 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
+        public UserDto GetActiveUserLogin(string email, string password)
+        {
+            UserDto result = null;
+
+            UseDataContext(ctx =>
+            {
+                result = ctx.Users
+                             .AsNoTracking()
+                             .Where(w => 
+                                    w.Email.ToLower() == email.ToLower() &&
+                                    w.Password == password &&
+                                    w.Active)
+                             .Select(s => _mapper.Map<UserDto>(s))
+                             .FirstOrDefault();
+            });
+
+            return result;
+        }
+
         public UserDto GetUserById(long userId)
         {
             UserDto result = null;

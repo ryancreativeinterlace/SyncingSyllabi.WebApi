@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Data.Models.Response;
 using SyncingSyllabi.Services.Interfaces;
 using System;
@@ -36,6 +37,26 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
             try
             {
                 var result = _userService.CreateUser(userModel);
+                var item = _mapper.Map<UserModel>(result);
+
+                var response = new UserResponseModel();
+                response.Data.Item = item;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("LoginUser")]
+        public IActionResult LoginUser([FromBody] AuthRequestModel authRequestModel)
+        {
+            try
+            {
+                var result = _userService.GetActiveUserLogin(authRequestModel);
                 var item = _mapper.Map<UserModel>(result);
 
                 var response = new UserResponseModel();

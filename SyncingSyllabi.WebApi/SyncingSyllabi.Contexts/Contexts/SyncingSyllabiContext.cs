@@ -18,6 +18,7 @@ namespace SyncingSyllabi.Contexts.Contexts
         }
 
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<AuthTokenEntity> AuthTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

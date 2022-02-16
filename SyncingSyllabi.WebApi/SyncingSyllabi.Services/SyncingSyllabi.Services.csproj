@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SyncingSyllabi.Common.Tools\SyncingSyllabi.Common.Tools.csproj" />
     <ProjectReference Include="..\SyncingSyllabi.Data\SyncingSyllabi.Data.csproj" />
     <ProjectReference Include="..\SyncingSyllabi.Repositories\SyncingSyllabi.Repositories.csproj" />
   </ItemGroup>

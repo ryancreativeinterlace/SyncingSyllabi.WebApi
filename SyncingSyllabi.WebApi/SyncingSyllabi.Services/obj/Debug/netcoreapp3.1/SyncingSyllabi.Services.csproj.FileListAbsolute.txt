@@ -3,9 +3,11 @@ D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\Syn
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Services.runtimeconfig.dev.json
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Services.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Services.pdb
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Common.Tools.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.dll
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.dll
+D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Common.Tools.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Data.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Repositories.pdb
 D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.Services\bin\Debug\netcoreapp3.1\SyncingSyllabi.Contexts.pdb

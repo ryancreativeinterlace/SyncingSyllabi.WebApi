@@ -15,3 +15,22 @@
 	updated_by bigint NULL,
 	is_active bit NULL
 );
+
+
+CREATE INDEX idx_user_id
+ON users(id);
+
+CREATE INDEX idx_user_first_name
+ON users(first_name);
+
+CREATE INDEX idx_user_last_name
+ON users(last_name);
+
+CREATE INDEX idx_user_email
+ON users(email);
+
+CREATE INDEX idx_user_password
+ON users(password);
+
+CREATE INDEX idx_user_image_url
+ON users(image_url);

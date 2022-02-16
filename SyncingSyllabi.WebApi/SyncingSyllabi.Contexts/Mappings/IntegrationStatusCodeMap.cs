@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SyncingSyllabi.Contexts.Entities;
+using SyncingSyllabi.Contexts.Mappings.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;

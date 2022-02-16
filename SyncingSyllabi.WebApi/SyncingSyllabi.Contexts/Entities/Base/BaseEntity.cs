@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SyncingSyllabi.Contexts.Entities
+namespace SyncingSyllabi.Contexts.Entities.Base
 {
     public abstract class BaseEntity : IEntity
     {

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using SyncingSyllabi.Common.Tools.Utilities;
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Services.Interfaces;
 using System;
@@ -27,8 +29,11 @@ namespace SyncingSyllabi.Services.Services
 
         public UserDto CreateUser(UserModel userModel)
         {
-            UserDto userResult = null;
+            userModel.FirstName.Trim();
+            userModel.LastName.Trim();
+            userModel.Email.Trim();
 
+            UserDto userResult = null;
             UserDto user = _mapper.Map<UserDto>(userModel);
             
             if(user != null)
@@ -38,6 +43,16 @@ namespace SyncingSyllabi.Services.Services
             }
 
             return userResult;
+        }
+
+        public UserDto GetActiveUserLogin(AuthRequestModel authRequestModel)
+        {
+            UserDto userLogin = null;
+
+            userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, PasswordUtility.EncryptPassword(authRequestModel.Password));
+
+
+            return userLogin;
         }
 
         public UserDto GetUserById(long userId)

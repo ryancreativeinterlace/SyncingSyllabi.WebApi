@@ -1868,6 +1868,7 @@
       },
       "SyncingSyllabi.Services/1.0.0": {
         "dependencies": {
+          "SyncingSyllabi.Common.Tools": "1.0.0",
           "SyncingSyllabi.Data": "1.0.0",
           "SyncingSyllabi.Repositories": "1.0.0"
         },

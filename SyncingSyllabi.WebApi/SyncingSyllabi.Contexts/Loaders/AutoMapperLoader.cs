@@ -13,8 +13,8 @@ namespace SyncingSyllabi.Contexts.Loaders
         {
             var config = new MapperConfigurationExpression();
 
-            // Sample
             config.CreateMap<UserEntity, UserDto>(MemberList.None).ReverseMap();
+            config.CreateMap<AuthTokenEntity, AuthTokenDto>(MemberList.None).ReverseMap();
 
             var mapperConfig = new MapperConfiguration(config);
             mapperConfig.AssertConfigurationIsValid();

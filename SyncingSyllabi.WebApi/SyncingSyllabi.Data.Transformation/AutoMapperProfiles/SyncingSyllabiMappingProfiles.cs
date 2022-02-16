@@ -10,6 +10,7 @@ namespace SyncingSyllabi.Data.Transformation.AutoMapperProfiles
         public SyncingSyllabiMappingProfiles()
         {
             CreateMap<UserDto, UserModel>(MemberList.None).ReverseMap();
+            CreateMap<AuthTokenDto, AuthModel>(MemberList.None).ReverseMap();
         }
     }
 }

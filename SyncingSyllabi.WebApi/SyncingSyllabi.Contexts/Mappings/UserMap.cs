@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SyncingSyllabi.Contexts.Entities;
+using SyncingSyllabi.Contexts.Mappings.Base;
 
 namespace SyncingSyllabi.Contexts.Mappings
 {

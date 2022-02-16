@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SyncingSyllabi.Contexts.Entities.Base;
 
 namespace SyncingSyllabi.Contexts.Entities
 {

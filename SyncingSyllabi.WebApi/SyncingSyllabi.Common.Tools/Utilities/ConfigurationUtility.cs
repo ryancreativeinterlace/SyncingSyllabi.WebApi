@@ -6,11 +6,11 @@ using System.Text;
 
 namespace SyncingSyllabi.Common.Tools.Utilities
 {
-    public class ConfigurationFactory
+    public class ConfigurationUtility
     {
         private static IConfigurationRoot _config;
 
-        static ConfigurationFactory()
+        static ConfigurationUtility()
         {
             Initialize();
         }
