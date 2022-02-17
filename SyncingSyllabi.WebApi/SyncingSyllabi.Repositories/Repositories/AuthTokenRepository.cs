@@ -26,14 +26,14 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 if (getAuth == null)
                 {
-                    ctx.AuthTokens.Add(authToken);
+                    authToken.FillCreated(authToken.UserId);
+                    authToken.FillUpdated(authToken.UserId);
 
-                    authToken.FillCreated(authTokenDto.UserId);
-                    authToken.FillUpdated(authTokenDto.UserId);
+                    ctx.AuthTokens.Add(authToken);
 
                     ctx.SaveChanges();
 
-                    authTokenResult = _mapper.Map<AuthTokenDto>(authTokenDto);
+                    authTokenResult = _mapper.Map<AuthTokenDto>(authToken);
                 }
             });
 
@@ -58,14 +58,13 @@ namespace SyncingSyllabi.Repositories.Repositories
                 {
                     var updateAuth = _mapper.Map<AuthTokenEntity>(getAuth);
 
-                    ctx.AuthTokens.Update(updateAuth);
+                    updateAuth.FillUpdated(getAuth.UserId);
 
-                    authToken.FillCreated(getAuth.UserId);
-                    authToken.FillUpdated(getAuth.UserId);
+                    ctx.AuthTokens.Update(updateAuth);
 
                     ctx.SaveChanges();
 
-                    authTokenResult = _mapper.Map<AuthTokenDto>(authTokenDto);
+                    authTokenResult = _mapper.Map<AuthTokenDto>(updateAuth);
                 }
             });
 

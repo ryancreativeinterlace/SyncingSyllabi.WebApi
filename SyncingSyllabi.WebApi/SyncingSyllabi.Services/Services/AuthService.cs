@@ -41,7 +41,7 @@ namespace SyncingSyllabi.Services.Services
 
                 if(getAuth != null)
                 {
-                    if(DateTime.Now > getAuth.AuthTokenExpiration.Value && getAuth.Active)
+                    if(getAuth.AuthTokenExpiration.Value > DateTime.Now && getAuth.Active)
                     {
                         // Refresh Token
                         var refreshAuth = new AuthTokenDto()

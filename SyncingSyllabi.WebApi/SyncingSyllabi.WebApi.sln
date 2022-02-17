@@ -37,6 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{FE81
 	ProjectSection(SolutionItems) = preProject
 		SyncingSyllabi.Database\Scripts\v1-UsersTableCreation.sql = SyncingSyllabi.Database\Scripts\v1-UsersTableCreation.sql
 		SyncingSyllabi.Database\Scripts\v2-AuthTableCreation.sql = SyncingSyllabi.Database\Scripts\v2-AuthTableCreation.sql
+		SyncingSyllabi.Database\Scripts\v3-GoalsTableCreation.sql = SyncingSyllabi.Database\Scripts\v3-GoalsTableCreation.sql
 	EndProjectSection
 EndProject
 Global
