@@ -1,5 +1,0 @@
-D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\obj\Debug\netcoreapp3.1\SyncingSyllabi.Host.WebApi.csprojAssemblyReference.cache
-D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\obj\Debug\netcoreapp3.1\SyncingSyllabi.Host.WebApi.AssemblyInfoInputs.cache
-D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\obj\Debug\netcoreapp3.1\SyncingSyllabi.Host.WebApi.AssemblyInfo.cs
-D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\obj\Debug\netcoreapp3.1\SyncingSyllabi.Host.WebApi.csproj.CoreCompileInputs.cache
-D:\Draguz Projects\Creative Interlace\SyncingSyllabiBE\SyncingSyllabi.WebApi\SyncingSyllabi.WebApi\obj\Debug\netcoreapp3.1\SyncingSyllabi.Host.WebApi.MvcApplicationPartsAssemblyInfo.cache
