@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SyncingSyllabi.Contexts.Entities.Base
 {
-    public class BaseTrackedEntity : BaseEntity
+    public abstract class BaseTrackedEntity : BaseEntity
     {
         public BaseTrackedEntity()
         {

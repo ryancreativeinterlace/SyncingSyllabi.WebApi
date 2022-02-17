@@ -40,6 +40,38 @@ namespace SyncingSyllabi.Repositories.Repositories
             return authTokenResult;
         }
 
+        public AuthTokenDto UpdateAuthToken(AuthTokenDto authTokenDto)
+        {
+            AuthTokenDto authTokenResult = null;
+
+            var authToken = _mapper.Map<AuthTokenEntity>(authTokenDto);
+
+            UseDataContext(ctx =>
+            {
+                var getAuth = ctx.AuthTokens
+                             .AsNoTracking()
+                             .Where(w => w.UserId == authTokenDto.UserId)
+                             .Select(s => _mapper.Map<AuthTokenDto>(s))
+                             .FirstOrDefault();
+
+                if (getAuth != null)
+                {
+                    var updateAuth = _mapper.Map<AuthTokenEntity>(getAuth);
+
+                    ctx.AuthTokens.Update(updateAuth);
+
+                    authToken.FillCreated(getAuth.UserId);
+                    authToken.FillUpdated(getAuth.UserId);
+
+                    ctx.SaveChanges();
+
+                    authTokenResult = _mapper.Map<AuthTokenDto>(authTokenDto);
+                }
+            });
+
+            return authTokenResult;
+        }
+
         public AuthTokenDto GetAuthToken(long userId)
         {
             AuthTokenDto authTokenResult = null;

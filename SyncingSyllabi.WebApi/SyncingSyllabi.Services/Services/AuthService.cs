@@ -39,9 +39,21 @@ namespace SyncingSyllabi.Services.Services
             {
                 var getAuth = _authTokenBaseRepository.GetAuthToken(getUser.Id);
 
-                if(getAuth != null && getAuth.AuthTokenExpiration > DateTime.Now && getAuth.Active)
+                if(getAuth != null)
                 {
-                    authTokenResult = getAuth;
+                    if(DateTime.Now > getAuth.AuthTokenExpiration.Value && getAuth.Active)
+                    {
+                        // Refresh Token
+                        var refreshAuth = new AuthTokenDto()
+                        {
+                            UserId = getUser.Id,
+                            AuthToken = TokenUtility.GenerateAccessToken(getUser.Id, getUser.Email, $"{getUser.FirstName} {getUser.LastName}"),
+                            AuthTokenExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_authSettings.ExpirationInMinutes)),
+                            Active = true
+                        };
+
+                        authTokenResult = _authTokenBaseRepository.UpdateAuthToken(refreshAuth);
+                    }
                 }
                 else
                 {

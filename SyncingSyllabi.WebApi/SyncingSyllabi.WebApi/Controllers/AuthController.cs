@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
@@ -13,6 +14,7 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class AuthController : ControllerBase
     {
         IMapper _mapper;
@@ -30,6 +32,7 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
 
         [HttpPost]
         [Route("GenerateAuth")]
+        [AllowAnonymous]
         public IActionResult GenerateAuth([FromBody] AuthRequestModel authRequestModel)
         {
             try

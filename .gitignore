@@ -361,3 +361,22 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+*.lock
+*.CopyComplete
+*.dll
+*.cache
+*.manifest
+*.exe
+*/**/bin/Debug
+*/**/bin/Development
+*/**/bin/Release
+*/**/obj/Development
+*/**/obj/Debug
+*/**/obj/Release
+*/**/obj
+*.sqlite
+/.vs/VSWorkspaceState.json
+*.suo
+
+/SyncingSyllabi.Contexts/obj/Debug/netcoreapp3.1

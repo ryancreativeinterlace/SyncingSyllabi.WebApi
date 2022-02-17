@@ -46,6 +46,8 @@ namespace SyncingSyllabi.Main.WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseFileServer();
