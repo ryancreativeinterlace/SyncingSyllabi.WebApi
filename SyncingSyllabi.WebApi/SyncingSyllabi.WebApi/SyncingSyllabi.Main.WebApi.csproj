@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SyncingSyllabi.Common.Tools\SyncingSyllabi.Common.Tools.csproj" />
+    <ProjectReference Include="..\SyncingSyllabi.Data.Transformation\SyncingSyllabi.Data.Transformation.csproj" />
+    <ProjectReference Include="..\SyncingSyllabi.Repositories\SyncingSyllabi.Repositories.csproj" />
+    <ProjectReference Include="..\SyncingSyllabi.Services\SyncingSyllabi.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>
