@@ -16,12 +16,12 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         IMapper _mapper;
         IUserService _userService;
 
-        public UsersController
+        public UserController
         (
             IMapper mapper,
             IUserService userService
