@@ -33,7 +33,7 @@ namespace SyncingSyllabi.Services.Services
         {
             AuthTokenDto authTokenResult = null;
 
-            var getUser = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, PasswordUtility.EncryptPassword(authRequestModel.Password));
+            var getUser = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionUtility.EncryptString(authRequestModel.Password));
 
             if(getUser != null)
             {

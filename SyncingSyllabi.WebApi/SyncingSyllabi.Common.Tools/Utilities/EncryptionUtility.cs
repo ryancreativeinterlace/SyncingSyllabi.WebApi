@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SyncingSyllabi.Common.Tools.Utilities
 {
-    public class PasswordUtility
+    public class EncryptionUtility
     {
-        public static string EncryptPassword(string password)
+        public static string EncryptString(string password)
         {
             string passwordEncode = string.Empty;
 
@@ -22,7 +22,7 @@ namespace SyncingSyllabi.Common.Tools.Utilities
             return passwordEncode;
         }
 
-        public static string DecryptPassword(string password)
+        public static string DecryptString(string password)
         {
             string passwordDecode = string.Empty;
 
