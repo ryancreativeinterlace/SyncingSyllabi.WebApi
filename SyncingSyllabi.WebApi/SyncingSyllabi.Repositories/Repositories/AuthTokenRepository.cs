@@ -57,6 +57,8 @@ namespace SyncingSyllabi.Repositories.Repositories
                 if (getAuth != null)
                 {
                     var updateAuth = _mapper.Map<AuthTokenEntity>(getAuth);
+                    updateAuth.AuthToken = authToken.AuthToken;
+                    updateAuth.AuthTokenExpiration = authToken.AuthTokenExpiration;
 
                     updateAuth.FillUpdated(getAuth.UserId);
 

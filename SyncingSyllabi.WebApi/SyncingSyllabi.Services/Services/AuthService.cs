@@ -41,9 +41,9 @@ namespace SyncingSyllabi.Services.Services
 
                 if(getAuth != null)
                 {
-                    if(getAuth.AuthTokenExpiration.Value > DateTime.Now && getAuth.Active)
+                    if(DateTime.Now > getAuth.AuthTokenExpiration.Value && getAuth.Active)
                     {
-                        // Refresh Token
+                        // Refresh token if expire
                         var refreshAuth = new AuthTokenDto()
                         {
                             UserId = getUser.Id,
@@ -54,10 +54,15 @@ namespace SyncingSyllabi.Services.Services
 
                         authTokenResult = _authTokenBaseRepository.UpdateAuthToken(refreshAuth);
                     }
+                    else
+                    {
+                        // Return token 
+                        authTokenResult = getAuth;
+                    }
                 }
                 else
                 {
-                    // Generate Token
+                    // Generate token
                     var newAuth = new AuthTokenDto()
                     {
                         UserId = getUser.Id,
