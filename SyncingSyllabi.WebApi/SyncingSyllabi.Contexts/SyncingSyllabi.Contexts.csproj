@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SyncingSyllabi.Common.Tools\SyncingSyllabi.Common.Tools.csproj" />
     <ProjectReference Include="..\SyncingSyllabi.Data\SyncingSyllabi.Data.csproj" />
   </ItemGroup>
 

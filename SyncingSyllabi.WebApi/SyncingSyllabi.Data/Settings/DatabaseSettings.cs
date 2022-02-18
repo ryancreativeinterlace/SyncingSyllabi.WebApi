@@ -6,6 +6,7 @@ namespace SyncingSyllabi.Data.Settings
 {
     public class DatabaseSettings
     {
+        public string Environment { get; set; }
         public string ConnectionString { get; set; }
         public int MaximumRetry { get; set; }
         public int MaximumRetryIntervalSeconds { get; set; }

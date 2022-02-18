@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SyncingSyllabi.Common.Tools.Utilities;
 using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Contexts.Mappings;
 using System;
@@ -24,7 +25,7 @@ namespace SyncingSyllabi.Contexts.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString,
+            optionsBuilder.UseSqlServer(EncryptionUtility.DecryptString(_connectionString),
                 options =>
                 {
                     options
