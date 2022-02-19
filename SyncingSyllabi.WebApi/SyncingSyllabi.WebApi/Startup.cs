@@ -29,8 +29,10 @@ namespace SyncingSyllabi.Main.WebApi
         {
             Loader.Load(services);
 
-
             services.AddJWTAuthentication();
+
+            services.ConfigureSwaggerGen();
+
             services.AddControllers();
         }
 
@@ -50,9 +52,9 @@ namespace SyncingSyllabi.Main.WebApi
 
             app.UseAuthorization();
 
-            app.UseFileServer();
+            //app.UseFileServer();
 
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
@@ -60,6 +62,8 @@ namespace SyncingSyllabi.Main.WebApi
                     name: "default",
                     pattern: "api/{controller=healthcheck}/{action=Monitor}/{id?}");
             });
+
+            app.ConfigureSwaggerUI();
         }
     }
 }
