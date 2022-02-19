@@ -11,7 +11,7 @@
 	date_updated datetime NULL,
 	updated_by bigint NULL,
 	is_active bit NULL,
-	is_archive bit NULL
+	is_archive bit NULL default 0
 );
 
 CREATE INDEX idx_goals_id
