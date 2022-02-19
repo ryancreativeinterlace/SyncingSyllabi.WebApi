@@ -17,13 +17,40 @@
         "ASPNETCORE_ENVIRONMENT": "DEV"
       }
     },
-    "SyncingSyllabi.WebApi": {
+    "Syllabi-DEV": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/healthcheck/monitor",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "DEV"
+      }
+    },
+    "Syllabi-QA": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/healthcheck/monitor",
+      "applicationUrl": "https://localhost:6001;http://localhost:6000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "QA"
+      }
+    },
+    "Syllabi-UAT": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/healthcheck/monitor",
+      "applicationUrl": "https://localhost:7001;http://localhost:7000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "UAT"
+      }
+    },
+    "Syllabi-PROD": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/healthcheck/monitor",
+      "applicationUrl": "https://localhost:8001;http://localhost:8000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "PROD"
       }
     }
   }
