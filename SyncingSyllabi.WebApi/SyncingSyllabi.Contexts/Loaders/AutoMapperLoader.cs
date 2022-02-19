@@ -15,6 +15,7 @@ namespace SyncingSyllabi.Contexts.Loaders
 
             config.CreateMap<UserEntity, UserDto>(MemberList.None).ReverseMap();
             config.CreateMap<AuthTokenEntity, AuthTokenDto>(MemberList.None).ReverseMap();
+            config.CreateMap<GoalEntity, GoalDto>(MemberList.None).ReverseMap();
 
             var mapperConfig = new MapperConfiguration(config);
             mapperConfig.AssertConfigurationIsValid();

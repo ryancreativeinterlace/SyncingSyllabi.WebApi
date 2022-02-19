@@ -33,10 +33,12 @@ namespace SyncingSyllabi.Main.WebApi.Loaders
             //Repositories
             services.AddScopedTraced<IUserBaseRepository, UserBaseRepository>();
             services.AddScopedTraced<IAuthTokenBaseRepository, AuthTokenBaseRepository>();
+            services.AddScopedTraced<IGoalBaseRepository, GoalBaseRepository>();
 
             //Services
             services.AddScopedTraced<IUserService, UserService>();
             services.AddScopedTraced<IAuthService, AuthService>();
+            services.AddScopedTraced<IGoalService, GoalService>();
         }
     }
 }
