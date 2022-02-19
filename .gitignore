@@ -380,3 +380,4 @@ FodyWeavers.xsd
 *.suo
 
 /SyncingSyllabi.Contexts/obj/Debug/netcoreapp3.1
+*.json
