@@ -6,9 +6,9 @@ namespace SyncingSyllabi.Data.Enums
 {
     public enum GoalTypeEnum
     {
-        None = 1,
-        ShortTerm = 2,
-        MediumTerm = 3,
-        LongTerm = 4
+        None = 0,
+        ShortTerm = 1,
+        MediumTerm = 2,
+        LongTerm = 3
     }
 }
