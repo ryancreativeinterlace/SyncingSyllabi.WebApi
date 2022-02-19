@@ -22,3 +22,9 @@ ON goals(user_id);
 
 CREATE INDEX idx_goals_title
 ON goals(goal_title);
+
+CREATE INDEX idx_goals_date_start
+ON goals(goal_date_start);
+
+CREATE INDEX idx_goals_date_end
+ON goals(goal_date_end);
