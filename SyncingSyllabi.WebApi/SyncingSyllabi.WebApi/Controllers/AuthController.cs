@@ -30,6 +30,10 @@ namespace SyncingSyllabi.WebApi.Controllers
             _authService = authService;
         }
 
+        ///<Summary>
+        /// Generate user authentication token.
+        ///</Summary>
+        ///<returns>The user generated authentication token.</returns>
         [HttpPost]
         [Route("GenerateAuth")]
         [AllowAnonymous]

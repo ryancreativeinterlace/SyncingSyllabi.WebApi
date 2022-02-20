@@ -39,8 +39,8 @@ namespace SyncingSyllabi.Common.Tools.Extensions
             {
                 setupAction.SwaggerEndpoint(
                     $"/swagger/{specificationName}/swagger.json",
-                    $"{hostName} API");
-                setupAction.RoutePrefix = "";
+                    $"{hostName} Main");
+                setupAction.RoutePrefix = string.Empty;
             });
         }
 
@@ -56,16 +56,16 @@ namespace SyncingSyllabi.Common.Tools.Extensions
                     specificationName,
                     new OpenApiInfo()
                     {
-                        Title = $"{hostName} API",
+                        Title = $"{hostName} Main",
                         Version = "1",
-                        Description = $"{hostName} API"
+                        Description = $"{hostName} Main"
 
                     });
 
                 var xmlCommentsFile = $"{hostName}.xml";
                 var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
 
-                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+                setupAction.IncludeXmlComments(xmlCommentsFullPath, true);
                 // if you're using the SecurityRequirementsOperationFilter, you also need to tell Swashbuckle you're using OAuth2
                 //setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 //{
