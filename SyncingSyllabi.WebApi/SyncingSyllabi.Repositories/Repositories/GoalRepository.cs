@@ -27,10 +27,10 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 if (getGoal == null)
                 {
-                    ctx.Goals.Add(goal);
-
                     goal.FillCreated(goal.UserId);
                     goal.FillUpdated(goal.UserId);
+
+                    ctx.Goals.Add(goal);
 
                     ctx.SaveChanges();
 
