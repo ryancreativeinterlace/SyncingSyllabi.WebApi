@@ -7,13 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SyncingSyllabi.Common.Tools.Extensions;
-using SyncingSyllabi.Main.WebApi.Loaders;
+using SyncingSyllabi.WebApi.Loaders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SyncingSyllabi.Main.WebApi
+namespace SyncingSyllabi.WebApi
 {
     public class Startup
     {

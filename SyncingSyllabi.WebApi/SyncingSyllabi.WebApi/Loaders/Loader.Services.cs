@@ -13,7 +13,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace SyncingSyllabi.Main.WebApi.Loaders
+namespace SyncingSyllabi.WebApi.Loaders
 {
     public partial class Loader
     {

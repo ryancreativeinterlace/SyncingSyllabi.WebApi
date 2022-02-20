@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SyncingSyllabi.Main.WebApi.Controllers
+namespace SyncingSyllabi.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

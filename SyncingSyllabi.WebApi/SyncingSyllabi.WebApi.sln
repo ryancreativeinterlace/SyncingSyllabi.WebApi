@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyncingSyllabi.Main.WebApi", "SyncingSyllabi.WebApi\SyncingSyllabi.Main.WebApi.csproj", "{8D73CC78-8975-4837-8E71-24486BA5B268}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyncingSyllabi.WebApi", "SyncingSyllabi.WebApi\SyncingSyllabi.WebApi.csproj", "{8D73CC78-8975-4837-8E71-24486BA5B268}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyncingSyllabi.Main.WebApi", "SyncingSyllabi.Main.WebApi", "{14306B37-DD08-4B93-90F9-4CCA8BD28CEB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyncingSyllabi.WebApi", "SyncingSyllabi.WebApi", "{14306B37-DD08-4B93-90F9-4CCA8BD28CEB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyncingSyllabi.Data", "SyncingSyllabi.Data", "{F982FAA3-9C75-4CB2-9AF0-32AF41FC16EB}"
 EndProject
