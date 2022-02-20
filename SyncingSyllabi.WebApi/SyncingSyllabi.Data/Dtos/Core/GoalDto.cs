@@ -15,7 +15,7 @@ namespace SyncingSyllabi.Data.Dtos.Core
         public string GoalTypeName { get; set; }
         public DateTime? GoalDateStart { get; set; }
         public DateTime? GoalDateEnd { get; set; }
-        public bool IsCompleted { get; set; }
-        public bool IsArchived { get; set; }
+        public bool? IsCompleted { get; set; }
+        public bool? IsArchived { get; set; }
     }
 }

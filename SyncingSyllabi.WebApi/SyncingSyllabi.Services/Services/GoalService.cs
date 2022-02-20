@@ -37,7 +37,7 @@ namespace SyncingSyllabi.Services.Services
             goalModel.GoalDateStart = goalRequestModel.GoalDateStart;
             goalModel.GoalDateEnd = goalRequestModel.GoalDateEnd;
             goalModel.GoalType = (GoalTypeEnum)goalRequestModel.GoalType;
-            goalModel.Active = true;
+            goalModel.IsActive = true;
             goalModel.IsCompleted = false;
             goalModel.IsArchived = false;
 
@@ -65,6 +65,51 @@ namespace SyncingSyllabi.Services.Services
             if(goal != null)
             {
                 goalResult = _goalBaseRepository.CreateGoal(goal);
+            }
+
+            return goalResult;
+        }
+
+        public GoalDto UpdateGoal(GoalRequestModel goalRequestModel)
+        {
+            GoalDto goalResult = null;
+
+            var goalModel = new GoalModel();
+            goalModel.Id = goalRequestModel.GoalId;
+            goalModel.UserId = goalRequestModel.UserId;
+            goalModel.GoalTitle = !string.IsNullOrEmpty(goalRequestModel.GoalTitle) ? goalRequestModel.GoalTitle.Trim() : string.Empty;
+            goalModel.GoalDescription = !string.IsNullOrEmpty(goalRequestModel.GoalDescription) ? goalRequestModel.GoalDescription.Trim() : string.Empty;
+            goalModel.GoalDateStart = goalRequestModel.GoalDateStart ?? null;
+            goalModel.GoalDateEnd = goalRequestModel.GoalDateEnd ?? null;
+            goalModel.GoalType = goalRequestModel.GoalType != null ? (GoalTypeEnum)goalRequestModel.GoalType : 0;
+            goalModel.IsActive = goalRequestModel.IsActive ?? null;
+            goalModel.IsCompleted = goalRequestModel.IsCompleted ?? null;
+            goalModel.IsArchived = goalRequestModel.IsAchieved ?? null;
+
+            switch (goalRequestModel.GoalType)
+            {
+                case (int)GoalTypeEnum.ShortTerm:
+                    goalModel.GoalTypeName = "Short-Term";
+                    break;
+
+                case (int)GoalTypeEnum.MediumTerm:
+                    goalModel.GoalTypeName = "Medium-Term";
+                    break;
+
+                case (int)GoalTypeEnum.LongTerm:
+                    goalModel.GoalTypeName = "Long-Term";
+                    break;
+
+                default:
+                    goalModel.GoalTypeName = "None";
+                    break;
+            }
+
+            GoalDto goal = _mapper.Map<GoalDto>(goalModel);
+
+            if (goal != null)
+            {
+                goalResult = _goalBaseRepository.UpdateGoal(goal);
             }
 
             return goalResult;

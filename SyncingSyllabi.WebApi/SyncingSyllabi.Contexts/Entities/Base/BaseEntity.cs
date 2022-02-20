@@ -8,6 +8,6 @@ namespace SyncingSyllabi.Contexts.Entities.Base
     public abstract class BaseEntity : IEntity
     {
         public Int64 Id { get; set; }
-        public bool Active { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

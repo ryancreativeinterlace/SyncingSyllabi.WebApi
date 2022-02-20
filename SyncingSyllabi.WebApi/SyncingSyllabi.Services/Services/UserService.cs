@@ -32,7 +32,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.FirstName.Trim();
             userModel.LastName.Trim();
             userModel.Email.Trim();
-            userModel.Active = true;
+            userModel.IsActive = true;
             EncryptionUtility.EncryptString(userModel.Password.Trim());
 
             UserDto userResult = null;

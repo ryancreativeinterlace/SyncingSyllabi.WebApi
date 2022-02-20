@@ -14,7 +14,7 @@ namespace SyncingSyllabi.Contexts.Mappings.Base
         {
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Id).HasColumnName("id");
-            builder.Property(t => t.Active).HasColumnName("is_active");
+            builder.Property(t => t.IsActive).HasColumnName("is_active");
         }
     }
 }

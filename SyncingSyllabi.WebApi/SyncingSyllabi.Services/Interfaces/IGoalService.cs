@@ -9,6 +9,7 @@ namespace SyncingSyllabi.Services.Interfaces
 {
     public interface IGoalService
     {
-        GoalDto CreateGoal(GoalRequestModel goalModel);
+        GoalDto CreateGoal(GoalRequestModel goalRequestModel);
+        GoalDto UpdateGoal(GoalRequestModel goalRequestModel);
     }
 }

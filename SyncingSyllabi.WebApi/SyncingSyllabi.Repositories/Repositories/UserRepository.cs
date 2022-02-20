@@ -53,7 +53,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                              .Where(w => 
                                     w.Email.ToLower() == email.ToLower() &&
                                     w.Password == password &&
-                                    w.Active)
+                                    w.IsActive.Value)
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
             });
@@ -71,7 +71,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                              .AsNoTracking()
                              .Where(w => 
                                     w.Id == userId &&
-                                    w.Active)
+                                    w.IsActive.Value)
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
             });
@@ -89,7 +89,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                              .AsNoTracking()
                              .Where(w => 
                                     w.Email.ToLower() == email.ToLower() &&
-                                    w.Active)
+                                    w.IsActive.Value)
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
             });

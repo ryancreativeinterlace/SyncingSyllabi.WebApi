@@ -8,5 +8,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
     public interface IGoalBaseRepository
     {
         GoalDto CreateGoal(GoalDto goalDto);
+        GoalDto UpdateGoal(GoalDto goalDto);
     }
 }

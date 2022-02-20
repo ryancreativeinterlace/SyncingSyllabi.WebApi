@@ -12,7 +12,7 @@ namespace SyncingSyllabi.Repositories.Repositories
     {
         public GoalDto CreateGoal(GoalDto goalDto)
         {
-            GoalDto goalResult = null;
+            GoalDto createGoalResult = null;
 
             var goal = _mapper.Map<GoalEntity>(goalDto);
 
@@ -22,7 +22,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                              .AsNoTracking()
                              .Where(w => w.UserId == goal.UserId &&
                                     w.GoalTitle.ToLower() == goal.GoalTitle.ToLower())
-                             .Select(s => _mapper.Map<GoalDto>(s))
+                             .Select(s => _mapper.Map<GoalEntity>(s))
                              .FirstOrDefault();
 
                 if (getGoal == null)
@@ -34,11 +34,51 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     ctx.SaveChanges();
 
-                    goalResult = _mapper.Map<GoalDto>(goal);
+                    createGoalResult = _mapper.Map<GoalDto>(goal);
                 }
             });
 
-            return goalResult;
+            return createGoalResult;
+        }
+
+        public GoalDto UpdateGoal(GoalDto goalDto)
+        {
+            GoalDto updateGoalResult = null;
+
+            var goal = _mapper.Map<GoalEntity>(goalDto);
+
+            UseDataContext(ctx =>
+            {
+                var getGoal = ctx.Goals
+                             .AsNoTracking()
+                             .Where(w => w.Id == goalDto.Id &&
+                                    w.UserId == goal.UserId)
+                             .Select(s => _mapper.Map<GoalEntity>(s))
+                             .FirstOrDefault();
+
+                if (getGoal != null)
+                {
+                    getGoal.GoalTitle = !string.IsNullOrEmpty(goal.GoalTitle) ? goal.GoalTitle : getGoal.GoalTitle;
+                    getGoal.GoalTitle = !string.IsNullOrEmpty(goal.GoalDescription) ? goal.GoalDescription : getGoal.GoalDescription ;
+                    getGoal.GoalDateStart = goal.GoalDateStart ?? getGoal.GoalDateStart;
+                    getGoal.GoalDateEnd = goal.GoalDateEnd ?? getGoal.GoalDateEnd;
+                    getGoal.GoalType = goal.GoalType != 0 ? goal.GoalType : getGoal.GoalType;
+                    getGoal.GoalTypeName = !string.IsNullOrEmpty(goal.GoalTypeName) ? goal.GoalTypeName : getGoal.GoalTypeName;
+                    getGoal.IsActive = goal.IsActive ?? getGoal.IsActive;
+                    getGoal.IsCompleted = goal.IsCompleted ?? getGoal.IsCompleted;
+                    getGoal.IsArchived = goal.IsArchived ?? getGoal.IsArchived;
+
+                    getGoal.FillUpdated(getGoal.UserId);
+
+                    ctx.Goals.Update(getGoal);
+
+                    ctx.SaveChanges();
+
+                    updateGoalResult = _mapper.Map<GoalDto>(goal);
+                }
+            });
+
+            return updateGoalResult;
         }
     }
 }
