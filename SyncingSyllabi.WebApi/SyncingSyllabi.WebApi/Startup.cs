@@ -54,7 +54,7 @@ namespace SyncingSyllabi.Main.WebApi
 
             //app.UseFileServer();
 
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

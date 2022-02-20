@@ -30,8 +30,8 @@ namespace SyncingSyllabi.Common.Tools.Extensions
                     ValidIssuer = authSettings.Issuer,
                     ValidAudience = authSettings.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.Key)),
-                    RequireExpirationTime = true,
-                    ValidateLifetime = true,
+                    RequireExpirationTime = authSettings.RequireExpirationTime,
+                    ValidateLifetime = authSettings.ValidateLifetime
                 };
 
                 //cfg.Events = new JwtBearerEvents()

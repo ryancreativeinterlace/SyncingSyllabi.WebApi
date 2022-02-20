@@ -10,5 +10,7 @@ namespace SyncingSyllabi.Data.Settings
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public int ExpirationInMinutes { get; set; }
+        public bool RequireExpirationTime { get; set; }
+        public bool ValidateLifetime { get; set; }
     }
 }
