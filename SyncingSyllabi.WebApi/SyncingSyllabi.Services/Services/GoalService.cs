@@ -26,9 +26,9 @@ namespace SyncingSyllabi.Services.Services
             _goalBaseRepository = goalBaseRepository;
         }
 
-        public GoalDto CreateGoal (GoalRequestModel goalRequestModel)
+        public GoalDto CreateGoal(GoalRequestModel goalRequestModel)
         {
-            GoalDto goalResult = null;
+            GoalDto creteGoalResult = null;
 
             var goalModel = new GoalModel();
             goalModel.UserId = goalRequestModel.UserId;
@@ -58,17 +58,17 @@ namespace SyncingSyllabi.Services.Services
 
             GoalDto goal = _mapper.Map<GoalDto>(goalModel);
 
-            if(goal != null)
+            if (goal != null)
             {
-                goalResult = _goalBaseRepository.CreateGoal(goal);
+                creteGoalResult = _goalBaseRepository.CreateGoal(goal);
             }
 
-            return goalResult;
+            return creteGoalResult;
         }
 
         public GoalDto UpdateGoal(GoalRequestModel goalRequestModel)
         {
-            GoalDto goalResult = null;
+            GoalDto updatedGoalResult = null;
 
             var goalModel = new GoalModel();
             goalModel.Id = goalRequestModel.GoalId;
@@ -101,10 +101,19 @@ namespace SyncingSyllabi.Services.Services
 
             if (goal != null)
             {
-                goalResult = _goalBaseRepository.UpdateGoal(goal);
+                updatedGoalResult = _goalBaseRepository.UpdateGoal(goal);
             }
 
-            return goalResult;
+            return updatedGoalResult;
+        }
+
+        public GoalDto GetGoalDetails(long goalId)
+        {
+            GoalDto getGoalResult = null;
+
+            getGoalResult = _goalBaseRepository.GetGoalDetails(goalId);
+
+            return getGoalResult;
         }
     }
 }

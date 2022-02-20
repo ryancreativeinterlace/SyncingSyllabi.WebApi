@@ -43,7 +43,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
         public GoalDto UpdateGoal(GoalDto goalDto)
         {
-            GoalDto updateGoalResult = null;
+            GoalDto updatedGoalResult = null;
 
             var goal = _mapper.Map<GoalEntity>(goalDto);
 
@@ -74,11 +74,33 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     ctx.SaveChanges();
 
-                    updateGoalResult = _mapper.Map<GoalDto>(getGoal);
+                    updatedGoalResult = _mapper.Map<GoalDto>(getGoal);
                 }
             });
 
-            return updateGoalResult;
+            return updatedGoalResult;
+        }
+
+        public GoalDto GetGoalDetails(long goalId)
+        {
+            GoalDto getGoalResult = null;
+
+            UseDataContext(ctx =>
+            {
+                var getGoal = ctx.Goals
+                             .AsNoTracking()
+                             .Where(w => w.Id == goalId &&
+                                    w.IsActive.Value)
+                             .Select(s => _mapper.Map<GoalEntity>(s))
+                             .FirstOrDefault();
+
+                if(getGoal != null)
+                {
+                    getGoalResult = _mapper.Map<GoalDto>(getGoal);
+                }
+            });
+
+            return getGoalResult;
         }
     }
 }

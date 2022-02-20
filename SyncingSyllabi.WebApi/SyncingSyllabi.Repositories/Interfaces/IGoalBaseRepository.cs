@@ -9,5 +9,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
     {
         GoalDto CreateGoal(GoalDto goalDto);
         GoalDto UpdateGoal(GoalDto goalDto);
+        GoalDto GetGoalDetails(long goalId);
     }
 }

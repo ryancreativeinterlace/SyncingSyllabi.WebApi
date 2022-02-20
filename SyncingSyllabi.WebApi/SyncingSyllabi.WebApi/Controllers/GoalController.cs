@@ -76,5 +76,33 @@ namespace SyncingSyllabi.Main.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetGoalDetails/{goalId}")]
+        public IActionResult GetGoalDetailsById(long goalId)
+        {
+            try
+            {
+                var result = _goalService.GetGoalDetails(goalId);
+                var item = _mapper.Map<GoalModel>(result);
+
+                var response = new GoalResponseModel();
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
