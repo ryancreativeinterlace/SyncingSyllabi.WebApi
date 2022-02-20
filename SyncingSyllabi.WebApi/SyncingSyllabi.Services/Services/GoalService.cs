@@ -54,10 +54,6 @@ namespace SyncingSyllabi.Services.Services
                 case (int)GoalTypeEnum.LongTerm:
                     goalModel.GoalTypeName = "Long-Term";
                     break;
-
-                default:
-                    goalModel.GoalTypeName = "None";
-                    break;
             }
 
             GoalDto goal = _mapper.Map<GoalDto>(goalModel);
@@ -98,10 +94,6 @@ namespace SyncingSyllabi.Services.Services
 
                 case (int)GoalTypeEnum.LongTerm:
                     goalModel.GoalTypeName = "Long-Term";
-                    break;
-
-                default:
-                    goalModel.GoalTypeName = "None";
                     break;
             }
 

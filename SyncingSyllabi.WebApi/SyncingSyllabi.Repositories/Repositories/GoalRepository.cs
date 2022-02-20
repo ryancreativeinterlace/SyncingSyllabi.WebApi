@@ -59,7 +59,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 if (getGoal != null)
                 {
                     getGoal.GoalTitle = !string.IsNullOrEmpty(goal.GoalTitle) ? goal.GoalTitle : getGoal.GoalTitle;
-                    getGoal.GoalTitle = !string.IsNullOrEmpty(goal.GoalDescription) ? goal.GoalDescription : getGoal.GoalDescription ;
+                    getGoal.GoalDescription = !string.IsNullOrEmpty(goal.GoalDescription) ? goal.GoalDescription : getGoal.GoalDescription;
                     getGoal.GoalDateStart = goal.GoalDateStart ?? getGoal.GoalDateStart;
                     getGoal.GoalDateEnd = goal.GoalDateEnd ?? getGoal.GoalDateEnd;
                     getGoal.GoalType = goal.GoalType != 0 ? goal.GoalType : getGoal.GoalType;
@@ -74,7 +74,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     ctx.SaveChanges();
 
-                    updateGoalResult = _mapper.Map<GoalDto>(goal);
+                    updateGoalResult = _mapper.Map<GoalDto>(getGoal);
                 }
             });
 
