@@ -14,7 +14,7 @@
       "launchBrowser": true,
       "launchUrl": "api/healthcheck/monitor",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "DEV"
+        "ASPNETCORE_ENVIRONMENT": "DEBUG"
       }
     },
     "DEV": {
