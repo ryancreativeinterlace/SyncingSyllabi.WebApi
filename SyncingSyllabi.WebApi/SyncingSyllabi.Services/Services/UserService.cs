@@ -27,23 +27,53 @@ namespace SyncingSyllabi.Services.Services
             _userBaseRepository = userBaseRepository;
         }
 
-        public UserDto CreateUser(UserModel userModel)
+        public UserDto CreateUser(UserRequestModel userRequestModel)
         {
-            userModel.FirstName.Trim();
-            userModel.LastName.Trim();
-            userModel.Email.Trim();
-            userModel.IsActive = true;
-            EncryptionUtility.EncryptString(userModel.Password.Trim());
+            var userModel = new UserModel();
 
-            UserDto userResult = null;
+            userModel.FirstName = !string.IsNullOrEmpty(userRequestModel.FirstName) ? userRequestModel.FirstName.Trim() : string.Empty;
+            userModel.LastName = !string.IsNullOrEmpty(userRequestModel.LastName) ? userRequestModel.LastName.Trim() : string.Empty;
+            userModel.Email = !string.IsNullOrEmpty(userRequestModel.Email) ? userRequestModel.Email.Trim() : string.Empty;
+            userModel.School = !string.IsNullOrEmpty(userRequestModel.School) ? userRequestModel.School.Trim() : string.Empty;
+            userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
+            userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
+            userModel.Password = EncryptionUtility.EncryptString(userRequestModel.Password.Trim());
+            userModel.IsActive = true;
+
+            UserDto createUserResult = null;
             UserDto user = _mapper.Map<UserDto>(userModel);
             
             if(user != null)
             {
-                userResult = _userBaseRepository.CreateUser(user);
+                createUserResult = _userBaseRepository.CreateUser(user);
             }
 
-            return userResult;
+            return createUserResult;
+        }
+
+        public UserDto UpdateUser(UserRequestModel userRequestModel)
+        {
+            var userModel = new UserModel();
+
+            userModel.Id = userRequestModel.UserId;
+            userModel.FirstName = !string.IsNullOrEmpty(userRequestModel.FirstName) ? userRequestModel.FirstName.Trim() : string.Empty;
+            userModel.LastName = !string.IsNullOrEmpty(userRequestModel.LastName) ? userRequestModel.LastName.Trim() : string.Empty;
+            userModel.Email = !string.IsNullOrEmpty(userRequestModel.Email) ? userRequestModel.Email.Trim() : string.Empty;
+            userModel.School = !string.IsNullOrEmpty(userRequestModel.School) ? userRequestModel.School.Trim() : string.Empty;
+            userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
+            userModel.Password = !string.IsNullOrEmpty(userRequestModel.Password) ? EncryptionUtility.EncryptString(userRequestModel.Password.Trim()) : string.Empty;
+            userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
+            userModel.IsActive = userRequestModel.IsActive ?? null;
+
+            UserDto updateUserResult = null;
+            UserDto user = _mapper.Map<UserDto>(userModel);
+
+            if (user != null)
+            {
+                updateUserResult = _userBaseRepository.UpdateUser(user);
+            }
+
+            return updateUserResult;
         }
 
         public UserDto GetActiveUserLogin(AuthRequestModel authRequestModel)

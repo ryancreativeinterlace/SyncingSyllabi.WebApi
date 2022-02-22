@@ -45,7 +45,15 @@ namespace SyncingSyllabi.WebApi.Controllers
                 var item = _mapper.Map<AuthModel>(result);
 
                 var response = new AuthResponseModel();
-                response.Data.Item = item;
+                
+                if(item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
                 return Ok(response);
             }

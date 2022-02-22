@@ -7,6 +7,7 @@ using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
 using SyncingSyllabi.Contexts.Entities;
+using SyncingSyllabi.Common.Tools.Utilities;
 
 namespace SyncingSyllabi.Repositories.Repositories
 {
@@ -23,19 +24,58 @@ namespace SyncingSyllabi.Repositories.Repositories
                 var getUser = ctx.Users
                              .AsNoTracking()
                              .Where(w => w.Email.ToLower() == user.Email.ToLower())
-                             .Select(s => _mapper.Map<UserDto>(s))
+                             .Select(s => _mapper.Map<UserEntity>(s))
                              .FirstOrDefault();
 
                 if (getUser == null)
                 {
-                    ctx.Users.Add(user);
-
                     user.FillCreated(user.Id);
                     user.FillUpdated(user.Id);
+
+                    ctx.Users.Add(user);
 
                     ctx.SaveChanges();
 
                     result = _mapper.Map<UserDto>(user);
+                }
+            });
+
+            return result;
+        }
+
+        public UserDto UpdateUser(UserDto userDto)
+        {
+            UserDto result = null;
+
+            var user = _mapper.Map<UserEntity>(userDto);
+
+            UseDataContext(ctx =>
+            {
+                var getUser = ctx.Users
+                             .AsNoTracking()
+                             .Where(w => w.Id == user.Id)
+                             .Select(s => _mapper.Map<UserEntity>(s))
+                             .FirstOrDefault();
+
+                if (getUser != null)
+                {
+                    getUser.FirstName = !string.IsNullOrEmpty(user.FirstName) ? user.FirstName.Trim() : getUser.FirstName;
+                    getUser.LastName = !string.IsNullOrEmpty(user.LastName) ? user.LastName.Trim() : getUser.LastName;
+                    getUser.Email = !string.IsNullOrEmpty(user.Email) ? user.Email.Trim() : getUser.Email;
+                    getUser.School = !string.IsNullOrEmpty(user.School) ? user.School.Trim() : getUser.School;
+                    getUser.Major = !string.IsNullOrEmpty(user.Major) ? user.Major.Trim() : getUser.Major;
+                    getUser.Password = !string.IsNullOrEmpty(user.Password) ? user.Password : getUser.Password;
+                    getUser.DateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value : getUser.DateOfBirth.Value;
+                    getUser.IsActive = user.IsActive.HasValue ? user.IsActive.Value : getUser.IsActive.Value;
+
+                    getUser.FillCreated(getUser.Id);
+                    getUser.FillUpdated(getUser.Id);
+
+                    ctx.Users.Update(getUser);
+
+                    ctx.SaveChanges();
+
+                    result = _mapper.Map<UserDto>(getUser);
                 }
             });
 

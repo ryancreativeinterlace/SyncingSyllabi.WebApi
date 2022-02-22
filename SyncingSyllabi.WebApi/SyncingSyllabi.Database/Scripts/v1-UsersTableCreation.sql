@@ -7,6 +7,7 @@
 	[password] varchar(100) NULL,
 	school varchar(300) NULL,
 	major varchar(100) NULL,
+	image_name varchar(200) null,
 	image_url varchar(800) null,
 	date_of_birth datetime NULL,
 	date_created datetime NULL,

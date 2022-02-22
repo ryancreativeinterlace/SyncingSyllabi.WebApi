@@ -33,7 +33,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("CreateUser")]
-        public IActionResult CreateUser([FromBody] UserModel userModel)
+        public IActionResult CreateUser([FromBody] UserRequestModel userModel)
         {
             try
             {
@@ -41,7 +41,43 @@ namespace SyncingSyllabi.WebApi.Controllers
                 var item = _mapper.Map<UserModel>(result);
 
                 var response = new UserResponseModel();
-                response.Data.Item = item;
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("UpdateUser")]
+        public IActionResult UpdateUser([FromBody] UserRequestModel userModel)
+        {
+            try
+            {
+                var result = _userService.UpdateUser(userModel);
+                var item = _mapper.Map<UserModel>(result);
+
+                var response = new UserResponseModel();
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
                 return Ok(response);
             }
@@ -61,7 +97,15 @@ namespace SyncingSyllabi.WebApi.Controllers
                 var item = _mapper.Map<UserModel>(result);
 
                 var response = new UserResponseModel();
-                response.Data.Item = item;
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
                 return Ok(response);
             }
@@ -81,7 +125,15 @@ namespace SyncingSyllabi.WebApi.Controllers
                 var item = _mapper.Map<UserModel>(result);
 
                 var response = new UserResponseModel();
-                response.Data.Item = item;
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
                 return Ok(response);
             }
@@ -101,7 +153,15 @@ namespace SyncingSyllabi.WebApi.Controllers
                 var item = _mapper.Map<UserModel>(result);
 
                 var response = new UserResponseModel();
-                response.Data.Item = item;
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
                 return Ok(response);
             }

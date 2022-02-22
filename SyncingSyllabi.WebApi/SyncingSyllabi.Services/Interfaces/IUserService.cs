@@ -10,7 +10,8 @@ namespace SyncingSyllabi.Services.Interfaces
 {
     public interface IUserService
     {
-        UserDto CreateUser(UserModel userModel);
+        UserDto CreateUser(UserRequestModel userRequestModel);
+        UserDto UpdateUser(UserRequestModel userRequestModel);
         UserDto GetActiveUserLogin(AuthRequestModel authRequestModel);
         UserDto GetUserById(long userId);
         UserDto GetUserByEmail(string email);

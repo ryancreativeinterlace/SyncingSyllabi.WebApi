@@ -23,6 +23,7 @@ namespace SyncingSyllabi.Contexts.Mappings
             builder.Property(e => e.Password).HasColumnName("password");
             builder.Property(e => e.School).HasColumnName("school");
             builder.Property(e => e.Major).HasColumnName("major");
+            builder.Property(e => e.ImageName).HasColumnName("image_name");
             builder.Property(e => e.ImageUrl).HasColumnName("image_url");
             builder.Property(e => e.DateOfBirth).HasColumnName("date_of_birth");
         }

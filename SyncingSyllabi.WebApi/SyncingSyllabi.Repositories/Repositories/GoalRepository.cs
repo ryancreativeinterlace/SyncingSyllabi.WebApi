@@ -51,7 +51,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 var getGoal = ctx.Goals
                              .AsNoTracking()
-                             .Where(w => w.Id == goalDto.Id &&
+                             .Where(w => w.Id == goal.Id &&
                                     w.UserId == goal.UserId)
                              .Select(s => _mapper.Map<GoalEntity>(s))
                              .FirstOrDefault();
@@ -68,6 +68,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getGoal.IsCompleted = goal.IsCompleted ?? getGoal.IsCompleted;
                     getGoal.IsArchived = goal.IsArchived ?? getGoal.IsArchived;
 
+                    getGoal.FillCreated(getGoal.UserId);
                     getGoal.FillUpdated(getGoal.UserId);
 
                     ctx.Goals.Update(getGoal);

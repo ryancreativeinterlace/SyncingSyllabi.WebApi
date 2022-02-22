@@ -8,6 +8,7 @@ namespace SyncingSyllabi.Repositories.Interfaces
     public interface IUserBaseRepository
     {
         UserDto CreateUser(UserDto userDto);
+        UserDto UpdateUser(UserDto userDto);
         UserDto GetActiveUserLogin(string email, string password);
         UserDto GetUserById(long userId);
         UserDto GetUserByEmail(string email);
