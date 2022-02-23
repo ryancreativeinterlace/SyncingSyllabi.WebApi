@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SyncingSyllabi.Common.Tools.Utilities
+namespace SyncingSyllabi.Common.Tools.Helpers
 {
-    public class EncryptionUtility
+    public class EncryptionHelper
     {
         public static string EncryptString(string password)
         {

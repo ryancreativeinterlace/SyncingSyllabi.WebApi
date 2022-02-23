@@ -1,4 +1,5 @@
-﻿using SyncingSyllabi.Common.Tools.Utilities;
+﻿using SyncingSyllabi.Common.Tools.Helpers;
+using SyncingSyllabi.Common.Tools.Utilities;
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
@@ -33,7 +34,7 @@ namespace SyncingSyllabi.Services.Services
         {
             AuthTokenDto authTokenResult = null;
 
-            var getUser = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionUtility.EncryptString(authRequestModel.Password));
+            var getUser = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
 
             if(getUser != null)
             {

@@ -48,7 +48,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.School = !string.IsNullOrEmpty(userRequestModel.School) ? userRequestModel.School.Trim() : string.Empty;
             userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
-            userModel.Password = EncryptionUtility.EncryptString(userRequestModel.Password.Trim());
+            userModel.Password = EncryptionHelper.EncryptString(userRequestModel.Password.Trim());
             userModel.IsActive = true;
 
             if(userRequestModel.ImageFile != null)
@@ -86,7 +86,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.Email = !string.IsNullOrEmpty(userRequestModel.Email) ? userRequestModel.Email.Trim() : string.Empty;
             userModel.School = !string.IsNullOrEmpty(userRequestModel.School) ? userRequestModel.School.Trim() : string.Empty;
             userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
-            userModel.Password = !string.IsNullOrEmpty(userRequestModel.Password) ? EncryptionUtility.EncryptString(userRequestModel.Password.Trim()) : string.Empty;
+            userModel.Password = !string.IsNullOrEmpty(userRequestModel.Password) ? EncryptionHelper.EncryptString(userRequestModel.Password.Trim()) : string.Empty;
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
             userModel.IsActive = userRequestModel.IsActive ?? null;
 
@@ -118,7 +118,7 @@ namespace SyncingSyllabi.Services.Services
 
         public UserDto GetActiveUserLogin(AuthRequestModel authRequestModel)
         {
-            var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionUtility.EncryptString(authRequestModel.Password));
+            var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
 
             return userLogin;
         }
