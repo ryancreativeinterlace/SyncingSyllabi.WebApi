@@ -13,6 +13,7 @@ namespace SyncingSyllabi.Data.Models.Core
         public string Password { get; set; }
         public string School { get; set; }
         public string Major { get; set; }
+        public string ImageName { get; set; }
         public string ImageUrl { get; set; }
         public DateTime? DateOfBirth { get; set; }
     }

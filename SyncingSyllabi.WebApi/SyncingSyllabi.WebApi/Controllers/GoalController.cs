@@ -29,88 +29,88 @@ namespace SyncingSyllabi.WebApi.Controllers
             _goalService = goalService;
         }
 
-        [HttpPost]
-        [Route("CreateGoal")]
-        public IActionResult CreateGoal([FromBody] GoalRequestModel goalRequestModel)
-        {
-            try
-            {
-                var result = _goalService.CreateGoal(goalRequestModel);
-                var item = _mapper.Map<GoalModel>(result);
+        //[HttpPost]
+        //[Route("CreateGoal")]
+        //public IActionResult CreateGoal([FromBody] GoalRequestModel goalRequestModel)
+        //{
+        //    try
+        //    {
+        //        var result = _goalService.CreateGoal(goalRequestModel);
+        //        var item = _mapper.Map<GoalModel>(result);
 
-                var response = new GoalResponseModel();
+        //        var response = new GoalResponseModel();
 
-                if (item != null)
-                {
-                    response.Data.Item = item;
-                }
-                else
-                {
-                    response.Data.Success = false;
-                }
+        //        if (item != null)
+        //        {
+        //            response.Data.Item = item;
+        //        }
+        //        else
+        //        {
+        //            response.Data.Success = false;
+        //        }
 
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
-        [HttpPost]
-        [Route("UpdateGoal")]
-        public IActionResult UpdateGoal([FromBody] GoalRequestModel goalRequestModel)
-        {
-            try
-            {
-                var result = _goalService.UpdateGoal(goalRequestModel);
-                var item = _mapper.Map<GoalModel>(result);
+        //[HttpPost]
+        //[Route("UpdateGoal")]
+        //public IActionResult UpdateGoal([FromBody] GoalRequestModel goalRequestModel)
+        //{
+        //    try
+        //    {
+        //        var result = _goalService.UpdateGoal(goalRequestModel);
+        //        var item = _mapper.Map<GoalModel>(result);
 
-                var response = new GoalResponseModel();
+        //        var response = new GoalResponseModel();
                 
-                if(item != null)
-                {
-                    response.Data.Item = item;
-                }
-                else
-                {
-                    response.Data.Success = false;
-                }
+        //        if(item != null)
+        //        {
+        //            response.Data.Item = item;
+        //        }
+        //        else
+        //        {
+        //            response.Data.Success = false;
+        //        }
 
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
-        [HttpGet]
-        [Route("GetGoalDetails/{goalId}")]
-        public IActionResult GetGoalDetailsById(long goalId)
-        {
-            try
-            {
-                var result = _goalService.GetGoalDetails(goalId);
-                var item = _mapper.Map<GoalModel>(result);
+        //[HttpGet]
+        //[Route("GetGoalDetails/{goalId}")]
+        //public IActionResult GetGoalDetailsById(long goalId)
+        //{
+        //    try
+        //    {
+        //        var result = _goalService.GetGoalDetails(goalId);
+        //        var item = _mapper.Map<GoalModel>(result);
 
-                var response = new GoalResponseModel();
+        //        var response = new GoalResponseModel();
 
-                if (item != null)
-                {
-                    response.Data.Item = item;
-                }
-                else
-                {
-                    response.Data.Success = false;
-                }
+        //        if (item != null)
+        //        {
+        //            response.Data.Item = item;
+        //        }
+        //        else
+        //        {
+        //            response.Data.Success = false;
+        //        }
 
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
     }
 }

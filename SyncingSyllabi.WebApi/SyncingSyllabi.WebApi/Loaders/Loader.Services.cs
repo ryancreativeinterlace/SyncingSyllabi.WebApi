@@ -30,10 +30,14 @@ namespace SyncingSyllabi.WebApi.Loaders
             var authSettings = ConfigurationUtility.GetConfig<AuthSettings>("AuthSettings");
             services.AddSingleton<AuthSettings>(authSettings);
 
+            var s3Settings = ConfigurationUtility.GetConfig<S3Settings>("S3Settings");
+            services.AddSingleton<S3Settings>(s3Settings);
+
             //Repositories
             services.AddScopedTraced<IUserBaseRepository, UserBaseRepository>();
             services.AddScopedTraced<IAuthTokenBaseRepository, AuthTokenBaseRepository>();
             services.AddScopedTraced<IGoalBaseRepository, GoalBaseRepository>();
+            services.AddScopedTraced<IS3FileRepository, S3FileRepository>();
 
             //Services
             services.AddScopedTraced<IUserService, UserService>();

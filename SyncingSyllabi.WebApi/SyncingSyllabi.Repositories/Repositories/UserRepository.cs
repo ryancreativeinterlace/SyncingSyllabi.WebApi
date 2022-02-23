@@ -65,8 +65,10 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getUser.School = !string.IsNullOrEmpty(user.School) ? user.School.Trim() : getUser.School;
                     getUser.Major = !string.IsNullOrEmpty(user.Major) ? user.Major.Trim() : getUser.Major;
                     getUser.Password = !string.IsNullOrEmpty(user.Password) ? user.Password : getUser.Password;
-                    getUser.DateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value : getUser.DateOfBirth.Value;
-                    getUser.IsActive = user.IsActive.HasValue ? user.IsActive.Value : getUser.IsActive.Value;
+                    getUser.DateOfBirth = user.DateOfBirth ?? getUser.DateOfBirth;
+                    getUser.IsActive = user.IsActive ?? getUser.IsActive;
+                    getUser.ImageName = !string.IsNullOrEmpty(user.ImageName) ? user.ImageName : getUser.ImageName;
+                    getUser.ImageUrl = !string.IsNullOrEmpty(user.ImageUrl) ? user.ImageUrl : getUser.ImageUrl;
 
                     getUser.FillCreated(getUser.Id);
                     getUser.FillUpdated(getUser.Id);

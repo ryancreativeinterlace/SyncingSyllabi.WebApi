@@ -33,7 +33,8 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("CreateUser")]
-        public IActionResult CreateUser([FromBody] UserRequestModel userModel)
+        [AllowAnonymous]
+        public IActionResult CreateUser([FromForm] UserRequestModel userModel)
         {
             try
             {
@@ -61,7 +62,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("UpdateUser")]
-        public IActionResult UpdateUser([FromBody] UserRequestModel userModel)
+        public IActionResult UpdateUser([FromForm] UserRequestModel userModel)
         {
             try
             {
