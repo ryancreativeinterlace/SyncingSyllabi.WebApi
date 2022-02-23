@@ -90,6 +90,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("LoginUser")]
+        [AllowAnonymous]
         public IActionResult LoginUser([FromBody] AuthRequestModel authRequestModel)
         {
             try
@@ -146,6 +147,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpGet]
         [Route("GetUserByEmail/{email}")]
+        [AllowAnonymous]
         public IActionResult GetUserByEmail(string email)
         {
             try
