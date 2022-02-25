@@ -7,6 +7,7 @@ using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SyncingSyllabi.Services.Services
@@ -114,6 +115,14 @@ namespace SyncingSyllabi.Services.Services
             getGoalResult = _goalBaseRepository.GetGoalDetails(goalId);
 
             return getGoalResult;
+        }
+
+        public PaginatedResultDto<GoalModel> GetGoalDetailsList(GoalRequestModel goalRequestModel)
+        {
+            var paginationDto = goalRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(goalRequestModel.Pagination) : null;
+            var sortColumnDto = goalRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
+
+            return _goalBaseRepository.GetGoalDetailsList(goalRequestModel.UserId, sortColumnDto, paginationDto);
         }
     }
 }

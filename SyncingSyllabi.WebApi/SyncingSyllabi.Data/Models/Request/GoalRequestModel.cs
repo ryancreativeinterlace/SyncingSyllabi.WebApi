@@ -1,11 +1,12 @@
 ﻿using SyncingSyllabi.Data.Enums;
+using SyncingSyllabi.Data.Models.Request.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SyncingSyllabi.Data.Models.Request
 {
-    public class GoalRequestModel
+    public class GoalRequestModel : BaseListRequestModel
     {
         public long GoalId { get; set; }
         public long UserId { get; set; }

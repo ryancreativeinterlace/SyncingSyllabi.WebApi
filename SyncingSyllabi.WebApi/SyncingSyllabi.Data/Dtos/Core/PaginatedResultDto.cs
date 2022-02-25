@@ -16,6 +16,7 @@ namespace SyncingSyllabi.Data.Dtos.Core
         public int Skip { get; set; }
         public int Take { get; set; }
         public int TotalCount { get; set; }
+        public bool Success { get; set; } = true;
 
         public PaginatedResultDto<TSelectDTO> Select<TSelectDTO>(Func<TDto, TSelectDTO> selector)
         {

@@ -12,5 +12,6 @@ namespace SyncingSyllabi.Services.Interfaces
         GoalDto CreateGoal(GoalRequestModel goalRequestModel);
         GoalDto UpdateGoal(GoalRequestModel goalRequestModel);
         GoalDto GetGoalDetails(long goalId);
+        PaginatedResultDto<GoalModel> GetGoalDetailsList(GoalRequestModel goalRequestModel);
     }
 }

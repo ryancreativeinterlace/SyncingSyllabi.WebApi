@@ -1,5 +1,7 @@
-﻿using SyncingSyllabi.Contexts.Entities;
+﻿using SyncingSyllabi.Common.Tools.Extensions;
+using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -102,6 +104,33 @@ namespace SyncingSyllabi.Repositories.Repositories
             });
 
             return getGoalResult;
+        }
+
+        public PaginatedResultDto<GoalModel> GetGoalDetailsList(long userId, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination)
+        {
+            IEnumerable<GoalModel> getGoalListResult = Enumerable.Empty<GoalModel>();
+
+            UseDataContext(ctx =>
+            {
+                var getGoalList = ctx.Goals
+                             .AsNoTracking()
+                             .Where(w => w.UserId == userId &&
+                                    w.IsActive.Value)
+                             .Select(s => _mapper.Map<GoalDto>(s))
+                             .ToList();
+
+                if (getGoalList.Count() > 0)
+                {
+                    getGoalListResult = _mapper.Map<IEnumerable<GoalModel>>(getGoalList);
+                }
+                
+                if(sortColumn.Count() > 0)
+                {
+                    getGoalListResult = getGoalListResult.MultipleSort<GoalModel>(sortColumn.ToList()).ToList();
+                }
+            });
+
+            return getGoalListResult.Page(pagination);
         }
     }
 }

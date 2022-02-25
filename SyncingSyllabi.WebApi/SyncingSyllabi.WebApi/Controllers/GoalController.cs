@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Data.Models.Response;
@@ -29,88 +30,115 @@ namespace SyncingSyllabi.WebApi.Controllers
             _goalService = goalService;
         }
 
-        //[HttpPost]
-        //[Route("CreateGoal")]
-        //public IActionResult CreateGoal([FromBody] GoalRequestModel goalRequestModel)
-        //{
-        //    try
-        //    {
-        //        var result = _goalService.CreateGoal(goalRequestModel);
-        //        var item = _mapper.Map<GoalModel>(result);
+        [HttpPost]
+        [Route("CreateGoal")]
+        public IActionResult CreateGoal([FromBody] GoalRequestModel goalRequestModel)
+        {
+            try
+            {
+                var result = _goalService.CreateGoal(goalRequestModel);
+                var item = _mapper.Map<GoalModel>(result);
 
-        //        var response = new GoalResponseModel();
+                var response = new GoalResponseModel();
 
-        //        if (item != null)
-        //        {
-        //            response.Data.Item = item;
-        //        }
-        //        else
-        //        {
-        //            response.Data.Success = false;
-        //        }
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
-        //        return Ok(response);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //[HttpPost]
-        //[Route("UpdateGoal")]
-        //public IActionResult UpdateGoal([FromBody] GoalRequestModel goalRequestModel)
-        //{
-        //    try
-        //    {
-        //        var result = _goalService.UpdateGoal(goalRequestModel);
-        //        var item = _mapper.Map<GoalModel>(result);
+        [HttpPost]
+        [Route("UpdateGoal")]
+        public IActionResult UpdateGoal([FromBody] GoalRequestModel goalRequestModel)
+        {
+            try
+            {
+                var result = _goalService.UpdateGoal(goalRequestModel);
+                var item = _mapper.Map<GoalModel>(result);
 
-        //        var response = new GoalResponseModel();
-                
-        //        if(item != null)
-        //        {
-        //            response.Data.Item = item;
-        //        }
-        //        else
-        //        {
-        //            response.Data.Success = false;
-        //        }
+                var response = new GoalResponseModel();
 
-        //        return Ok(response);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
-        //[HttpGet]
-        //[Route("GetGoalDetails/{goalId}")]
-        //public IActionResult GetGoalDetailsById(long goalId)
-        //{
-        //    try
-        //    {
-        //        var result = _goalService.GetGoalDetails(goalId);
-        //        var item = _mapper.Map<GoalModel>(result);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //        var response = new GoalResponseModel();
+        [HttpGet]
+        [Route("GetGoalDetails/{goalId}")]
+        public IActionResult GetGoalDetails(long goalId)
+        {
+            try
+            {
+                var result = _goalService.GetGoalDetails(goalId);
+                var item = _mapper.Map<GoalModel>(result);
 
-        //        if (item != null)
-        //        {
-        //            response.Data.Item = item;
-        //        }
-        //        else
-        //        {
-        //            response.Data.Success = false;
-        //        }
+                var response = new GoalResponseModel();
 
-        //        return Ok(response);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("GetGoalDetailsList")]
+        public IActionResult GetGoalDetailsList([FromBody] GoalRequestModel goalRequestModel)
+        {
+            try
+            {
+                var result = _goalService.GetGoalDetailsList(goalRequestModel);
+
+                var response = new GoalListResponseModel();
+
+                if (result.Items.Count() > 0)
+                {
+                    response.Data = result;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

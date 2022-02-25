@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
 using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,9 +15,17 @@ namespace SyncingSyllabi.Contexts.Loaders
         {
             var config = new MapperConfigurationExpression();
 
+            // Entities to Dtos
             config.CreateMap<UserEntity, UserDto>(MemberList.None).ReverseMap();
             config.CreateMap<AuthTokenEntity, AuthTokenDto>(MemberList.None).ReverseMap();
             config.CreateMap<GoalEntity, GoalDto>(MemberList.None).ReverseMap();
+
+            // Dtos to Models
+            config.CreateMap<UserDto, UserModel>(MemberList.None).ReverseMap();
+            config.CreateMap<AuthTokenDto, AuthModel>(MemberList.None).ReverseMap();
+            config.CreateMap<GoalDto, GoalModel>(MemberList.None).ReverseMap();
+            config.CreateMap<SortColumnDto, SortColumnModel>(MemberList.None).ReverseMap();
+            config.CreateMap<PaginationDto, PaginationModel>(MemberList.None).ReverseMap();
 
             var mapperConfig = new MapperConfiguration(config);
             mapperConfig.AssertConfigurationIsValid();
