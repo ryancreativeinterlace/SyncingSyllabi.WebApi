@@ -33,6 +33,9 @@ namespace SyncingSyllabi.WebApi.Loaders
             var s3Settings = ConfigurationUtility.GetConfig<S3Settings>("S3Settings");
             services.AddSingleton<S3Settings>(s3Settings);
 
+            var sendGridSettings = ConfigurationUtility.GetConfig<SendGridSettings>("SendGridSettings");
+            services.AddSingleton<SendGridSettings>(sendGridSettings);
+
             //Repositories
             services.AddScopedTraced<IUserBaseRepository, UserBaseRepository>();
             services.AddScopedTraced<IAuthTokenBaseRepository, AuthTokenBaseRepository>();
@@ -43,6 +46,7 @@ namespace SyncingSyllabi.WebApi.Loaders
             services.AddScopedTraced<IUserService, UserService>();
             services.AddScopedTraced<IAuthService, AuthService>();
             services.AddScopedTraced<IGoalService, GoalService>();
+            services.AddScopedTraced<IEmailService, EmailService>();
         }
     }
 }

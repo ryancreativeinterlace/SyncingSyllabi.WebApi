@@ -8,7 +8,7 @@ namespace SyncingSyllabi.Common.Tools.Helpers
 {
     public class FileHelper
     {
-        public static byte[] FileMemoryStreamConverted(IFormFile file)
+        public static byte[] FileMemoryStreamConverter(IFormFile file)
         {
             var fileByte = new byte[0];
 

@@ -17,7 +17,7 @@ namespace SyncingSyllabi.Services.Services
 
     public class UserService : IUserService
     {
-        S3Settings _s3Settings;
+        private readonly S3Settings _s3Settings;
         private readonly IMapper _mapper;
         private readonly IUserBaseRepository _userBaseRepository;
         private readonly IS3FileRepository _s3FileRepository;
@@ -55,7 +55,7 @@ namespace SyncingSyllabi.Services.Services
             {
                 var fileName = Guid.NewGuid().ToString();
 
-                var fileBytes = FileHelper.FileMemoryStreamConverted(userRequestModel.ImageFile);
+                var fileBytes = FileHelper.FileMemoryStreamConverter(userRequestModel.ImageFile);
 
                 if(fileBytes.Length > 0)
                 {
@@ -94,7 +94,7 @@ namespace SyncingSyllabi.Services.Services
             {
                 var fileName = Guid.NewGuid().ToString();
 
-                var fileBytes = FileHelper.FileMemoryStreamConverted(userRequestModel.ImageFile);
+                var fileBytes = FileHelper.FileMemoryStreamConverter(userRequestModel.ImageFile);
 
                 if (fileBytes.Length > 0)
                 {

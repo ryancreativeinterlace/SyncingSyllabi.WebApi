@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SendGrid" Version="9.25.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SyncingSyllabi.Common.Tools\SyncingSyllabi.Common.Tools.csproj" />
     <ProjectReference Include="..\SyncingSyllabi.Data\SyncingSyllabi.Data.csproj" />
     <ProjectReference Include="..\SyncingSyllabi.Repositories\SyncingSyllabi.Repositories.csproj" />

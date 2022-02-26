@@ -21,7 +21,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
         public S3FileRepository
         (
-        S3Settings s3Settings
+            S3Settings s3Settings
         )
         {
             _s3Settings = s3Settings;
