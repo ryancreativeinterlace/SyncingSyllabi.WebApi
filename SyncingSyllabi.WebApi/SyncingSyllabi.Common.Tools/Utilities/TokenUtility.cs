@@ -14,6 +14,8 @@ namespace SyncingSyllabi.Common.Tools.Utilities
         {
             var authSettings = ConfigurationUtility.GetConfig<AuthSettings>("AuthSettings");
 
+            DateTime? expiration = null;
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
@@ -31,7 +33,7 @@ namespace SyncingSyllabi.Common.Tools.Utilities
               authSettings.Issuer,
               authSettings.Audience,
               claims,
-              expires: DateTime.Now.AddMinutes(Convert.ToInt32(authSettings.ExpirationInMinutes)),
+              expires: authSettings.ExpirationInMinutes == null ? expiration : DateTime.Now.AddMinutes(Convert.ToInt32(authSettings.ExpirationInMinutes)),
               signingCredentials: credential);
 
             return new JwtSecurityTokenHandler().WriteToken(jwtToken);
