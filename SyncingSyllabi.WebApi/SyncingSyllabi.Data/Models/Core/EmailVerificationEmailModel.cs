@@ -7,7 +7,7 @@ namespace SyncingSyllabi.Data.Models.Core
 {
     public class EmailVerificationEmailModel
     {
-        [JsonProperty("first_name")]
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
         [JsonProperty("code")]
         public int VerificationCode { get; set; }

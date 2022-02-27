@@ -41,14 +41,20 @@ namespace SyncingSyllabi.WebApi.Controllers
             {
                 var emailAddress = new List<string>() { "ryan@creativeinterlace.com", "rai.masters010@gmail.com" };
 
-                var emailXModel = new EmailVerificationEmailModel() 
+                var emailXModel = new EmailVerificationEmailModel()
                 {
                     FirstName = "Ryan",
                     VerificationCode = 123456
                 };
 
+                var xModel = new List<string>()
+                {
+                    emailXModel.FirstName,
+                    emailXModel.VerificationCode.ToString()
+                };
+
                 sendEmailModel.To = emailAddress;
-                sendEmailModel.XModel = emailXModel;
+                sendEmailModel.XModel = xModel;
                 sendEmailModel.Subject = "Email Verification";
                 sendEmailModel.S3TemplateFile = "EmailVerificationTemplate.html";
 

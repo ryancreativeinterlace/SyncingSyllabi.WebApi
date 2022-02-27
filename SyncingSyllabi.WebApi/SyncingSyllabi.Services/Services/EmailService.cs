@@ -33,7 +33,9 @@ namespace SyncingSyllabi.Services.Services
         }
 
         public async Task<bool> SendEmail(SendEmailModel mail)
-        {
+        { 
+            int counter = 0;
+
             var s3Template = new byte[0];
 
             var toList = new List<EmailAddress>();
@@ -42,7 +44,7 @@ namespace SyncingSyllabi.Services.Services
             {
                 try
                 {
-                    var templateData = new SendGridMessage();
+                    var msgSettings = new SendGridMessage();
 
                     var client = new SendGridClient(EncryptionHelper.DecryptString(_sendGridSettings.ApiKey));
                     var from = new EmailAddress(_sendGridSettings.SenderEmail, _sendGridSettings.SenderName);
@@ -67,11 +69,28 @@ namespace SyncingSyllabi.Services.Services
 
                         var reaSource = streamReader.ReadToEnd();
 
-                        var htmlContent = string.Format(reaSource, (dynamic)mail.XModel, mail.S3TemplateFile);
+                        var htmlContent = string.Empty;
 
-                        //templateData.SetTemplateData((dynamic)mail.XModel);
+                        var xModel = string.Empty;
 
-                        var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, toList, mail.Subject, "Syncing Syllabi", htmlContent);
+                        foreach (var model in mail.XModel)
+                        {
+
+                            if (counter == 0)
+                            {
+                                htmlContent = string.Format(reaSource, model, string.Empty);
+
+                                xModel = model;
+                            }
+                            else
+                            {
+                                htmlContent = string.Format(reaSource, xModel, model);
+                            }
+
+                            counter++;
+                        }
+
+                        var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, toList, mail.Subject, string.Empty, htmlContent);
 
                         if (mail.Attachment != null && mail.Attachment.Count() > 0)
                         {
