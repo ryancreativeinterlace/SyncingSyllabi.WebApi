@@ -43,6 +43,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{FE81
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyncingSyllabi.EmailTemplates", "SyncingSyllabi.EmailTemplates", "{7F92037C-99F5-4518-B250-60BA2F0E7C5E}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\My PC\Desktop\EmailVerificationTemplate.html = C:\Users\My PC\Desktop\EmailVerificationTemplate.html
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
