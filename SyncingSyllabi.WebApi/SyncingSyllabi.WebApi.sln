@@ -42,6 +42,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{FE81
 		SyncingSyllabi.Database\Scripts\v5-EmailTracksTableCreation.sql = SyncingSyllabi.Database\Scripts\v5-EmailTracksTableCreation.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyncingSyllabi.EmailTemplates", "SyncingSyllabi.EmailTemplates", "{A2839778-2F40-43D3-A6C4-0FD8E66B7E94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{74626306-9CC5-4EE8-BC0C-0418FFD0E6BF}"
+	ProjectSection(SolutionItems) = preProject
+		SyncingSyllabi.EmailTemplates\Templates\EmailVerificationTemplate.html = SyncingSyllabi.EmailTemplates\Templates\EmailVerificationTemplate.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DEV|Any CPU = DEV|Any CPU
@@ -119,6 +126,7 @@ Global
 		{024AAD12-2B7A-4D94-9DA9-FF626D0A4D34} = {8076465C-541E-411D-AB7D-1DC0165191E9}
 		{0567120A-A2BA-428B-A80B-9A857F11272A} = {A83AF4BF-9DC9-4CAA-B829-C892EB7E27F6}
 		{FE81A65A-A94F-4E87-A3D1-294FFD7E3947} = {F63307C1-C086-4471-9E54-163A6CAAEA56}
+		{74626306-9CC5-4EE8-BC0C-0418FFD0E6BF} = {A2839778-2F40-43D3-A6C4-0FD8E66B7E94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B74C57B1-51F8-41EF-93CE-D6E9378B6EE0}
