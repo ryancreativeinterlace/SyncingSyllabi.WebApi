@@ -20,12 +20,14 @@ namespace SyncingSyllabi.Contexts.Contexts
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<AuthTokenEntity> AuthTokens { get; set; }
         public DbSet<GoalEntity> Goals { get; set; }
+        public DbSet<UserCodeEntity> UserCodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new AuthTokenMap());
             modelBuilder.ApplyConfiguration(new GoalMap());
+            modelBuilder.ApplyConfiguration(new UserCodeMap());
         }
     }
 }

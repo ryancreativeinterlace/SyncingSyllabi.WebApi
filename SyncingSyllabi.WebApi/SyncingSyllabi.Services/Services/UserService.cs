@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using SyncingSyllabi.Common.Tools.Helpers;
-using SyncingSyllabi.Common.Tools.Utilities;
+using SyncingSyllabi.Data.Constants;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Data.Settings;
@@ -21,19 +22,22 @@ namespace SyncingSyllabi.Services.Services
         private readonly IMapper _mapper;
         private readonly IUserBaseRepository _userBaseRepository;
         private readonly IS3FileRepository _s3FileRepository;
+        private readonly IEmailService _emailService;
 
         public UserService
         (
             S3Settings s3Settings,
             IMapper mapper,
             IUserBaseRepository userBaseRepository,
-            IS3FileRepository s3FileRepository
+            IS3FileRepository s3FileRepository,
+            IEmailService emailService
         )
         {
             _s3Settings = s3Settings;
             _mapper = mapper;
             _userBaseRepository = userBaseRepository;
             _s3FileRepository = s3FileRepository;
+            _emailService = emailService;
         }
 
         public UserDto CreateUser(UserRequestModel userRequestModel)
@@ -49,7 +53,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
             userModel.Password = EncryptionHelper.EncryptString(userRequestModel.Password.Trim());
-            userModel.IsActive = true;
+            userModel.IsActive = false;
 
             if(userRequestModel.ImageFile != null)
             {
@@ -71,6 +75,51 @@ namespace SyncingSyllabi.Services.Services
             if(user != null)
             {
                 createUserResult = _userBaseRepository.CreateUser(user);
+
+                if(createUserResult != null)
+                {
+                    var sendEmailModel = new SendEmailModel();
+
+                    var emailAddress = new List<string>() { createUserResult.Email };
+
+                    var emailXModel = new EmailVerificationEmailModel()
+                    {
+                        FirstName = createUserResult.FirstName,
+                        VerificationCode = KeyCodeHelper.GenerateRandomIntegerCode()
+                    };
+
+                    var xModel = new List<string>()
+                    {
+                        emailXModel.FirstName,
+                        emailXModel.VerificationCode
+                    };
+
+                    sendEmailModel.To = emailAddress;
+                    sendEmailModel.XModel = xModel;
+                    sendEmailModel.Subject = "Email Verification";
+                    sendEmailModel.S3TemplateFile = EmailTemplateConstants.EmailVerificationTemplate;
+
+                    var send = _emailService.SendEmail(sendEmailModel).GetAwaiter().GetResult();
+
+                    if(send)
+                    {
+                        var userCode = new UserCodeDto()
+                        { 
+                            UserId = createUserResult.Id,
+                            VerificationCode = emailXModel.VerificationCode,
+                            CodeType = CodeTypeEnum.EmailVerificationCode,
+                            CodeTypeName = CodeTypeEnum.EmailVerificationCode.ToString(),
+                            IsActive = true
+                        };
+
+                        var createCode = _userBaseRepository.CreateUserCode(userCode);
+
+                        if(createCode == null)
+                        {
+                            createUserResult = null;
+                        }
+                    }
+                }
             }
 
             return createUserResult;

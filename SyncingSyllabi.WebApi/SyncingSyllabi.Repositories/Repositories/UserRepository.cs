@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Common.Tools.Utilities;
+using SyncingSyllabi.Data.Enums;
 
 namespace SyncingSyllabi.Repositories.Repositories
 {
@@ -92,7 +93,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 result = ctx.Users
                              .AsNoTracking()
-                             .Where(w => 
+                             .Where(w =>
                                     w.Email.ToLower() == email.ToLower() &&
                                     w.Password == password &&
                                     w.IsActive.Value)
@@ -111,7 +112,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 result = ctx.Users
                              .AsNoTracking()
-                             .Where(w => 
+                             .Where(w =>
                                     w.Id == userId &&
                                     w.IsActive.Value)
                              .Select(s => _mapper.Map<UserDto>(s))
@@ -129,11 +130,64 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 result = ctx.Users
                              .AsNoTracking()
-                             .Where(w => 
+                             .Where(w =>
                                     w.Email.ToLower() == email.ToLower() &&
                                     w.IsActive.Value)
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
+            });
+
+            return result;
+        }
+
+        public UserCodeDto CreateUserCode(UserCodeDto userCodeDto)
+        {
+            UserCodeDto result = null;
+
+            var user = _mapper.Map<UserCodeEntity>(userCodeDto);
+
+            user.CodeExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
+
+            UseDataContext(ctx =>
+            {
+                var getUserCode = ctx.UserCodes
+                                 .AsNoTracking()
+                                 .Where(w => w.UserId == user.UserId)
+                                 .Select(s => _mapper.Map<UserCodeEntity>(s))
+                                 .FirstOrDefault();
+
+                if (getUserCode == null)
+                {
+                    user.FillCreated(user.Id);
+                    user.FillUpdated(user.Id);
+
+                    ctx.UserCodes.Add(user);
+
+                    ctx.SaveChanges();
+
+                    result = _mapper.Map<UserCodeDto>(user);
+                }
+            });
+
+            return result;
+        }
+
+        public UserCodeDto GetUserCode(long userId, CodeTypeEnum codeType)
+        {
+            UserCodeDto result = null;
+
+            UseDataContext(ctx =>
+            {
+                result = ctx.UserCodes
+                             .AsNoTracking()
+                             .Where(w =>
+                                    w.UserId == userId &&
+                                    w.CodeType == codeType)
+                             .Select(s => _mapper.Map<UserCodeDto>(s))
+                             .FirstOrDefault();
+
+
+
             });
 
             return result;

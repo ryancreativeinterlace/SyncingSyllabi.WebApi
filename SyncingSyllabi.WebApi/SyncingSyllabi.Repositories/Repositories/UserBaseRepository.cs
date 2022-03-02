@@ -14,11 +14,13 @@ namespace SyncingSyllabi.Repositories.Repositories
     public partial class UserBaseRepository : IUserBaseRepository, IBaseRepository<SyncingSyllabiDataContext>
     {
         DatabaseSettings _databaseSettings;
+        SyncingSyllabiSettings _syncingSyllabiSettings;
         IMapper _mapper;
 
-        public UserBaseRepository(DatabaseSettings databaseSettings)
+        public UserBaseRepository(DatabaseSettings databaseSettings, SyncingSyllabiSettings syncingSyllabiSettings)
         {
             _databaseSettings = databaseSettings;
+            _syncingSyllabiSettings = syncingSyllabiSettings;
 
             _mapper = AutoMapperLoader.Load();
         }

@@ -19,6 +19,7 @@ namespace SyncingSyllabi.Contexts.Loaders
             config.CreateMap<UserEntity, UserDto>(MemberList.None).ReverseMap();
             config.CreateMap<AuthTokenEntity, AuthTokenDto>(MemberList.None).ReverseMap();
             config.CreateMap<GoalEntity, GoalDto>(MemberList.None).ReverseMap();
+            config.CreateMap<UserCodeEntity, UserCodeDto>(MemberList.None).ReverseMap();
 
             // Dtos to Models
             config.CreateMap<UserDto, UserModel>(MemberList.None).ReverseMap();
@@ -26,6 +27,7 @@ namespace SyncingSyllabi.Contexts.Loaders
             config.CreateMap<GoalDto, GoalModel>(MemberList.None).ReverseMap();
             config.CreateMap<SortColumnDto, SortColumnModel>(MemberList.None).ReverseMap();
             config.CreateMap<PaginationDto, PaginationModel>(MemberList.None).ReverseMap();
+            config.CreateMap<UserCodeDto, UserCodeModel>(MemberList.None).ReverseMap();
 
             var mapperConfig = new MapperConfiguration(config);
             mapperConfig.AssertConfigurationIsValid();

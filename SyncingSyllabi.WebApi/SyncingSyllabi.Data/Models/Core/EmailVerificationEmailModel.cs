@@ -10,6 +10,6 @@ namespace SyncingSyllabi.Data.Models.Core
         [JsonProperty("firstName")]
         public string FirstName { get; set; }
         [JsonProperty("code")]
-        public int VerificationCode { get; set; }
+        public string VerificationCode { get; set; }
     }
 }

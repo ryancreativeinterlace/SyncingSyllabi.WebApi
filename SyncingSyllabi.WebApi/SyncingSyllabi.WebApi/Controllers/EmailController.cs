@@ -44,7 +44,7 @@ namespace SyncingSyllabi.WebApi.Controllers
                 var emailXModel = new EmailVerificationEmailModel()
                 {
                     FirstName = "Ryan",
-                    VerificationCode = 123456
+                    VerificationCode = "123456"
                 };
 
                 var xModel = new List<string>()
