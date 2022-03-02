@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{FE81
 		SyncingSyllabi.Database\Scripts\v5-EmailTracksTableCreation.sql = SyncingSyllabi.Database\Scripts\v5-EmailTracksTableCreation.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyncingSyllabi.EmailTemplates", "SyncingSyllabi.EmailTemplates", "{7F92037C-99F5-4518-B250-60BA2F0E7C5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DEV|Any CPU = DEV|Any CPU
