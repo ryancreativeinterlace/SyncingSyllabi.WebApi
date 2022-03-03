@@ -15,5 +15,6 @@ namespace SyncingSyllabi.Services.Interfaces
         UserDto GetActiveUserLogin(AuthRequestModel authRequestModel);
         UserDto GetUserById(long userId);
         UserDto GetUserByEmail(string email);
+        bool VerifyUserCode(UserCodeRequestModel userCodeRequestModel);
     }
 }

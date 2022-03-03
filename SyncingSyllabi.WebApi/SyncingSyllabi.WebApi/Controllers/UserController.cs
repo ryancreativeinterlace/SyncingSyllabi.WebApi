@@ -173,5 +173,32 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("VerifyUserCode")]
+        [AllowAnonymous]
+        public IActionResult VerifyUserCode([FromBody] UserCodeRequestModel userCodeRequestModel)
+        {
+            try
+            {
+                var result = _userService.VerifyUserCode(userCodeRequestModel);
+                var response = new UserCodeResponseModel();
+
+                if (result)
+                {
+                    response.Data.Success = true;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

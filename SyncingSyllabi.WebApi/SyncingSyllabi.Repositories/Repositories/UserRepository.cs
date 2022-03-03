@@ -145,7 +145,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             var user = _mapper.Map<UserCodeEntity>(userCodeDto);
 
-            user.CodeExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
+            user.CodeExpiration = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
 
             UseDataContext(ctx =>
             {

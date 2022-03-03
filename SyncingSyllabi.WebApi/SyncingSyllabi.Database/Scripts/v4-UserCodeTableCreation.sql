@@ -5,7 +5,7 @@
 	verification_code varchar(300) NULL,
 	code_type int NULL,
 	code_type_name varchar(100) NULL,
-	code_expiration varchar(20) NULL,
+	code_expiration datetime NULL,
 	date_created datetime NULL,
 	created_by bigint NULL,
 	date_updated datetime NULL,

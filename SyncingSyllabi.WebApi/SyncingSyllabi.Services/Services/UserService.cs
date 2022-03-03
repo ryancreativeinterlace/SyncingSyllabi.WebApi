@@ -185,5 +185,33 @@ namespace SyncingSyllabi.Services.Services
 
             return userDetail;
         }
+
+        public bool VerifyUserCode(UserCodeRequestModel userCodeRequestModel)
+        {
+            bool verify = false;
+
+            var getUserCode = _userBaseRepository.GetUserCode(userCodeRequestModel.UserId, userCodeRequestModel.CodeType);
+
+            if(getUserCode != null && getUserCode.CodeExpiration.Value > DateTime.UtcNow)
+            {
+                if(getUserCode.VerificationCode == userCodeRequestModel.VerificationCode)
+                {
+                    var userModel = new UserModel();
+                    userModel.Id = userCodeRequestModel.UserId;
+                    userModel.IsActive = true;
+
+                    UserDto user = _mapper.Map<UserDto>(userModel);
+
+                    var activateUser = _userBaseRepository.UpdateUser(user);
+
+                    if(activateUser != null)
+                    {
+                        verify = true;
+                    }
+                }
+            }
+
+            return verify;
+        }
     }
 }
