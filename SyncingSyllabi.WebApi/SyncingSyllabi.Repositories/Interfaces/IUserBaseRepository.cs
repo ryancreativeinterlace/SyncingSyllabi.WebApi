@@ -15,5 +15,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
         UserDto GetUserByEmail(string email);
         UserCodeDto CreateUserCode(UserCodeDto userCodeDto);
         UserCodeDto GetUserCode(long userId, CodeTypeEnum codeType);
+        UserCodeDto UpdateUserCode(UserCodeDto userCodeDto);
     }
 }

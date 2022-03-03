@@ -206,7 +206,20 @@ namespace SyncingSyllabi.Services.Services
 
                     if(activateUser != null)
                     {
-                        verify = true;
+                        var userCode = new UserCodeDto()
+                        {
+                            UserId = userCodeRequestModel.UserId,
+                            CodeType = userCodeRequestModel.CodeType,
+                            VerificationCode = string.Empty,
+                            IsActive = false
+                        };
+
+                        var updateUserCode = _userBaseRepository.UpdateUserCode(userCode);
+
+                        if(updateUserCode != null)
+                        {
+                            verify = true;
+                        }
                     }
                 }
             }

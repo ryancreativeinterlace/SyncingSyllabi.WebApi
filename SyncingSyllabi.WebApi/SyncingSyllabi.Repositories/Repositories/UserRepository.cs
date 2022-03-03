@@ -181,12 +181,53 @@ namespace SyncingSyllabi.Repositories.Repositories
                              .AsNoTracking()
                              .Where(w =>
                                     w.UserId == userId &&
-                                    w.CodeType == codeType)
+                                    w.CodeType == codeType &&
+                                    w.IsActive.Value)
                              .Select(s => _mapper.Map<UserCodeDto>(s))
                              .FirstOrDefault();
 
 
 
+            });
+
+            return result;
+        }
+
+        public UserCodeDto UpdateUserCode(UserCodeDto userCodeDto)
+        {
+            UserCodeDto result = null;
+
+            var userCode = _mapper.Map<UserCodeEntity>(userCodeDto);
+
+            UseDataContext(ctx =>
+            {
+                var getUserCode = ctx.UserCodes
+                                 .AsNoTracking()
+                                 .Where(w =>
+                                        w.UserId == userCode.UserId &&
+                                        w.CodeType == userCode.CodeType &&
+                                        w.IsActive.Value)
+                                 .Select(s => _mapper.Map<UserCodeEntity>(s))
+                                 .FirstOrDefault();
+
+                if (getUserCode != null)
+                {
+
+                    getUserCode.VerificationCode = !string.IsNullOrEmpty(userCode.VerificationCode) ? userCode.VerificationCode : getUserCode.VerificationCode;
+                    getUserCode.CodeType = userCode.CodeType != 0 ? userCode.CodeType : getUserCode.CodeType;
+                    getUserCode.CodeTypeName = !string.IsNullOrEmpty(userCode.CodeTypeName) ? userCode.CodeTypeName : getUserCode.CodeTypeName;
+                    getUserCode.CodeExpiration = userCode.CodeExpiration ?? getUserCode.CodeExpiration;
+                    getUserCode.IsActive = userCode.IsActive ?? getUserCode.IsActive;
+
+                    getUserCode.FillCreated(getUserCode.Id);
+                    getUserCode.FillUpdated(getUserCode.Id);
+
+                    ctx.UserCodes.Update(getUserCode);
+
+                    ctx.SaveChanges();
+
+                    result = _mapper.Map<UserCodeDto>(getUserCode);
+                }
             });
 
             return result;
