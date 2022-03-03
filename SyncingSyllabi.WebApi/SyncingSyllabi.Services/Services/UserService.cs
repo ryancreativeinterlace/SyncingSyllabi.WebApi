@@ -84,7 +84,7 @@ namespace SyncingSyllabi.Services.Services
 
                     var emailXModel = new EmailVerificationEmailModel()
                     {
-                        FirstName = createUserResult.FirstName,
+                        FirstName = !string.IsNullOrWhiteSpace(createUserResult.FirstName) ?  createUserResult.FirstName :  "User",
                         VerificationCode = KeyCodeHelper.GenerateRandomIntegerCode()
                     };
 

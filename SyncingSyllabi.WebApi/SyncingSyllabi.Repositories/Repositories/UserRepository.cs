@@ -131,8 +131,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 result = ctx.Users
                              .AsNoTracking()
                              .Where(w =>
-                                    w.Email.ToLower() == email.ToLower() &&
-                                    w.IsActive.Value)
+                                    w.Email.ToLower() == email.ToLower())
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
             });
