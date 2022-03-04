@@ -68,6 +68,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getUser.Password = !string.IsNullOrEmpty(user.Password) ? user.Password : getUser.Password;
                     getUser.DateOfBirth = user.DateOfBirth ?? getUser.DateOfBirth;
                     getUser.IsActive = user.IsActive ?? getUser.IsActive;
+                    getUser.IsEmailConfirm = user.IsEmailConfirm ?? getUser.IsEmailConfirm;
                     getUser.ImageName = !string.IsNullOrEmpty(user.ImageName) ? user.ImageName : getUser.ImageName;
                     getUser.ImageUrl = !string.IsNullOrEmpty(user.ImageUrl) ? user.ImageUrl : getUser.ImageUrl;
 

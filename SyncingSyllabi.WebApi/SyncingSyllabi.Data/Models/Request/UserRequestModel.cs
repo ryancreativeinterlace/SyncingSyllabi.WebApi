@@ -15,6 +15,7 @@ namespace SyncingSyllabi.Data.Models.Request
         public string School { get; set; }
         public string Major { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public bool? IsEmailConfirm { get; set; }
         public bool? IsActive { get; set; }
     }
 }

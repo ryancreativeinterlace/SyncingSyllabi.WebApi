@@ -54,6 +54,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
             userModel.Password = EncryptionHelper.EncryptString(userRequestModel.Password.Trim());
             userModel.IsActive = false;
+            userModel.IsEmailConfirm = false;   
 
             if(userRequestModel.ImageFile != null)
             {
@@ -138,6 +139,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.Password = !string.IsNullOrEmpty(userRequestModel.Password) ? EncryptionHelper.EncryptString(userRequestModel.Password.Trim()) : string.Empty;
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
             userModel.IsActive = userRequestModel.IsActive ?? null;
+            userModel.IsEmailConfirm = userRequestModel.IsEmailConfirm ?? null;
 
             if (userRequestModel.ImageFile != null)
             {
@@ -206,6 +208,7 @@ namespace SyncingSyllabi.Services.Services
                     var userModel = new UserModel();
                     userModel.Id = userCodeRequestModel.UserId;
                     userModel.IsActive = true;
+                    userModel.IsEmailConfirm = true;
 
                     UserDto user = _mapper.Map<UserDto>(userModel);
 
