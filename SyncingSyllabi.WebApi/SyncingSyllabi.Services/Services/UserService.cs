@@ -81,7 +81,9 @@ namespace SyncingSyllabi.Services.Services
                 {
                     var sendEmailModel = new SendEmailModel();
 
-                    var emailAddress = new List<string>() { createUserResult.Email };
+                    var emailTo = new Dictionary<long, string>();
+
+                    emailTo.Add(createUserResult.Id, createUserResult.Email);
 
                     var emailXModel = new EmailVerificationEmailModel()
                     {
@@ -95,7 +97,7 @@ namespace SyncingSyllabi.Services.Services
                         emailXModel.VerificationCode
                     };
 
-                    sendEmailModel.To = emailAddress;
+                    sendEmailModel.To = emailTo;
                     sendEmailModel.XModel = xModel;
                     sendEmailModel.Subject = "Email Verification";
                     sendEmailModel.S3TemplateFile = EmailTemplateConstants.EmailVerificationTemplate;

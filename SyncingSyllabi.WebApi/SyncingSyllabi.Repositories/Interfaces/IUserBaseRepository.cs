@@ -17,5 +17,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
         UserCodeDto CreateUserCode(UserCodeDto userCodeDto);
         UserCodeDto GetUserCode(long userId, CodeTypeEnum codeType);
         UserCodeDto UpdateUserCode(UserCodeDto userCodeDto);
+        void CreateUserEmailTracks(IEnumerable<UserEmailTrackingDto> userEmailTrackingDtos);
     }
 }

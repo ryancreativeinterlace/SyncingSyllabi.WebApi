@@ -15,6 +15,7 @@ namespace SyncingSyllabi.Data.Transformation.AutoMapperProfiles
             CreateMap<SortColumnDto, SortColumnModel>(MemberList.None).ReverseMap();
             CreateMap<PaginationDto, PaginationModel>(MemberList.None).ReverseMap();
             CreateMap<UserCodeDto, UserCodeModel>(MemberList.None).ReverseMap();
+            CreateMap<UserEmailTrackingDto, UserEmailTrackingModel>(MemberList.None).ReverseMap();
         }
     }
 }

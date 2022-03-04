@@ -9,7 +9,7 @@ namespace SyncingSyllabi.Data.Models.Core
     {
         public string Subject { get; set; }
         public string From { get; set; }
-        public IEnumerable<string> To { get; set; }
+        public Dictionary<Int64, string> To { get; set; }
         public IEnumerable<string> Cc { get; set; }
         public IEnumerable<string> XModel { get; set; }
         public string S3TemplateFile { get; set; }

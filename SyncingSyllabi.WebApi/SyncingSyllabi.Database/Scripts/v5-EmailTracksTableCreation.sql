@@ -1,11 +1,11 @@
-﻿CREATE TABLE user_codes
+﻿CREATE TABLE user_email_tracking
 (
 	id bigint IDENTITY(1,1) PRIMARY KEY,
 	[user_id] bigint NULL,
-	verification_code varchar(300) NULL,
-	code_type int NULL,
-	code_type_name varchar(100) NULL,
-	code_expiration varchar(20) NULL,
+	email varchar(100) NULL,
+	email_subject varchar(100) NULL,
+	email_template varchar(100) NULL,
+	email_status varchar(100) NULL,
 	date_created datetime NULL,
 	created_by bigint NULL,
 	date_updated datetime NULL,
@@ -13,13 +13,16 @@
 	is_active bit NULL
 );
 
-CREATE INDEX idx_user_code_id
-ON user_codes(id);
+CREATE INDEX idx_user_email_tracking_id
+ON user_email_tracking(id);
 
-CREATE INDEX idx_user_code_user_id
-ON user_codes(user_id);
+CREATE INDEX idx_user_email_tracking_user_id
+ON user_email_tracking(user_id);
 
-CREATE INDEX idx_user_code_code_type
-ON user_codes(code_type);
+CREATE INDEX idx_user_email_tracking_email_subject
+ON user_email_tracking(email_subject);
+
+CREATE INDEX idx_user_email_tracking_date_created
+ON user_email_tracking(date_created);
 
 

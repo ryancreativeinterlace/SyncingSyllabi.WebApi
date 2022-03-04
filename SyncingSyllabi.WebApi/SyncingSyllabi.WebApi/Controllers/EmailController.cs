@@ -34,46 +34,46 @@ namespace SyncingSyllabi.WebApi.Controllers
             _emailService = emailService;
         }
 
-        [HttpPost]
-        [Route("SendEmailTest")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SendEmail([FromBody] SendEmailModel sendEmailModel)
-        {
-            try
-            {
-                var emailAddress = new List<string>() { "ryan@creativeinterlace.com", "rai.masters010@gmail.com" };
+        //[HttpPost]
+        //[Route("SendEmailTest")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> SendEmail([FromBody] SendEmailModel sendEmailModel)
+        //{
+        //    try
+        //    {
+        //        var emailAddress = new List<string>() { "ryan@creativeinterlace.com", "rai.masters010@gmail.com" };
 
-                var emailXModel = new EmailVerificationEmailModel()
-                {
-                    FirstName = "Ryan",
-                    VerificationCode = "123456"
-                };
+        //        var emailXModel = new EmailVerificationEmailModel()
+        //        {
+        //            FirstName = "Ryan",
+        //            VerificationCode = "123456"
+        //        };
 
-                var xModel = new List<string>()
-                {
-                    emailXModel.FirstName,
-                    emailXModel.VerificationCode.ToString()
-                };
+        //        var xModel = new List<string>()
+        //        {
+        //            emailXModel.FirstName,
+        //            emailXModel.VerificationCode.ToString()
+        //        };
 
-                sendEmailModel.To = emailAddress;
-                sendEmailModel.XModel = xModel;
-                sendEmailModel.Subject = "Email Verification";
-                sendEmailModel.S3TemplateFile = "EmailVerificationTemplate.html";
+        //        sendEmailModel.To = emailAddress;
+        //        sendEmailModel.XModel = xModel;
+        //        sendEmailModel.Subject = "Email Verification";
+        //        sendEmailModel.S3TemplateFile = "EmailVerificationTemplate.html";
 
-                var send = await _emailService.SendEmail(sendEmailModel);
+        //        var send = await _emailService.SendEmail(sendEmailModel);
 
-                if(!send)
-                {
-                    return BadRequest();
-                }
+        //        if(!send)
+        //        {
+        //            return BadRequest();
+        //        }
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpPost]
         [Route("SendEmailVerificationCode")]

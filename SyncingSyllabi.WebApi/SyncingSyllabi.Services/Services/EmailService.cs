@@ -42,11 +42,15 @@ namespace SyncingSyllabi.Services.Services
 
         public async Task<bool> SendEmail(SendEmailModel mail)
         {
+            bool emailSend = false;
+
             int counter = 0;
 
             var s3Template = new byte[0];
 
             var toList = new List<EmailAddress>();
+
+            var emailTracks = new List<UserEmailTrackingDto>(); 
 
             if (mail != null)
             {
@@ -59,7 +63,7 @@ namespace SyncingSyllabi.Services.Services
 
                     foreach (var emailAddress in mail.To)
                     {
-                        var email = new EmailAddress(emailAddress);
+                        var email = new EmailAddress(emailAddress.Value);
 
                         toList.Add(email);
                     }
@@ -119,20 +123,64 @@ namespace SyncingSyllabi.Services.Services
                             }
                         }
 
-                        await client.SendEmailAsync(msg);
+                        var emailResponse = await client.SendEmailAsync(msg);
 
-                        return true;
+                        if(emailResponse.IsSuccessStatusCode)
+                        {
+                            if(mail.To.Count > 0)
+                            {
+                                foreach(var track in mail.To)
+                                {
+                                    var emailTrackDetail = new UserEmailTrackingDto()
+                                    {
+                                        UserId = track.Key,
+                                        Email = track.Value,
+                                        EmailSubject = mail.Subject,
+                                        EmailTemplate = mail.S3TemplateFile,
+                                        EmailStatus = "success",
+                                        IsActive = true
+                                    };
+
+                                    emailTracks.Add(emailTrackDetail);
+
+                                    emailSend = true;
+                                }
+
+                            }
+                        }
                     }
-
-                    return false;
                 }
                 catch (Exception ex)
                 {
-                    throw (ex);
+                    if (mail.To.Count > 0)
+                    {
+                        foreach (var track in mail.To)
+                        {
+                            var emailTrackDetail = new UserEmailTrackingDto()
+                            {
+                                UserId = track.Key,
+                                Email = track.Value,
+                                EmailSubject = mail.Subject,
+                                EmailTemplate = mail.S3TemplateFile,
+                                EmailStatus = ex.Message,
+                                IsActive = true
+                            };
+
+                            emailTracks.Add(emailTrackDetail);
+
+                            emailSend = true;
+                        }
+
+                    }
+                }
+                finally
+                {
+                    // Save email tracking
+                    _userBaseRepository.CreateUserEmailTracks(emailTracks);
                 }
             }
 
-            return false;
+            return emailSend;
         }
 
         public bool SendEmailVerificationCode(UserCodeRequestModel userCodeRequestModel)
@@ -145,7 +193,8 @@ namespace SyncingSyllabi.Services.Services
             {
                 var sendEmailModel = new SendEmailModel();
 
-                var emailAddress = new List<string>() { getUser.Email };
+                var to = new Dictionary<long, string>();
+                to.Add(getUser.Id, getUser.Email);
 
                 var emailXModel = new EmailVerificationEmailModel()
                 {
@@ -159,7 +208,7 @@ namespace SyncingSyllabi.Services.Services
                     emailXModel.VerificationCode
                 };
 
-                sendEmailModel.To = emailAddress;
+                sendEmailModel.To = to;
                 sendEmailModel.XModel = xModel;
 
                 switch(userCodeRequestModel.CodeType)

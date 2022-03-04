@@ -175,8 +175,8 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 if (getUserCode == null)
                 {
-                    user.FillCreated(user.Id);
-                    user.FillUpdated(user.Id);
+                    user.FillCreated(user.UserId);
+                    user.FillUpdated(user.UserId);
 
                     ctx.UserCodes.Add(user);
 
@@ -250,5 +250,32 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             return result;
         }
+
+        public void CreateUserEmailTracks(IEnumerable<UserEmailTrackingDto> userEmailTrackingDtos)
+        {
+            var emailTracks = _mapper.Map<IEnumerable<UserEmailTrackingEntity>>(userEmailTrackingDtos);
+
+            UseDataContext(ctx =>
+            {
+                emailTracks.ToList().ForEach(f =>
+                {
+                    var userEmail = new UserEmailTrackingEntity()
+                    {
+                        UserId = f.UserId,
+                        Email = f.Email,
+                        EmailSubject = f.EmailSubject,
+                        EmailTemplate = f.EmailTemplate,
+                        EmailStatus = f.EmailStatus
+                    };
+
+                    userEmail.FillCreated(f.UserId);
+                    userEmail.FillUpdated(f.UserId);
+
+                    ctx.UserEmailTracking.Add(userEmail);
+                    ctx.SaveChanges();
+                });
+            });
+        }
+
     }
 }
