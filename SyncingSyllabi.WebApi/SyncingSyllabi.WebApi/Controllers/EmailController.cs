@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Request;
+using SyncingSyllabi.Data.Models.Response;
 using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Services.Interfaces;
 using System;
@@ -33,9 +35,9 @@ namespace SyncingSyllabi.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("SendEmail")]
+        [Route("SendEmailTest")]
         [AllowAnonymous]
-        public async Task<IActionResult> SendEmail([FromForm] SendEmailModel sendEmailModel)
+        public async Task<IActionResult> SendEmail([FromBody] SendEmailModel sendEmailModel)
         {
             try
             {
@@ -66,6 +68,34 @@ namespace SyncingSyllabi.WebApi.Controllers
                 }
 
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("SendEmailVerificationCode")]
+        [AllowAnonymous]
+        public IActionResult SendEmailVerificationCode([FromBody] UserCodeRequestModel userCodeRequestModel)
+        {
+            try
+            {
+               
+                var result = _emailService.SendEmailVerificationCode(userCodeRequestModel);
+                var response = new UserCodeResponseModel();
+
+                if (result)
+                {
+                    response.Data.Success = true;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
             }
             catch (Exception ex)
             {

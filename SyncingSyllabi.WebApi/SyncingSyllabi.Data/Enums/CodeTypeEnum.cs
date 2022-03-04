@@ -7,6 +7,7 @@ namespace SyncingSyllabi.Data.Enums
     public enum CodeTypeEnum
     {
         None = 0,
-        EmailVerificationCode = 1
+        EmailVerificationCode = 1,
+        ChangePassword = 2
     }
 }

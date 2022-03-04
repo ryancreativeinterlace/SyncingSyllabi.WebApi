@@ -132,8 +132,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 result = ctx.Users
                              .AsNoTracking()
                              .Where(w =>
-                                    w.Id == userId &&
-                                    w.IsActive.Value)
+                                    w.Id == userId)
                              .Select(s => _mapper.Map<UserDto>(s))
                              .FirstOrDefault();
             });
@@ -235,11 +234,11 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getUserCode.VerificationCode = !string.IsNullOrEmpty(userCode.VerificationCode) ? userCode.VerificationCode : getUserCode.VerificationCode;
                     getUserCode.CodeType = userCode.CodeType != 0 ? userCode.CodeType : getUserCode.CodeType;
                     getUserCode.CodeTypeName = !string.IsNullOrEmpty(userCode.CodeTypeName) ? userCode.CodeTypeName : getUserCode.CodeTypeName;
-                    getUserCode.CodeExpiration = userCode.CodeExpiration ?? getUserCode.CodeExpiration;
+                    getUserCode.CodeExpiration = userCode.CodeExpiration ?? DateTime.UtcNow.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
                     getUserCode.IsActive = userCode.IsActive ?? getUserCode.IsActive;
 
-                    getUserCode.FillCreated(getUserCode.Id);
-                    getUserCode.FillUpdated(getUserCode.Id);
+                    getUserCode.FillCreated(getUserCode.UserId);
+                    getUserCode.FillUpdated(getUserCode.UserId);
 
                     ctx.UserCodes.Update(getUserCode);
 
