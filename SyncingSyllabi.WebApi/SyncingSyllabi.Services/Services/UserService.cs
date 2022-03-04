@@ -172,6 +172,13 @@ namespace SyncingSyllabi.Services.Services
             return userLogin;
         }
 
+        public UserDto UserLogin(AuthRequestModel authRequestModel)
+        {
+            var userLogin = _userBaseRepository.UserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
+
+            return userLogin;
+        }
+
         public UserDto GetUserById(long userId)
         {
             var userDetail = _userBaseRepository.GetUserById(userId);

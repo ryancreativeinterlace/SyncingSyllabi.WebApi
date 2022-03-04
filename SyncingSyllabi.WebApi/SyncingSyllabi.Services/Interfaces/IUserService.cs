@@ -13,6 +13,7 @@ namespace SyncingSyllabi.Services.Interfaces
         UserDto CreateUser(UserRequestModel userRequestModel);
         UserDto UpdateUser(UserRequestModel userRequestModel);
         UserDto GetActiveUserLogin(AuthRequestModel authRequestModel);
+        UserDto UserLogin(AuthRequestModel authRequestModel);
         UserDto GetUserById(long userId);
         UserDto GetUserByEmail(string email);
         bool VerifyUserCode(UserCodeRequestModel userCodeRequestModel);

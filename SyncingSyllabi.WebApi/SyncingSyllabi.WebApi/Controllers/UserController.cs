@@ -95,7 +95,7 @@ namespace SyncingSyllabi.WebApi.Controllers
         {
             try
             {
-                var result = _userService.GetActiveUserLogin(authRequestModel);
+                var result = _userService.UserLogin(authRequestModel);
                 var item = _mapper.Map<UserModel>(result);
 
                 var response = new UserResponseModel();
