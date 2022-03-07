@@ -14,5 +14,6 @@ namespace SyncingSyllabi.Data.Dtos.Core
         public string ImageName { get; set; }
         public string ImageUrl { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public bool? IsEmailConfirm { get; set; }
     }
 }

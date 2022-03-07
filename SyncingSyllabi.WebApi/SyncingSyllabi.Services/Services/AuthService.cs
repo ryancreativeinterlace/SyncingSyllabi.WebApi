@@ -42,24 +42,26 @@ namespace SyncingSyllabi.Services.Services
 
                 if(getAuth != null)
                 {
-                    if(DateTime.Now > getAuth.AuthTokenExpiration.Value && getAuth.IsActive.Value)
-                    {
-                        // Refresh token if expire
-                        var refreshAuth = new AuthTokenDto()
-                        {
-                            UserId = getUser.Id,
-                            AuthToken = TokenUtility.GenerateAccessToken(getUser.Id, getUser.Email, $"{getUser.FirstName} {getUser.LastName}"),
-                            AuthTokenExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_authSettings.ExpirationInMinutes)),
-                            IsActive = true
-                        };
+                    //if(DateTime.UtcNow > getAuth.AuthTokenExpiration.Value && getAuth.IsActive.Value)
+                    //{
+                    //    // Refresh token if expire
+                    //    var refreshAuth = new AuthTokenDto()
+                    //    {
+                    //        UserId = getUser.Id,
+                    //        AuthToken = TokenUtility.GenerateAccessToken(getUser.Id, getUser.Email, $"{getUser.FirstName} {getUser.LastName}"),
+                    //        AuthTokenExpiration = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_authSettings.ExpirationInMinutes)),
+                    //        IsActive = true
+                    //    };
 
-                        authTokenResult = _authTokenBaseRepository.UpdateAuthToken(refreshAuth);
-                    }
-                    else
-                    {
-                        // Return token 
-                        authTokenResult = getAuth;
-                    }
+                    //    authTokenResult = _authTokenBaseRepository.UpdateAuthToken(refreshAuth);
+                    //}
+                    //else
+                    //{
+                    //    // Return token 
+                    //    authTokenResult = getAuth;
+                    //}
+
+                    authTokenResult = getAuth;
                 }
                 else
                 {
@@ -68,7 +70,7 @@ namespace SyncingSyllabi.Services.Services
                     {
                         UserId = getUser.Id,
                         AuthToken = TokenUtility.GenerateAccessToken(getUser.Id, getUser.Email, $"{getUser.FirstName} {getUser.LastName}"),
-                        AuthTokenExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_authSettings.ExpirationInMinutes)),
+                        AuthTokenExpiration = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_authSettings.ExpirationInMinutes)),
                         IsActive = true
                     };
 

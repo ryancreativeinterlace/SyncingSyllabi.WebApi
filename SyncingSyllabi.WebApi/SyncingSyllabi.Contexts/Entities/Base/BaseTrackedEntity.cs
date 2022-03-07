@@ -20,15 +20,15 @@ namespace SyncingSyllabi.Contexts.Entities.Base
         public void FillCreated(Int64 userId)
         {
             CreatedBy = userId;
-            DateCreated = DateTime.Now;
+            DateCreated = DateTime.UtcNow;
             UpdatedBy = userId;
-            DateUpdated = DateTime.Now;
+            DateUpdated = DateTime.UtcNow;
         }
 
         public void FillUpdated(Int64 userId)
         {
             UpdatedBy = userId;
-            DateUpdated = DateTime.Now;
+            DateUpdated = DateTime.UtcNow;
         }
     }
 }

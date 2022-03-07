@@ -95,7 +95,7 @@ namespace SyncingSyllabi.WebApi.Controllers
         {
             try
             {
-                var result = _userService.GetActiveUserLogin(authRequestModel);
+                var result = _userService.UserLogin(authRequestModel);
                 var item = _mapper.Map<UserModel>(result);
 
                 var response = new UserResponseModel();
@@ -160,6 +160,33 @@ namespace SyncingSyllabi.WebApi.Controllers
                 if (item != null)
                 {
                     response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("VerifyUserCode")]
+        [AllowAnonymous]
+        public IActionResult VerifyUserCode([FromBody] UserCodeRequestModel userCodeRequestModel)
+        {
+            try
+            {
+                var result = _userService.VerifyUserCode(userCodeRequestModel);
+                var response = new UserCodeResponseModel();
+
+                if (result)
+                {
+                    response.Data.Success = true;
                 }
                 else
                 {

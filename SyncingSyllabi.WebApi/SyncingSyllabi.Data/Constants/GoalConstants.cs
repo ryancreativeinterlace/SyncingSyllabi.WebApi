@@ -14,7 +14,7 @@ namespace SyncingSyllabi.Data.Constants
             {
                 return new IField[]
                 {
-                    new GoaldFieldsIds()
+                    new GoalFieldsIds()
                 };
             }
         }
@@ -32,7 +32,7 @@ namespace SyncingSyllabi.Data.Constants
             public const int GoalFieldsIds = 1;
         }
 
-        public class GoaldFieldsIds : IField
+        public class GoalFieldsIds : IField
         {
             public const int Id = 1;
             public const int UserId = 2;
@@ -86,7 +86,7 @@ namespace SyncingSyllabi.Data.Constants
 
             public static string GetName(int id)
             {
-                foreach (var field in typeof(GoaldFieldsIds).GetFields())
+                foreach (var field in typeof(GoalFieldsIds).GetFields())
                 {
                     if ((int)field.GetValue(null) == id)
                         return field.Name;

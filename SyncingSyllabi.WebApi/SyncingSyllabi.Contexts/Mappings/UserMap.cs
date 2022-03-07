@@ -26,6 +26,7 @@ namespace SyncingSyllabi.Contexts.Mappings
             builder.Property(e => e.ImageName).HasColumnName("image_name");
             builder.Property(e => e.ImageUrl).HasColumnName("image_url");
             builder.Property(e => e.DateOfBirth).HasColumnName("date_of_birth");
+            builder.Property(e => e.IsEmailConfirm).HasColumnName("is_email_confirm");
         }
     }
 }

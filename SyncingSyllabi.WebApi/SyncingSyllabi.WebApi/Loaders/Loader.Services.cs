@@ -27,6 +27,9 @@ namespace SyncingSyllabi.WebApi.Loaders
             var databaseSettings = ConfigurationUtility.GetConfig<DatabaseSettings>("DatabaseSettings");
             services.AddSingleton<DatabaseSettings>(databaseSettings);
 
+            var syncingSyllabiSettings = ConfigurationUtility.GetConfig<SyncingSyllabiSettings>("SyncingSyllabiSettings");
+            services.AddSingleton<SyncingSyllabiSettings>(syncingSyllabiSettings);
+
             var authSettings = ConfigurationUtility.GetConfig<AuthSettings>("AuthSettings");
             services.AddSingleton<AuthSettings>(authSettings);
 

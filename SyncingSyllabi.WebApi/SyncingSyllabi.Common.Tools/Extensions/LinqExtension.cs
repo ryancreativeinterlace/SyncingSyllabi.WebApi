@@ -70,7 +70,7 @@ namespace SyncingSyllabi.Common.Tools.Extensions
             var sortExpressions = new List<Tuple<string, string>>();
             for (int i = 0; i < sortColumn.Count(); i++)
             {
-                var fieldName = GoaldFieldsIds.GetName(sortColumn[i].FieldCode);
+                var fieldName = GoalFieldsIds.GetName(sortColumn[i].FieldCode);
                 var sortOrder = (sortColumn[i].Direction.Length > 1) ? sortColumn[i].Direction.Trim().ToLower() : "asc";
 
                 //Sort GoalTypeName

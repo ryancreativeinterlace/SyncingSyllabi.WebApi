@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Request;
+using SyncingSyllabi.Data.Models.Response;
 using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Services.Interfaces;
 using System;
@@ -32,40 +34,68 @@ namespace SyncingSyllabi.WebApi.Controllers
             _emailService = emailService;
         }
 
+        //[HttpPost]
+        //[Route("SendEmailTest")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> SendEmail([FromBody] SendEmailModel sendEmailModel)
+        //{
+        //    try
+        //    {
+        //        var emailAddress = new List<string>() { "ryan@creativeinterlace.com", "rai.masters010@gmail.com" };
+
+        //        var emailXModel = new EmailVerificationEmailModel()
+        //        {
+        //            FirstName = "Ryan",
+        //            VerificationCode = "123456"
+        //        };
+
+        //        var xModel = new List<string>()
+        //        {
+        //            emailXModel.FirstName,
+        //            emailXModel.VerificationCode.ToString()
+        //        };
+
+        //        sendEmailModel.To = emailAddress;
+        //        sendEmailModel.XModel = xModel;
+        //        sendEmailModel.Subject = "Email Verification";
+        //        sendEmailModel.S3TemplateFile = "EmailVerificationTemplate.html";
+
+        //        var send = await _emailService.SendEmail(sendEmailModel);
+
+        //        if(!send)
+        //        {
+        //            return BadRequest();
+        //        }
+
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
         [HttpPost]
-        [Route("SendEmail")]
+        [Route("SendEmailVerificationCode")]
         [AllowAnonymous]
-        public async Task<IActionResult> SendEmail([FromForm] SendEmailModel sendEmailModel)
+        public IActionResult SendEmailVerificationCode([FromBody] UserCodeRequestModel userCodeRequestModel)
         {
             try
             {
-                var emailAddress = new List<string>() { "ryan@creativeinterlace.com", "rai.masters010@gmail.com" };
+               
+                var result = _emailService.SendEmailVerificationCode(userCodeRequestModel);
+                var response = new UserCodeResponseModel();
 
-                var emailXModel = new EmailVerificationEmailModel()
+                if (result)
                 {
-                    FirstName = "Ryan",
-                    VerificationCode = 123456
-                };
-
-                var xModel = new List<string>()
+                    response.Data.Success = true;
+                }
+                else
                 {
-                    emailXModel.FirstName,
-                    emailXModel.VerificationCode.ToString()
-                };
-
-                sendEmailModel.To = emailAddress;
-                sendEmailModel.XModel = xModel;
-                sendEmailModel.Subject = "Email Verification";
-                sendEmailModel.S3TemplateFile = "EmailVerificationTemplate.html";
-
-                var send = await _emailService.SendEmail(sendEmailModel);
-
-                if(!send)
-                {
-                    return BadRequest();
+                    response.Data.Success = false;
                 }
 
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
