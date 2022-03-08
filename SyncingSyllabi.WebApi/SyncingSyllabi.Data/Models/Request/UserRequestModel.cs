@@ -16,6 +16,8 @@ namespace SyncingSyllabi.Data.Models.Request
         public string Major { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public bool? IsEmailConfirm { get; set; }
+        public bool? IsResetPassword { get; set; }
+        public bool? IsGoogle { get; set; }
         public bool? IsActive { get; set; }
     }
 }

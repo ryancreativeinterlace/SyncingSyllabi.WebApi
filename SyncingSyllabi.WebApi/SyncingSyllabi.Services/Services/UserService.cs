@@ -54,7 +54,9 @@ namespace SyncingSyllabi.Services.Services
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
             userModel.Password = EncryptionHelper.EncryptString(userRequestModel.Password.Trim());
             userModel.IsActive = false;
-            userModel.IsEmailConfirm = false;   
+            userModel.IsEmailConfirm = false;
+            userModel.IsResetPassword = false;
+            userModel.IsGoogle = userRequestModel.IsGoogle ?? null;
 
             if(userRequestModel.ImageFile != null)
             {
@@ -77,7 +79,8 @@ namespace SyncingSyllabi.Services.Services
             {
                 createUserResult = _userBaseRepository.CreateUser(user);
 
-                if(createUserResult != null)
+                // Send email verification
+                if(createUserResult != null && !createUserResult.IsGoogle.Value)
                 {
                     var sendEmailModel = new SendEmailModel();
 
@@ -142,6 +145,8 @@ namespace SyncingSyllabi.Services.Services
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
             userModel.IsActive = userRequestModel.IsActive ?? null;
             userModel.IsEmailConfirm = userRequestModel.IsEmailConfirm ?? null;
+            userModel.IsResetPassword = userRequestModel.IsResetPassword ?? null;
+            userModel.IsGoogle = userRequestModel.IsGoogle ?? null;
 
             if (userRequestModel.ImageFile != null)
             {
