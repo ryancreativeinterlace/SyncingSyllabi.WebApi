@@ -20,4 +20,10 @@ namespace SyncingSyllabi.Data.Models.Request
         public bool? IsGoogle { get; set; }
         public bool? IsActive { get; set; }
     }
+
+    public class UserPasswordRequestModel 
+    {
+        public long UserId { get; set; }
+        public string UpdatedPassword { get; set; }
+    }
 }

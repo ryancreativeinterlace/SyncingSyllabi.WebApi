@@ -237,5 +237,30 @@ namespace SyncingSyllabi.Services.Services
 
             return verify;
         }
+
+        public bool ResetPassword(UserPasswordRequestModel userPasswordRequestModel)
+        {
+            bool resetPassword = false;
+
+            var getUser = _userBaseRepository.GetUserById(userPasswordRequestModel.UserId);
+
+            if(getUser != null)
+            {
+                UserDto updateUser = new UserDto();
+
+                updateUser.Id = getUser.Id;
+                updateUser.Password = EncryptionHelper.EncryptString(userPasswordRequestModel.UpdatedPassword);
+                updateUser.IsResetPassword = false;
+
+                var updateUserPassword = _userBaseRepository.UpdateUser(updateUser);
+
+                if(updateUserPassword != null)
+                {
+                    resetPassword = true;
+                }
+            }
+
+            return resetPassword;
+        }
     }
 }
