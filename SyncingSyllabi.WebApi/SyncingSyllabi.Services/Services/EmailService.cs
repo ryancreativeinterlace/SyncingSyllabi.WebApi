@@ -229,19 +229,42 @@ namespace SyncingSyllabi.Services.Services
 
                 if (send)
                 {
-                    var getUserCode = _userBaseRepository.GetUserCode(userCodeRequestModel.UserId, userCodeRequestModel.CodeType);
-
-                    if (getUserCode != null)
+                    if(userCodeRequestModel.IsResend)
                     {
-                        getUserCode.VerificationCode = emailXModel.VerificationCode;
-                        getUserCode.CodeType = userCodeRequestModel.CodeType;
-                        getUserCode.CodeTypeName = userCodeRequestModel.CodeType.ToString();
-                        getUserCode.IsActive = true;
-                        getUserCode.CodeExpiration = null;
+                        // Update already existing UserCode
+                        var getUserCode = _userBaseRepository.GetUserCode(userCodeRequestModel.UserId, userCodeRequestModel.CodeType);
 
-                        var updateUserCode = _userBaseRepository.UpdateUserCode(getUserCode);
+                        if (getUserCode != null)
+                        {
+                            getUserCode.VerificationCode = emailXModel.VerificationCode;
+                            getUserCode.CodeType = userCodeRequestModel.CodeType;
+                            getUserCode.CodeTypeName = userCodeRequestModel.CodeType.ToString();
+                            getUserCode.IsActive = true;
+                            getUserCode.CodeExpiration = null;
 
-                        if(updateUserCode != null)
+                            var updateUserCode = _userBaseRepository.UpdateUserCode(getUserCode);
+
+                            if (updateUserCode != null)
+                            {
+                                sendMail = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Create new UserCode
+                        var userCode = new UserCodeDto()
+                        {
+                            UserId = userCodeRequestModel.UserId,
+                            VerificationCode = emailXModel.VerificationCode,
+                            CodeType = userCodeRequestModel.CodeType,
+                            CodeTypeName = userCodeRequestModel.CodeType.ToString(),
+                            IsActive = true
+                        };
+
+                        var createCode = _userBaseRepository.CreateUserCode(userCode);
+
+                        if (createCode != null)
                         {
                             sendMail = true;
                         }

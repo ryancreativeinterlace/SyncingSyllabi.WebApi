@@ -267,7 +267,8 @@ namespace SyncingSyllabi.Repositories.Repositories
                         Email = f.Email,
                         EmailSubject = f.EmailSubject,
                         EmailTemplate = f.EmailTemplate,
-                        EmailStatus = f.EmailStatus
+                        EmailStatus = f.EmailStatus,
+                        IsActive = f.IsActive
                     };
 
                     userEmail.FillCreated(f.UserId);
