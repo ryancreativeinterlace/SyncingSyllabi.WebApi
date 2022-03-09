@@ -244,7 +244,7 @@ namespace SyncingSyllabi.Services.Services
 
             var getUser = _userBaseRepository.GetUserById(userPasswordRequestModel.UserId);
 
-            if(getUser != null)
+            if(getUser != null && getUser.Password == EncryptionHelper.EncryptString(userPasswordRequestModel.CurrentPassword))
             {
                 UserDto updateUser = new UserDto();
 
