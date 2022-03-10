@@ -29,7 +29,7 @@ namespace SyncingSyllabi.WebApi.Controllers
         [Route("monitor")]
         public IActionResult Monitor()
         {
-            return Ok($"{_databaseSettings.Environment} Environment - Syncing Syllabi Web App: {DateTime.UtcNow}");
+            return Ok($"{_databaseSettings.Environment} Environment - Syncing Syllabi Web App: {DateTime.Now}");
         }
     }
 }

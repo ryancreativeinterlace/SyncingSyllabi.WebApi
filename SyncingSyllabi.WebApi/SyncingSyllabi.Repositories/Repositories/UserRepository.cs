@@ -165,7 +165,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             var user = _mapper.Map<UserCodeEntity>(userCodeDto);
 
-            user.CodeExpiration = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
+            user.CodeExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
 
             UseDataContext(ctx =>
             {
@@ -236,7 +236,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getUserCode.VerificationCode = !string.IsNullOrEmpty(userCode.VerificationCode) ? userCode.VerificationCode : getUserCode.VerificationCode;
                     getUserCode.CodeType = userCode.CodeType != 0 ? userCode.CodeType : getUserCode.CodeType;
                     getUserCode.CodeTypeName = !string.IsNullOrEmpty(userCode.CodeTypeName) ? userCode.CodeTypeName : getUserCode.CodeTypeName;
-                    getUserCode.CodeExpiration = userCode.CodeExpiration ?? DateTime.UtcNow.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
+                    getUserCode.CodeExpiration = userCode.CodeExpiration ?? DateTime.Now.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
                     getUserCode.IsActive = userCode.IsActive ?? getUserCode.IsActive;
 
                     getUserCode.FillCreated(getUserCode.UserId);

@@ -208,7 +208,7 @@ namespace SyncingSyllabi.Services.Services
 
             var getUserCode = _userBaseRepository.GetUserCode(userCodeRequestModel.UserId, userCodeRequestModel.CodeType);
 
-            if(getUserCode != null && getUserCode.CodeExpiration.Value > DateTime.UtcNow)
+            if(getUserCode != null && getUserCode.CodeExpiration.Value > DateTime.Now)
             {
                 if(getUserCode.VerificationCode == userCodeRequestModel.VerificationCode)
                 {
