@@ -3,6 +3,8 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Amazon.Util;
+using SyncingSyllabi.Common.Tools.Helpers;
+using SyncingSyllabi.Data.Constants;
 using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Repositories.Interfaces;
 using System;
@@ -15,7 +17,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 {
     public partial class S3FileRepository : IS3FileRepository
     {
-        S3Settings _s3Settings;
+        private readonly S3Settings _s3Settings;
 
         private static readonly Encoding ContentDispositionHeaderEncoding = Encoding.GetEncoding("ISO-8859-1");
 
@@ -32,10 +34,10 @@ namespace SyncingSyllabi.Repositories.Repositories
             RegionEndpoint region = RegionEndpoint.GetBySystemName(_s3Settings.Region);
             IAmazonS3 client = null;
 
-            if (!string.IsNullOrWhiteSpace(_s3Settings.AccessKeyId) &&
-                !string.IsNullOrWhiteSpace(_s3Settings.SecretAccessKey))
+            if (!string.IsNullOrWhiteSpace(AwsConstants.AKI) &&
+                !string.IsNullOrWhiteSpace(AwsConstants.SAK))
             {
-                client = new AmazonS3Client(_s3Settings.AccessKeyId, _s3Settings.SecretAccessKey, region);
+                client = new AmazonS3Client(EncryptionHelper.DecryptString(AwsConstants.AKI), EncryptionHelper.DecryptString(AwsConstants.SAK), region);
             }
             else
             {
