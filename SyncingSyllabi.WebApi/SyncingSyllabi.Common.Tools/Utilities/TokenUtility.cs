@@ -33,7 +33,7 @@ namespace SyncingSyllabi.Common.Tools.Utilities
               authSettings.Issuer,
               authSettings.Audience,
               claims,
-              //expires: authSettings.ExpirationInMinutes == null ? expiration : DateTime.UtcNow.AddMinutes(Convert.ToInt32(authSettings.ExpirationInMinutes)),
+              //expires: authSettings.ExpirationInMinutes == null ? expiration : DateTime.Now.AddMinutes(Convert.ToInt32(authSettings.ExpirationInMinutes)),
               signingCredentials: credential);
 
             return new JwtSecurityTokenHandler().WriteToken(jwtToken);

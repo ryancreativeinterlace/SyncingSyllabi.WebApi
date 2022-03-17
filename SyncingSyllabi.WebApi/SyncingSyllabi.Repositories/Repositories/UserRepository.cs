@@ -88,38 +88,63 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
-        public UserDto GetActiveUserLogin(string email, string password)
+        public UserDto GetActiveUserLogin(string email, string password, bool isGoogle)
         {
             UserDto result = null;
 
             UseDataContext(ctx =>
             {
-                result = ctx.Users
-                             .AsNoTracking()
-                             .Where(w =>
-                                    w.Email.ToLower() == email.ToLower() &&
-                                    w.Password == password &&
-                                    w.IsActive.Value)
-                             .Select(s => _mapper.Map<UserDto>(s))
-                             .FirstOrDefault();
+                if(isGoogle)
+                {
+                    result = ctx.Users
+                                .AsNoTracking()
+                                .Where(w =>
+                                       w.Email.ToLower() == email.ToLower() &&
+                                       w.IsActive.Value)
+                                .Select(s => _mapper.Map<UserDto>(s))
+                                .FirstOrDefault();
+                }
+                else
+                {
+                    result = ctx.Users
+                                 .AsNoTracking()
+                                 .Where(w =>
+                                        w.Email.ToLower() == email.ToLower() &&
+                                        w.Password == password &&
+                                        w.IsActive.Value)
+                                 .Select(s => _mapper.Map<UserDto>(s))
+                                 .FirstOrDefault();
+                }
             });
 
             return result;
         }
 
-        public UserDto UserLogin(string email, string password)
+        public UserDto UserLogin(string email, string password, bool isGoogle)
         {
             UserDto result = null;
 
             UseDataContext(ctx =>
             {
-                result = ctx.Users
-                             .AsNoTracking()
-                             .Where(w =>
-                                    w.Email.ToLower() == email.ToLower() &&
-                                    w.Password == password)
-                             .Select(s => _mapper.Map<UserDto>(s))
-                             .FirstOrDefault();
+                if(isGoogle)
+                {
+                    result = ctx.Users
+                                 .AsNoTracking()
+                                 .Where(w =>
+                                        w.Email.ToLower() == email.ToLower())
+                                 .Select(s => _mapper.Map<UserDto>(s))
+                                 .FirstOrDefault();
+                }
+                else
+                {
+                    result = ctx.Users
+                                 .AsNoTracking()
+                                 .Where(w =>
+                                        w.Email.ToLower() == email.ToLower() &&
+                                        w.Password == password)
+                                 .Select(s => _mapper.Map<UserDto>(s))
+                                 .FirstOrDefault();
+                }
             });
 
             return result;
@@ -165,7 +190,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             var user = _mapper.Map<UserCodeEntity>(userCodeDto);
 
-            user.CodeExpiration = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
+            user.CodeExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
 
             UseDataContext(ctx =>
             {
@@ -236,7 +261,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getUserCode.VerificationCode = !string.IsNullOrEmpty(userCode.VerificationCode) ? userCode.VerificationCode : getUserCode.VerificationCode;
                     getUserCode.CodeType = userCode.CodeType != 0 ? userCode.CodeType : getUserCode.CodeType;
                     getUserCode.CodeTypeName = !string.IsNullOrEmpty(userCode.CodeTypeName) ? userCode.CodeTypeName : getUserCode.CodeTypeName;
-                    getUserCode.CodeExpiration = userCode.CodeExpiration ?? DateTime.UtcNow.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
+                    getUserCode.CodeExpiration = userCode.CodeExpiration ?? DateTime.Now.AddMinutes(Convert.ToInt32(_syncingSyllabiSettings.UserCodeExpirationInMinutes));
                     getUserCode.IsActive = userCode.IsActive ?? getUserCode.IsActive;
 
                     getUserCode.FillCreated(getUserCode.UserId);
@@ -267,7 +292,8 @@ namespace SyncingSyllabi.Repositories.Repositories
                         Email = f.Email,
                         EmailSubject = f.EmailSubject,
                         EmailTemplate = f.EmailTemplate,
-                        EmailStatus = f.EmailStatus
+                        EmailStatus = f.EmailStatus,
+                        IsActive = f.IsActive
                     };
 
                     userEmail.FillCreated(f.UserId);

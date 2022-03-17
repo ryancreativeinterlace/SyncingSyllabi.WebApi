@@ -52,7 +52,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.School = !string.IsNullOrEmpty(userRequestModel.School) ? userRequestModel.School.Trim() : string.Empty;
             userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
-            userModel.Password = EncryptionHelper.EncryptString(userRequestModel.Password.Trim());
+            userModel.Password = !string.IsNullOrEmpty(userRequestModel.Password) ? EncryptionHelper.EncryptString(userRequestModel.Password.Trim()) : string.Empty;
             userModel.IsActive = false;
             userModel.IsEmailConfirm = false;
             userModel.IsResetPassword = false;
@@ -176,14 +176,14 @@ namespace SyncingSyllabi.Services.Services
 
         public UserDto GetActiveUserLogin(AuthRequestModel authRequestModel)
         {
-            var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
+            var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password), authRequestModel.IsGoogle);
 
             return userLogin;
         }
 
         public UserDto UserLogin(AuthRequestModel authRequestModel)
         {
-            var userLogin = _userBaseRepository.UserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
+            var userLogin = _userBaseRepository.UserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password), authRequestModel.IsGoogle);
 
             return userLogin;
         }
@@ -208,7 +208,7 @@ namespace SyncingSyllabi.Services.Services
 
             var getUserCode = _userBaseRepository.GetUserCode(userCodeRequestModel.UserId, userCodeRequestModel.CodeType);
 
-            if(getUserCode != null && getUserCode.CodeExpiration.Value > DateTime.UtcNow)
+            if(getUserCode != null && getUserCode.CodeExpiration.Value > DateTime.Now)
             {
                 if(getUserCode.VerificationCode == userCodeRequestModel.VerificationCode)
                 {
@@ -236,6 +236,31 @@ namespace SyncingSyllabi.Services.Services
             }
 
             return verify;
+        }
+
+        public bool ResetPassword(UserPasswordRequestModel userPasswordRequestModel)
+        {
+            bool resetPassword = false;
+
+            var getUser = _userBaseRepository.GetUserById(userPasswordRequestModel.UserId);
+
+            if(getUser != null && getUser.Password == EncryptionHelper.EncryptString(userPasswordRequestModel.CurrentPassword))
+            {
+                UserDto updateUser = new UserDto();
+
+                updateUser.Id = getUser.Id;
+                updateUser.Password = EncryptionHelper.EncryptString(userPasswordRequestModel.UpdatedPassword);
+                updateUser.IsResetPassword = false;
+
+                var updateUserPassword = _userBaseRepository.UpdateUser(updateUser);
+
+                if(updateUserPassword != null)
+                {
+                    resetPassword = true;
+                }
+            }
+
+            return resetPassword;
         }
     }
 }

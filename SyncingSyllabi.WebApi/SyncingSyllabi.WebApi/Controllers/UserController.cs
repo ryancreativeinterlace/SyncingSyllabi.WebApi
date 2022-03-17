@@ -200,5 +200,32 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        [AllowAnonymous]
+        public IActionResult ResetPassword([FromBody] UserPasswordRequestModel userPasswordRequestModel)
+        {
+            try
+            {
+                var result = _userService.ResetPassword(userPasswordRequestModel);
+                var response = new UserPasswordResponseModel();
+
+                if (result)
+                {
+                    response.Data.Success = true;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

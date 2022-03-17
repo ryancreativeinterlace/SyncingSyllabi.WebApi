@@ -189,6 +189,8 @@ namespace SyncingSyllabi.Services.Services
 
             var getUser = _userBaseRepository.GetUserById(userCodeRequestModel.UserId);
 
+            UserDto flagUser = new UserDto();
+
             if(getUser != null)
             {
                 var sendEmailModel = new SendEmailModel();
@@ -216,11 +218,13 @@ namespace SyncingSyllabi.Services.Services
                     case CodeTypeEnum.EmailVerificationCode:
                         sendEmailModel.Subject = "Email Verification";
                         sendEmailModel.S3TemplateFile = EmailTemplateConstants.EmailVerificationTemplate;
+                        flagUser.IsEmailConfirm = false;
                         break;
 
                     case CodeTypeEnum.ChangePassword:
                         sendEmailModel.Subject = "Change Password";
                         sendEmailModel.S3TemplateFile = EmailTemplateConstants.ChangePasswordTemplate;
+                        flagUser.IsResetPassword = true;
                         break;
 
                 }
@@ -229,21 +233,52 @@ namespace SyncingSyllabi.Services.Services
 
                 if (send)
                 {
-                    var getUserCode = _userBaseRepository.GetUserCode(userCodeRequestModel.UserId, userCodeRequestModel.CodeType);
+                    // Update User Details with Flagging
+                    flagUser.Id = getUser.Id;
 
-                    if (getUserCode != null)
+                    var updateUserFlag = _userBaseRepository.UpdateUser(flagUser);
+
+                    if(updateUserFlag != null)
                     {
-                        getUserCode.VerificationCode = emailXModel.VerificationCode;
-                        getUserCode.CodeType = userCodeRequestModel.CodeType;
-                        getUserCode.CodeTypeName = userCodeRequestModel.CodeType.ToString();
-                        getUserCode.IsActive = true;
-                        getUserCode.CodeExpiration = null;
-
-                        var updateUserCode = _userBaseRepository.UpdateUserCode(getUserCode);
-
-                        if(updateUserCode != null)
+                        if (userCodeRequestModel.IsResend)
                         {
-                            sendMail = true;
+                            // Update already existing UserCode
+                            var getUserCode = _userBaseRepository.GetUserCode(userCodeRequestModel.UserId, userCodeRequestModel.CodeType);
+
+                            if (getUserCode != null)
+                            {
+                                getUserCode.VerificationCode = emailXModel.VerificationCode;
+                                getUserCode.CodeType = userCodeRequestModel.CodeType;
+                                getUserCode.CodeTypeName = userCodeRequestModel.CodeType.ToString();
+                                getUserCode.IsActive = true;
+                                getUserCode.CodeExpiration = null;
+
+                                var updateUserCode = _userBaseRepository.UpdateUserCode(getUserCode);
+
+                                if (updateUserCode != null)
+                                {
+                                    sendMail = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Create new UserCode
+                            var userCode = new UserCodeDto()
+                            {
+                                UserId = userCodeRequestModel.UserId,
+                                VerificationCode = emailXModel.VerificationCode,
+                                CodeType = userCodeRequestModel.CodeType,
+                                CodeTypeName = userCodeRequestModel.CodeType.ToString(),
+                                IsActive = true
+                            };
+
+                            var createCode = _userBaseRepository.CreateUserCode(userCode);
+
+                            if (createCode != null)
+                            {
+                                sendMail = true;
+                            }
                         }
                     }
                 }
