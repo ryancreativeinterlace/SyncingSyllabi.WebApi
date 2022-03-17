@@ -10,8 +10,8 @@ namespace SyncingSyllabi.Repositories.Interfaces
     {
         UserDto CreateUser(UserDto userDto);
         UserDto UpdateUser(UserDto userDto);
-        UserDto GetActiveUserLogin(string email, string password);
-        UserDto UserLogin(string email, string password);
+        UserDto GetActiveUserLogin(string email, string password, bool isGoogle);
+        UserDto UserLogin(string email, string password, bool isGoogle);
         UserDto GetUserById(long userId);
         UserDto GetUserByEmail(string email);
         UserCodeDto CreateUserCode(UserCodeDto userCodeDto);

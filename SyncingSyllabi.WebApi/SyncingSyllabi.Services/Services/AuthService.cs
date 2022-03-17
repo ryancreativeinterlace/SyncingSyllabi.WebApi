@@ -34,7 +34,7 @@ namespace SyncingSyllabi.Services.Services
         {
             AuthTokenDto authTokenResult = null;
 
-            var getUser = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
+            var getUser = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password), authRequestModel.IsGoogle);
 
             if(getUser != null)
             {

@@ -52,7 +52,7 @@ namespace SyncingSyllabi.Services.Services
             userModel.School = !string.IsNullOrEmpty(userRequestModel.School) ? userRequestModel.School.Trim() : string.Empty;
             userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
-            userModel.Password = EncryptionHelper.EncryptString(userRequestModel.Password.Trim());
+            userModel.Password = !string.IsNullOrEmpty(userRequestModel.Password) ? EncryptionHelper.EncryptString(userRequestModel.Password.Trim()) : string.Empty;
             userModel.IsActive = false;
             userModel.IsEmailConfirm = false;
             userModel.IsResetPassword = false;
@@ -176,14 +176,14 @@ namespace SyncingSyllabi.Services.Services
 
         public UserDto GetActiveUserLogin(AuthRequestModel authRequestModel)
         {
-            var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
+            var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password), authRequestModel.IsGoogle);
 
             return userLogin;
         }
 
         public UserDto UserLogin(AuthRequestModel authRequestModel)
         {
-            var userLogin = _userBaseRepository.UserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password));
+            var userLogin = _userBaseRepository.UserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password), authRequestModel.IsGoogle);
 
             return userLogin;
         }

@@ -88,38 +88,63 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
-        public UserDto GetActiveUserLogin(string email, string password)
+        public UserDto GetActiveUserLogin(string email, string password, bool isGoogle)
         {
             UserDto result = null;
 
             UseDataContext(ctx =>
             {
-                result = ctx.Users
-                             .AsNoTracking()
-                             .Where(w =>
-                                    w.Email.ToLower() == email.ToLower() &&
-                                    w.Password == password &&
-                                    w.IsActive.Value)
-                             .Select(s => _mapper.Map<UserDto>(s))
-                             .FirstOrDefault();
+                if(isGoogle)
+                {
+                    result = ctx.Users
+                                .AsNoTracking()
+                                .Where(w =>
+                                       w.Email.ToLower() == email.ToLower() &&
+                                       w.IsActive.Value)
+                                .Select(s => _mapper.Map<UserDto>(s))
+                                .FirstOrDefault();
+                }
+                else
+                {
+                    result = ctx.Users
+                                 .AsNoTracking()
+                                 .Where(w =>
+                                        w.Email.ToLower() == email.ToLower() &&
+                                        w.Password == password &&
+                                        w.IsActive.Value)
+                                 .Select(s => _mapper.Map<UserDto>(s))
+                                 .FirstOrDefault();
+                }
             });
 
             return result;
         }
 
-        public UserDto UserLogin(string email, string password)
+        public UserDto UserLogin(string email, string password, bool isGoogle)
         {
             UserDto result = null;
 
             UseDataContext(ctx =>
             {
-                result = ctx.Users
-                             .AsNoTracking()
-                             .Where(w =>
-                                    w.Email.ToLower() == email.ToLower() &&
-                                    w.Password == password)
-                             .Select(s => _mapper.Map<UserDto>(s))
-                             .FirstOrDefault();
+                if(isGoogle)
+                {
+                    result = ctx.Users
+                                 .AsNoTracking()
+                                 .Where(w =>
+                                        w.Email.ToLower() == email.ToLower())
+                                 .Select(s => _mapper.Map<UserDto>(s))
+                                 .FirstOrDefault();
+                }
+                else
+                {
+                    result = ctx.Users
+                                 .AsNoTracking()
+                                 .Where(w =>
+                                        w.Email.ToLower() == email.ToLower() &&
+                                        w.Password == password)
+                                 .Select(s => _mapper.Map<UserDto>(s))
+                                 .FirstOrDefault();
+                }
             });
 
             return result;
