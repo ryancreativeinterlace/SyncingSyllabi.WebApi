@@ -53,10 +53,18 @@ namespace SyncingSyllabi.Services.Services
             userModel.Major = !string.IsNullOrEmpty(userRequestModel.Major) ? userRequestModel.Major.Trim() : string.Empty;
             userModel.DateOfBirth = userRequestModel.DateOfBirth ?? null;
             userModel.Password = !string.IsNullOrEmpty(userRequestModel.Password) ? EncryptionHelper.EncryptString(userRequestModel.Password.Trim()) : string.Empty;
-            userModel.IsActive = false;
             userModel.IsEmailConfirm = false;
             userModel.IsResetPassword = false;
             userModel.IsGoogle = userRequestModel.IsGoogle ?? null;
+
+            if(userRequestModel.IsGoogle.HasValue && userRequestModel.IsGoogle.Value)
+            {
+                userModel.IsActive = true;
+            }
+            else
+            {
+                userModel.IsActive = false;
+            }
 
             if(userRequestModel.ImageFile != null)
             {
@@ -261,6 +269,18 @@ namespace SyncingSyllabi.Services.Services
             }
 
             return resetPassword;
+        }
+
+        public string DecryptPassword(UserPasswordDecryptRequestModel userPasswordDecryptRequestModel)
+        {
+            string decryptedPassword = string.Empty;
+
+            if(!string.IsNullOrEmpty(userPasswordDecryptRequestModel.DecryptPassword))
+            {
+                decryptedPassword = EncryptionHelper.DecryptString(userPasswordDecryptRequestModel.DecryptPassword);
+            }
+
+            return decryptedPassword;
         }
     }
 }

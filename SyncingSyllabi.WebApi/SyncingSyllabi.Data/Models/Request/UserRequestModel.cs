@@ -27,4 +27,9 @@ namespace SyncingSyllabi.Data.Models.Request
         public string CurrentPassword { get; set; }
         public string UpdatedPassword { get; set; }
     }
+
+    public class UserPasswordDecryptRequestModel
+    {
+        public string DecryptPassword { get; set; }
+    }
 }

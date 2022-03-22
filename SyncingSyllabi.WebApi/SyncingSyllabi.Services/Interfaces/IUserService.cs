@@ -18,5 +18,6 @@ namespace SyncingSyllabi.Services.Interfaces
         UserDto GetUserByEmail(string email);
         bool VerifyUserCode(UserCodeRequestModel userCodeRequestModel);
         bool ResetPassword(UserPasswordRequestModel userPasswordRequestModel);
+        string DecryptPassword(UserPasswordDecryptRequestModel userPasswordDecryptRequestModel);
     }
 }
