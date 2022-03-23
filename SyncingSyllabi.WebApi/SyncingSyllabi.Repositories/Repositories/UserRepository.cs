@@ -196,7 +196,9 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 var getUserCode = ctx.UserCodes
                                  .AsNoTracking()
-                                 .Where(w => w.UserId == user.UserId && w.CodeType == user.CodeType)
+                                 .Where(w => w.UserId == user.UserId &&
+                                             w.CodeType == user.CodeType &&
+                                             w.IsActive.Value)
                                  .Select(s => _mapper.Map<UserCodeEntity>(s))
                                  .FirstOrDefault();
 
