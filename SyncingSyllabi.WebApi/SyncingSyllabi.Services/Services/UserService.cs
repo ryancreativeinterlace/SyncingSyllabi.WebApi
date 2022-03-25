@@ -220,25 +220,32 @@ namespace SyncingSyllabi.Services.Services
             {
                 if(getUserCode.VerificationCode == userCodeRequestModel.VerificationCode)
                 {
-                    var userModel = new UserModel();
-                    userModel.Id = userCodeRequestModel.UserId;
-                    userModel.IsActive = true;
-                    userModel.IsEmailConfirm = true;
-
-                    UserDto user = _mapper.Map<UserDto>(userModel);
-
-                    var activateUser = _userBaseRepository.UpdateUser(user);
-
-                    if(activateUser != null)
+                    if(userCodeRequestModel.CodeType == CodeTypeEnum.EmailVerificationCode)
                     {
-                        getUserCode.IsActive = false;
+                        var userModel = new UserModel();
+                        userModel.Id = userCodeRequestModel.UserId;
+                        userModel.IsActive = true;
+                        userModel.IsEmailConfirm = true;
 
-                        var updateUserCode = _userBaseRepository.UpdateUserCode(getUserCode);
+                        UserDto user = _mapper.Map<UserDto>(userModel);
 
-                        if (updateUserCode != null)
+                        var activateUser = _userBaseRepository.UpdateUser(user);
+
+                        if (activateUser != null)
                         {
-                            verify = true;
+                            getUserCode.IsActive = false;
+
+                            var updateUserCode = _userBaseRepository.UpdateUserCode(getUserCode);
+
+                            if (updateUserCode != null)
+                            {
+                                verify = true;
+                            }
                         }
+                    }
+                    else
+                    {
+                        verify = true;
                     }
                 }
             }
@@ -264,7 +271,20 @@ namespace SyncingSyllabi.Services.Services
 
                 if(updateUserPassword != null)
                 {
-                    resetPassword = true;
+                    var getUserCode = _userBaseRepository.GetUserCode(userPasswordRequestModel.UserId, CodeTypeEnum.ChangePassword);
+                    
+                    if(getUserCode != null)
+                    {
+                        // Update User Code
+                        getUserCode.IsActive = false;
+
+                        var updateUserCode = _userBaseRepository.UpdateUserCode(getUserCode);
+
+                        if (updateUserCode != null)
+                        {
+                            resetPassword = true;
+                        }
+                    }
                 }
             }
 
