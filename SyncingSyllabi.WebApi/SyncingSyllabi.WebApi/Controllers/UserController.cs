@@ -227,5 +227,32 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("DecryptPassword")]
+        [AllowAnonymous]
+        public IActionResult DecryptPassword([FromBody] UserPasswordDecryptRequestModel userPasswordDecryptRequestModel)
+        {
+            try
+            {
+                var result = _userService.DecryptPassword(userPasswordDecryptRequestModel);
+                var response = new UserDecryptPasswordResponseModel();
+
+                if (!string.IsNullOrEmpty(result))
+                {
+                    response.Data.DecryptedPassword = result;
+                }
+                else
+                {
+                    response.Data.DecryptedPassword = string.Empty;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

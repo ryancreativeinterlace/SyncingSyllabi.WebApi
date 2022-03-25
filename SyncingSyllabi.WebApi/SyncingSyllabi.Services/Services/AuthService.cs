@@ -70,7 +70,7 @@ namespace SyncingSyllabi.Services.Services
                     {
                         UserId = getUser.Id,
                         AuthToken = TokenUtility.GenerateAccessToken(getUser.Id, getUser.Email, $"{getUser.FirstName} {getUser.LastName}"),
-                        AuthTokenExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_authSettings.ExpirationInMinutes)),
+                        //AuthTokenExpiration = DateTime.Now.AddMinutes(Convert.ToInt32(_authSettings.ExpirationInMinutes)),
                         IsActive = true
                     };
 
