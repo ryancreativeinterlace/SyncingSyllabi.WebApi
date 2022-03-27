@@ -53,7 +53,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 var getSyllabus = ctx.Syllabus
                                  .AsNoTracking()
-                                 .Where(w => w.Id == syllabus.Id)
+                                 .Where(w => w.Id == syllabus.Id && w.UserId == syllabus.UserId && w.IsActive.Value)
                                  .Select(s => _mapper.Map<SyllabusEntity>(s))
                                  .FirstOrDefault();
 

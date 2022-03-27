@@ -7,6 +7,7 @@ namespace SyncingSyllabi.Data.Dtos.Core
 {
     public class SyllabusDto : BaseTrackedDto
     {
+        public Int64 UserId { get; set; }
         public string ClassCode { get; set; }
         public string ClassName { get; set; }
         public string TeacherName { get; set; }

@@ -22,6 +22,7 @@ namespace SyncingSyllabi.Contexts.Loaders
             config.CreateMap<UserCodeEntity, UserCodeDto>(MemberList.None).ReverseMap();
             config.CreateMap<UserEmailTrackingEntity, UserEmailTrackingDto>(MemberList.None).ReverseMap();
             config.CreateMap<SyllabusEntity, SyllabusDto>(MemberList.None).ReverseMap();
+            config.CreateMap<AssignmentEntity, AssignmentDto>(MemberList.None).ReverseMap();
 
             // Dtos to Models
             config.CreateMap<UserDto, UserModel>(MemberList.None).ReverseMap();
@@ -32,6 +33,7 @@ namespace SyncingSyllabi.Contexts.Loaders
             config.CreateMap<UserCodeDto, UserCodeModel>(MemberList.None).ReverseMap();
             config.CreateMap<UserEmailTrackingDto, UserEmailTrackingModel>(MemberList.None).ReverseMap();
             config.CreateMap<SyllabusDto, SyllabusModel>(MemberList.None).ReverseMap();
+            config.CreateMap<AssignmentDto, AssignmentModel>(MemberList.None).ReverseMap();
 
             var mapperConfig = new MapperConfiguration(config);
             mapperConfig.AssertConfigurationIsValid();

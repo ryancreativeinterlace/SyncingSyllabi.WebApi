@@ -4,13 +4,13 @@ using System.Text;
 
 namespace SyncingSyllabi.Data.Models.Request
 {
-    public class SyllabusRequestModel
+    public class AssignmentRequestModel
     {
         public Int64 SyllabusId { get; set; }
         public Int64 UserId { get; set; }
-        public string ClassCode { get; set; }
-        public string ClassName { get; set; }
-        public string TeacherName { get; set; }
+        public string Notes { get; set; }
+        public DateTime? AssignmentDateStart { get; set; }
+        public DateTime? AssignmentDateEnd { get; set; }
         public bool? IsActive { get; set; }
     }
 }

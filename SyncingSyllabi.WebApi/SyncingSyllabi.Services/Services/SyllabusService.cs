@@ -30,6 +30,7 @@ namespace SyncingSyllabi.Services.Services
             SyllabusDto creteSyllabusResult = null;
 
             var syllabusModel = new SyllabusModel();
+            syllabusModel.UserId = syllabusRequestModel.UserId;
             syllabusModel.ClassCode = !string.IsNullOrEmpty(syllabusRequestModel.ClassCode) ? syllabusRequestModel.ClassCode.Trim() : string.Empty;
             syllabusModel.ClassName = !string.IsNullOrEmpty(syllabusRequestModel.ClassName) ? syllabusRequestModel.ClassName.Trim() : string.Empty;
             syllabusModel.TeacherName = !string.IsNullOrEmpty(syllabusRequestModel.TeacherName) ? syllabusRequestModel.TeacherName.Trim() : string.Empty;
@@ -51,6 +52,7 @@ namespace SyncingSyllabi.Services.Services
 
             var syllabusModel = new SyllabusModel();
             syllabusModel.Id = syllabusRequestModel.SyllabusId;
+            syllabusModel.UserId = syllabusRequestModel.UserId;
             syllabusModel.ClassCode = !string.IsNullOrEmpty(syllabusRequestModel.ClassCode) ? syllabusRequestModel.ClassCode.Trim() : string.Empty;
             syllabusModel.ClassName = !string.IsNullOrEmpty(syllabusRequestModel.ClassName) ? syllabusRequestModel.ClassName.Trim() : string.Empty;
             syllabusModel.TeacherName = !string.IsNullOrEmpty(syllabusRequestModel.TeacherName) ? syllabusRequestModel.TeacherName.Trim() : string.Empty;

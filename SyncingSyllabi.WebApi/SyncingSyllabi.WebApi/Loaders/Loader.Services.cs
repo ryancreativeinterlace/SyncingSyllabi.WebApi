@@ -45,6 +45,7 @@ namespace SyncingSyllabi.WebApi.Loaders
             services.AddScopedTraced<IGoalBaseRepository, GoalBaseRepository>();
             services.AddScopedTraced<IS3FileRepository, S3FileRepository>();
             services.AddScopedTraced<ISyllabusBaseRepository, SyllabusBaseRepository>();
+            services.AddScopedTraced<IAssignmentBaseRepository, AssignmentBaseRepository>();
 
             //Services
             services.AddScopedTraced<IUserService, UserService>();
@@ -52,6 +53,7 @@ namespace SyncingSyllabi.WebApi.Loaders
             services.AddScopedTraced<IGoalService, GoalService>();
             services.AddScopedTraced<IEmailService, EmailService>();
             services.AddScopedTraced<ISyllabusService, SyllabusService>();
+            services.AddScopedTraced<IAssignmentService, AssignmentService>();
         }
     }
 }
