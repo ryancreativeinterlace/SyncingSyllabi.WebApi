@@ -22,6 +22,7 @@ namespace SyncingSyllabi.Contexts.Contexts
         public DbSet<GoalEntity> Goals { get; set; }
         public DbSet<UserCodeEntity> UserCodes { get; set; }
         public DbSet<UserEmailTrackingEntity> UserEmailTracking { get; set; }
+        public DbSet<SyllabusEntity> Syllabus { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +31,7 @@ namespace SyncingSyllabi.Contexts.Contexts
             modelBuilder.ApplyConfiguration(new GoalMap());
             modelBuilder.ApplyConfiguration(new UserCodeMap());
             modelBuilder.ApplyConfiguration(new UserEmailTrackingMap());
+            modelBuilder.ApplyConfiguration(new SyllabusMap());
         }
     }
 }

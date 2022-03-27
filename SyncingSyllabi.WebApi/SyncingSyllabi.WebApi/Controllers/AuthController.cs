@@ -17,8 +17,8 @@ namespace SyncingSyllabi.WebApi.Controllers
     [Authorize]
     public class AuthController : ControllerBase
     {
-        IMapper _mapper;
-        IAuthService _authService;
+        private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
         public AuthController
         (
