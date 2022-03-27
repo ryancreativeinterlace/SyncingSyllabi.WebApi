@@ -29,8 +29,8 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 if (getSyllabus == null)
                 {
-                    syllabus.FillCreated(1);
-                    syllabus.FillUpdated(1);
+                    syllabus.FillCreated(syllabus.UserId);
+                    syllabus.FillUpdated(syllabus.UserId);
 
                     ctx.Syllabus.Add(syllabus);
 
@@ -62,10 +62,12 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getSyllabus.ClassCode = !string.IsNullOrEmpty(syllabus.ClassCode) ? syllabus.ClassCode : getSyllabus.ClassCode;
                     getSyllabus.ClassName = !string.IsNullOrEmpty(syllabus.ClassName) ? syllabus.ClassName : getSyllabus.ClassName;
                     getSyllabus.TeacherName = !string.IsNullOrEmpty(syllabus.TeacherName) ? syllabus.TeacherName : getSyllabus.TeacherName;
+                    getSyllabus.ColorInHex = !string.IsNullOrEmpty(syllabus.ColorInHex) ? syllabus.ColorInHex : getSyllabus.ColorInHex;
+                    getSyllabus.ClassSchedule = syllabus.ClassSchedule ?? getSyllabus.ClassSchedule;
                     getSyllabus.IsActive = syllabus.IsActive ?? getSyllabus.IsActive;
 
-                    getSyllabus.FillCreated(1);
-                    getSyllabus.FillUpdated(1);
+                    getSyllabus.FillCreated(getSyllabus.UserId);
+                    getSyllabus.FillUpdated(getSyllabus.UserId);
 
                     ctx.Syllabus.Update(getSyllabus);
 

@@ -20,9 +20,12 @@ namespace SyncingSyllabi.Contexts.Mappings
 
             builder.ToTable("syllabus");
 
+            builder.Property(e => e.UserId).HasColumnName("user_id");
             builder.Property(e => e.ClassCode).HasColumnName("class_code");
             builder.Property(e => e.ClassName).HasColumnName("class_name");
             builder.Property(e => e.TeacherName).HasColumnName("teacher_name");
+            builder.Property(e => e.ClassSchedule).HasColumnName("class_schedule");
+            builder.Property(e => e.ColorInHex).HasColumnName("color_in_hex");
         }
     }
 }

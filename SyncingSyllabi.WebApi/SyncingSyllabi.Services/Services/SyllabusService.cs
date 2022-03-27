@@ -27,23 +27,25 @@ namespace SyncingSyllabi.Services.Services
 
         public SyllabusDto CreateSyllabus(SyllabusRequestModel syllabusRequestModel)
         {
-            SyllabusDto creteSyllabusResult = null;
+            SyllabusDto createSyllabusResult = null;
 
             var syllabusModel = new SyllabusModel();
             syllabusModel.UserId = syllabusRequestModel.UserId;
             syllabusModel.ClassCode = !string.IsNullOrEmpty(syllabusRequestModel.ClassCode) ? syllabusRequestModel.ClassCode.Trim() : string.Empty;
             syllabusModel.ClassName = !string.IsNullOrEmpty(syllabusRequestModel.ClassName) ? syllabusRequestModel.ClassName.Trim() : string.Empty;
             syllabusModel.TeacherName = !string.IsNullOrEmpty(syllabusRequestModel.TeacherName) ? syllabusRequestModel.TeacherName.Trim() : string.Empty;
+            syllabusModel.ColorInHex = !string.IsNullOrEmpty(syllabusRequestModel.ColorInHex) ? syllabusRequestModel.ColorInHex.Trim() : string.Empty;
+            syllabusModel.ClassSchedule = syllabusRequestModel.ClassSchedule;
             syllabusModel.IsActive = true;
 
             SyllabusDto syllabus = _mapper.Map<SyllabusDto>(syllabusModel);
 
             if (syllabus != null)
             {
-                creteSyllabusResult = _syllabusBaseRepository.CreateSyllabus(syllabus);
+                createSyllabusResult = _syllabusBaseRepository.CreateSyllabus(syllabus);
             }
 
-            return creteSyllabusResult;
+            return createSyllabusResult;
         }
 
         public SyllabusDto UpdateSyllabus(SyllabusRequestModel syllabusRequestModel)
@@ -56,6 +58,8 @@ namespace SyncingSyllabi.Services.Services
             syllabusModel.ClassCode = !string.IsNullOrEmpty(syllabusRequestModel.ClassCode) ? syllabusRequestModel.ClassCode.Trim() : string.Empty;
             syllabusModel.ClassName = !string.IsNullOrEmpty(syllabusRequestModel.ClassName) ? syllabusRequestModel.ClassName.Trim() : string.Empty;
             syllabusModel.TeacherName = !string.IsNullOrEmpty(syllabusRequestModel.TeacherName) ? syllabusRequestModel.TeacherName.Trim() : string.Empty;
+            syllabusModel.ColorInHex = !string.IsNullOrEmpty(syllabusRequestModel.ColorInHex) ? syllabusRequestModel.ColorInHex.Trim() : string.Empty;
+            syllabusModel.ClassSchedule = syllabusRequestModel.ClassSchedule ?? null;
             syllabusModel.IsActive = syllabusRequestModel.IsActive ?? null;
 
             SyllabusDto syllabus = _mapper.Map<SyllabusDto>(syllabusModel);
