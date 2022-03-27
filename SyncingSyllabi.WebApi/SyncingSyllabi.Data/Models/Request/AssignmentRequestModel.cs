@@ -11,6 +11,7 @@ namespace SyncingSyllabi.Data.Models.Request
         public string Notes { get; set; }
         public DateTime? AssignmentDateStart { get; set; }
         public DateTime? AssignmentDateEnd { get; set; }
+        public string ColorInHex { get; set; }
         public bool? IsActive { get; set; }
     }
 }

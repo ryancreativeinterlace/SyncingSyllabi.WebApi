@@ -12,5 +12,6 @@ namespace SyncingSyllabi.Data.Dtos.Core
         public string Notes { get; set; }
         public DateTime? AssignmentDateStart { get; set; }
         public DateTime? AssignmentDateEnd { get; set; }
+        public string ColorInHex { get; set; }
     }
 }

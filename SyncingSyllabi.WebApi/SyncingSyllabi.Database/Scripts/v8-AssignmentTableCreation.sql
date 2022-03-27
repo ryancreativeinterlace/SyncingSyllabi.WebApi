@@ -6,6 +6,7 @@
 	notes varchar(500) NULL,
 	assignment_date_start datetime NULL,
 	assignment_date_end datetime NULL,
+	color_in_hex varchar(50) NULL,
 	date_created datetime NULL,
 	created_by bigint NULL,
 	date_updated datetime NULL,

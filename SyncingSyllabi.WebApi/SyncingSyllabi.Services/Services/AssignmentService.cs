@@ -33,6 +33,7 @@ namespace SyncingSyllabi.Services.Services
             assignmentModel.UserId = assignmentRequestModel.UserId;
             assignmentModel.SyllabusId = assignmentRequestModel.SyllabusId;
             assignmentModel.Notes = !string.IsNullOrEmpty(assignmentRequestModel.Notes) ? assignmentRequestModel.Notes.Trim() : string.Empty;
+            assignmentModel.ColorInHex = !string.IsNullOrEmpty(assignmentRequestModel.ColorInHex) ? assignmentRequestModel.ColorInHex.Trim() : string.Empty;
             assignmentModel.AssignmentDateStart = DateTime.Now;
             assignmentModel.AssignmentDateEnd = assignmentRequestModel.AssignmentDateEnd;
             assignmentModel.IsActive = true;
