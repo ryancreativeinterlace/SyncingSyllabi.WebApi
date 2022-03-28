@@ -20,8 +20,8 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 var getSyllabus = ctx.Syllabus
                                  .AsNoTracking()
-                                 .Where(w => 
-                                        (w.ClassCode.ToLower() == syllabus.ClassCode || 
+                                 .Where(w =>
+                                        (w.ClassCode.ToLower() == syllabus.ClassCode ||
                                         w.ClassName.ToLower() == syllabus.ClassName) &&
                                         w.IsActive.Value)
                                  .Select(s => _mapper.Map<SyllabusEntity>(s))
@@ -75,6 +75,26 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     result = _mapper.Map<SyllabusDto>(getSyllabus);
                 }
+            });
+
+            return result;
+        }
+
+        public SyllabusDto GetSyllabus(long syllabusId, long userId)
+        {
+            SyllabusDto result = null;
+
+            UseDataContext(ctx =>
+            {
+
+                var getSyllabus = ctx.Syllabus
+                                 .AsNoTracking()
+                                 .Where(w => w.Id == syllabusId && w.UserId == userId && w.IsActive.Value)
+                                 .Select(s => _mapper.Map<SyllabusEntity>(s))
+                                 .FirstOrDefault();
+
+                result = _mapper.Map<SyllabusDto>(getSyllabus);
+
             });
 
             return result;

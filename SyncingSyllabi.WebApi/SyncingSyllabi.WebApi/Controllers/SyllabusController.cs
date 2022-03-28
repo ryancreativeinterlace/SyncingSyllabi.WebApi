@@ -84,5 +84,33 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetSyllabusDetails/{syllabusId}/{userId}")]
+        public IActionResult GetSyllabusDetails(long syllabusId, long userId)
+        {
+            try
+            {
+                var result = _syllabusService.GetSyllabus(syllabusId, userId);
+                var item = _mapper.Map<SyllabusModel>(result);
+
+                var response = new SyllabusResponseModel();
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

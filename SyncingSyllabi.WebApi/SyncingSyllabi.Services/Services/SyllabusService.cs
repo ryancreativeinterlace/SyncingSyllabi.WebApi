@@ -71,5 +71,14 @@ namespace SyncingSyllabi.Services.Services
 
             return updateSyllabusResult;
         }
+
+        public SyllabusDto GetSyllabus(long syllabusId, long userId)
+        {
+            SyllabusDto getSyllabusResult = null;
+
+            getSyllabusResult = _syllabusBaseRepository.GetSyllabus(syllabusId, userId);
+
+            return getSyllabusResult;
+        }
     }
 }
