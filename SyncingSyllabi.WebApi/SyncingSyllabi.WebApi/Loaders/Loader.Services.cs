@@ -44,12 +44,16 @@ namespace SyncingSyllabi.WebApi.Loaders
             services.AddScopedTraced<IAuthTokenBaseRepository, AuthTokenBaseRepository>();
             services.AddScopedTraced<IGoalBaseRepository, GoalBaseRepository>();
             services.AddScopedTraced<IS3FileRepository, S3FileRepository>();
+            services.AddScopedTraced<ISyllabusBaseRepository, SyllabusBaseRepository>();
+            services.AddScopedTraced<IAssignmentBaseRepository, AssignmentBaseRepository>();
 
             //Services
             services.AddScopedTraced<IUserService, UserService>();
             services.AddScopedTraced<IAuthService, AuthService>();
             services.AddScopedTraced<IGoalService, GoalService>();
             services.AddScopedTraced<IEmailService, EmailService>();
+            services.AddScopedTraced<ISyllabusService, SyllabusService>();
+            services.AddScopedTraced<IAssignmentService, AssignmentService>();
         }
     }
 }

@@ -18,19 +18,13 @@ namespace SyncingSyllabi.WebApi.Controllers
     [Authorize]
     public class EmailController : ControllerBase
     {
-        IMapper _mapper;
-        SendGridSettings _sendGridSettings;
-        IEmailService _emailService;
+        private readonly IEmailService _emailService;
 
         public EmailController
         (
-            IMapper mapper,
-            SendGridSettings sendGridSettings,
             IEmailService emailService
         )
         {
-            _mapper = mapper;
-            _sendGridSettings = sendGridSettings;
             _emailService = emailService;
         }
 

@@ -18,8 +18,8 @@ namespace SyncingSyllabi.WebApi.Controllers
     [Authorize]
     public class UserController : ControllerBase
     {
-        IMapper _mapper;
-        IUserService _userService;
+        private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
         public UserController
         (

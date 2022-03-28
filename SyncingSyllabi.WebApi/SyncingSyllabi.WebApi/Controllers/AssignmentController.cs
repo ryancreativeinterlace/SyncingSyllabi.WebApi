@@ -15,38 +15,32 @@ namespace SyncingSyllabi.WebApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class AuthController : ControllerBase
+    public class AssignmentController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IAuthService _authService;
-
-        public AuthController
+        private readonly IAssignmentService _assignmentService;
+        public AssignmentController
         (
             IMapper mapper,
-            IAuthService authService
+            IAssignmentService assignmentService
         )
         {
             _mapper = mapper;
-            _authService = authService;
+            _assignmentService = assignmentService;
         }
 
-        ///<Summary>
-        /// Generate user authentication token.
-        ///</Summary>
-        ///<returns>The user generated authentication token.</returns>
         [HttpPost]
-        [Route("GenerateAuth")]
-        [AllowAnonymous]
-        public IActionResult GenerateAuth([FromBody] AuthRequestModel authRequestModel)
+        [Route("CreateAssignment")]
+        public IActionResult CreateAssignment([FromBody] AssignmentRequestModel assignmentRequestModel)
         {
             try
             {
-                var result = _authService.GetAuthToken(authRequestModel);
-                var item = _mapper.Map<AuthModel>(result);
+                var result = _assignmentService.CreateAssignment(assignmentRequestModel);
+                var item = _mapper.Map<AssignmentModel>(result);
 
-                var response = new AuthResponseModel();
-                
-                if(item != null)
+                var response = new AssignmentResponseModel();
+
+                if (item != null)
                 {
                     response.Data.Item = item;
                 }
