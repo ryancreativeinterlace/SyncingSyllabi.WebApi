@@ -56,5 +56,61 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("UpdateAssignment")]
+        public IActionResult UpdateAssignment([FromBody] AssignmentRequestModel assignmentRequestModel)
+        {
+            try
+            {
+                var result = _assignmentService.UpdateAssignment(assignmentRequestModel);
+                var item = _mapper.Map<AssignmentModel>(result);
+
+                var response = new AssignmentResponseModel();
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetAssignmentDetails/{assignmentId}/{userId}")]
+        public IActionResult GetSyllabusDetails(long assignmentId, long userId)
+        {
+            try
+            {
+                var result = _assignmentService.GetAssignment(assignmentId, userId);
+                var item = _mapper.Map<AssignmentModel>(result);
+
+                var response = new AssignmentResponseModel();
+
+                if (item != null)
+                {
+                    response.Data.Item = item;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
