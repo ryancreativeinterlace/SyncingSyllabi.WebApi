@@ -43,6 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{FE81
 		SyncingSyllabi.Database\Scripts\v6-AlterUsersTable.sql = SyncingSyllabi.Database\Scripts\v6-AlterUsersTable.sql
 		SyncingSyllabi.Database\Scripts\v7-SyllabusTableCreation.sql = SyncingSyllabi.Database\Scripts\v7-SyllabusTableCreation.sql
 		SyncingSyllabi.Database\Scripts\v8-AssignmentTableCreation.sql = SyncingSyllabi.Database\Scripts\v8-AssignmentTableCreation.sql
+		SyncingSyllabi.Database\Scripts\v9-AlterSyllabusTable.sql = SyncingSyllabi.Database\Scripts\v9-AlterSyllabusTable.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SyncingSyllabi.EmailTemplates", "SyncingSyllabi.EmailTemplates", "{A2839778-2F40-43D3-A6C4-0FD8E66B7E94}"

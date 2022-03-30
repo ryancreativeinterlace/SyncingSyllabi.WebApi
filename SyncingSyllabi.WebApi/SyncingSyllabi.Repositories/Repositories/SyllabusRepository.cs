@@ -21,8 +21,8 @@ namespace SyncingSyllabi.Repositories.Repositories
                 var getSyllabus = ctx.Syllabus
                                  .AsNoTracking()
                                  .Where(w =>
-                                        (w.ClassCode.ToLower() == syllabus.ClassCode ||
-                                        w.ClassName.ToLower() == syllabus.ClassName) &&
+                                        (w.ClassCode.ToLower() == syllabus.ClassCode.ToLower() ||
+                                        w.ClassName.ToLower() == syllabus.ClassName.ToLower()) &&
                                         w.IsActive.Value)
                                  .Select(s => _mapper.Map<SyllabusEntity>(s))
                                  .FirstOrDefault();
@@ -63,7 +63,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getSyllabus.ClassName = !string.IsNullOrEmpty(syllabus.ClassName) ? syllabus.ClassName : getSyllabus.ClassName;
                     getSyllabus.TeacherName = !string.IsNullOrEmpty(syllabus.TeacherName) ? syllabus.TeacherName : getSyllabus.TeacherName;
                     getSyllabus.ColorInHex = !string.IsNullOrEmpty(syllabus.ColorInHex) ? syllabus.ColorInHex : getSyllabus.ColorInHex;
-                    getSyllabus.ClassSchedule = syllabus.ClassSchedule ?? getSyllabus.ClassSchedule;
+                    getSyllabus.ClassSchedule = !string.IsNullOrEmpty(syllabus.ClassSchedule) ? syllabus.ClassSchedule : getSyllabus.ClassSchedule;
                     getSyllabus.IsActive = syllabus.IsActive ?? getSyllabus.IsActive;
 
                     getSyllabus.FillCreated(getSyllabus.UserId);

@@ -35,7 +35,7 @@ namespace SyncingSyllabi.Services.Services
             syllabusModel.ClassName = !string.IsNullOrEmpty(syllabusRequestModel.ClassName) ? syllabusRequestModel.ClassName.Trim() : string.Empty;
             syllabusModel.TeacherName = !string.IsNullOrEmpty(syllabusRequestModel.TeacherName) ? syllabusRequestModel.TeacherName.Trim() : string.Empty;
             syllabusModel.ColorInHex = !string.IsNullOrEmpty(syllabusRequestModel.ColorInHex) ? syllabusRequestModel.ColorInHex.Trim() : string.Empty;
-            syllabusModel.ClassSchedule = syllabusRequestModel.ClassSchedule;
+            syllabusModel.ClassSchedule = !string.IsNullOrEmpty(syllabusRequestModel.ClassSchedule) ? syllabusRequestModel.ClassSchedule.Trim() : string.Empty;
             syllabusModel.IsActive = true;
 
             SyllabusDto syllabus = _mapper.Map<SyllabusDto>(syllabusModel);
@@ -59,7 +59,7 @@ namespace SyncingSyllabi.Services.Services
             syllabusModel.ClassName = !string.IsNullOrEmpty(syllabusRequestModel.ClassName) ? syllabusRequestModel.ClassName.Trim() : string.Empty;
             syllabusModel.TeacherName = !string.IsNullOrEmpty(syllabusRequestModel.TeacherName) ? syllabusRequestModel.TeacherName.Trim() : string.Empty;
             syllabusModel.ColorInHex = !string.IsNullOrEmpty(syllabusRequestModel.ColorInHex) ? syllabusRequestModel.ColorInHex.Trim() : string.Empty;
-            syllabusModel.ClassSchedule = syllabusRequestModel.ClassSchedule ?? null;
+            syllabusModel.ClassSchedule = !string.IsNullOrEmpty(syllabusRequestModel.ClassSchedule) ? syllabusRequestModel.ClassSchedule.Trim() : string.Empty;
             syllabusModel.IsActive = syllabusRequestModel.IsActive ?? null;
 
             SyllabusDto syllabus = _mapper.Map<SyllabusDto>(syllabusModel);

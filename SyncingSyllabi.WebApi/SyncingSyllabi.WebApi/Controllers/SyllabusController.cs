@@ -42,7 +42,23 @@ namespace SyncingSyllabi.WebApi.Controllers
 
                 if (item != null)
                 {
-                    response.Data.Item = item;
+                    var itemResult = new SyllabusDataOutputModel()
+                    {
+                        Id = item.Id,
+                        UserId = item.UserId,
+                        ClassCode = item.ClassCode,
+                        ClassName = item.ClassName,
+                        TeacherName = item.TeacherName,
+                        ColorInHex = item.ColorInHex,
+                        ClassSchedule = item.ClassSchedule.Split("|").ToList(),
+                        CreatedBy = item.CreatedBy,
+                        DateCreated = item.DateCreated,
+                        UpdatedBy = item.UpdatedBy,
+                        DateUpdated = item.DateUpdated,
+                        IsActive = item.IsActive
+                    };
+
+                    response.Data.Item = itemResult;
                 }
                 else
                 {
@@ -70,7 +86,23 @@ namespace SyncingSyllabi.WebApi.Controllers
 
                 if (item != null)
                 {
-                    response.Data.Item = item;
+                    var itemResult = new SyllabusDataOutputModel()
+                    {
+                        Id = item.Id,
+                        UserId = item.UserId,
+                        ClassCode = item.ClassCode,
+                        ClassName = item.ClassName,
+                        TeacherName = item.TeacherName,
+                        ColorInHex = item.ColorInHex,
+                        ClassSchedule = item.ClassSchedule.Split("|").ToList(),
+                        CreatedBy = item.CreatedBy,
+                        DateCreated = item.DateCreated,
+                        UpdatedBy = item.UpdatedBy,
+                        DateUpdated = item.DateUpdated,
+                        IsActive = item.IsActive
+                    };
+
+                    response.Data.Item = itemResult;
                 }
                 else
                 {
@@ -98,7 +130,23 @@ namespace SyncingSyllabi.WebApi.Controllers
 
                 if (item != null)
                 {
-                    response.Data.Item = item;
+                    var itemResult = new SyllabusDataOutputModel()
+                    {
+                        Id = item.Id,
+                        UserId = item.UserId,
+                        ClassCode = item.ClassCode,
+                        ClassName = item.ClassName,
+                        TeacherName = item.TeacherName,
+                        ColorInHex = item.ColorInHex,
+                        ClassSchedule = item.ClassSchedule.Split("|").ToList(),
+                        CreatedBy = item.CreatedBy,
+                        DateCreated = item.DateCreated,
+                        UpdatedBy = item.UpdatedBy,
+                        DateUpdated = item.DateUpdated,
+                        IsActive = item.IsActive
+                    };
+
+                    response.Data.Item = itemResult;
                 }
                 else
                 {
