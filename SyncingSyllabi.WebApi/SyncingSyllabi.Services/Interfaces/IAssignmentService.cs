@@ -9,5 +9,7 @@ namespace SyncingSyllabi.Services.Interfaces
     public interface IAssignmentService
     {
         AssignmentDto CreateAssignment(AssignmentRequestModel assignmentRequestModel);
+        AssignmentDto UpdateAssignment(AssignmentRequestModel assignmentRequestModel);
+        AssignmentDto GetAssignment(long assignmentId, long userId);
     }
 }

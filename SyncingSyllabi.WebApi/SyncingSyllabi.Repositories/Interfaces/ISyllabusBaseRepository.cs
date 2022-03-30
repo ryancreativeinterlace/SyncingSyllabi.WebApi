@@ -9,5 +9,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
     {
         SyllabusDto CreateSyllabus(SyllabusDto syllabusDto);
         SyllabusDto UpdateSyllabus(SyllabusDto syllabusDto);
+        SyllabusDto GetSyllabus(long syllabusId, long userId);
     }
 }

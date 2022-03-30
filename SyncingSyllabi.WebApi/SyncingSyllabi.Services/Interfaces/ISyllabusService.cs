@@ -10,5 +10,6 @@ namespace SyncingSyllabi.Services.Interfaces
     {
         SyllabusDto CreateSyllabus(SyllabusRequestModel syllabusRequestModel);
         SyllabusDto UpdateSyllabus(SyllabusRequestModel syllabusRequestModel);
+        SyllabusDto GetSyllabus(long syllabusId, long userId);
     }
 }

@@ -16,7 +16,17 @@ namespace SyncingSyllabi.Data.Models.Response
 
     public class SyllabusResponseDataModel
     {
-        public SyllabusModel Item { get; set; }
+        public SyllabusDataOutputModel Item { get; set; }
         public bool Success { get; set; } = true;
+    }
+
+    public class SyllabusDataOutputModel : BaseTrackedModel
+    {
+        public Int64 UserId { get; set; }
+        public string ClassCode { get; set; }
+        public string ClassName { get; set; }
+        public string TeacherName { get; set; }
+        public IEnumerable<string> ClassSchedule { get; set; }
+        public string ColorInHex { get; set; }
     }
 }
