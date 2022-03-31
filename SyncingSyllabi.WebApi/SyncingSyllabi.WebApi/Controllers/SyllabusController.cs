@@ -167,6 +167,8 @@ namespace SyncingSyllabi.WebApi.Controllers
         {
             try
             {
+                var error = new List<string>();
+
                 var result = _syllabusService.GetSyllabusDetailsList(syllabusRequestModel);
 
                 var response = new SyllabusListResponseModel();
@@ -177,6 +179,10 @@ namespace SyncingSyllabi.WebApi.Controllers
                 }
                 else
                 {
+
+                    error.Add("No result or UserId dont Exist,");
+
+                    response.Errors = error;
                     response.Data.Success = false;
                 }
 
