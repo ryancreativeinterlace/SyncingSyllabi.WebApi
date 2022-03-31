@@ -2,10 +2,12 @@
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
+using SyncingSyllabi.Data.Models.Response;
 using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SyncingSyllabi.Services.Services
@@ -79,6 +81,14 @@ namespace SyncingSyllabi.Services.Services
             getSyllabusResult = _syllabusBaseRepository.GetSyllabus(syllabusId, userId);
 
             return getSyllabusResult;
+        }
+
+        public PaginatedResultDto<SyllabusDataOutputModel> GetSyllabusDetailsList(SyllabusRequestModel syllabusRequestModel)
+        {
+            var paginationDto = syllabusRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(syllabusRequestModel.Pagination) : null;
+            var sortColumnDto = syllabusRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
+
+            return _syllabusBaseRepository.GetSyllabusDetailsList(syllabusRequestModel.UserId, sortColumnDto, paginationDto);
         }
     }
 }

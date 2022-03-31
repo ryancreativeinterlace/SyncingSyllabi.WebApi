@@ -1,5 +1,9 @@
-﻿using SyncingSyllabi.Contexts.Entities;
+﻿using SyncingSyllabi.Common.Tools.Extensions;
+using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
+using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -98,6 +102,63 @@ namespace SyncingSyllabi.Repositories.Repositories
             });
 
             return result;
+        }
+
+        public PaginatedResultDto<SyllabusDataOutputModel> GetSyllabusDetailsList(long userId, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination)
+        {
+            IEnumerable<SyllabusDataOutputModel> getSyllabusListResult = Enumerable.Empty<SyllabusDataOutputModel>();
+
+            var outputList = new List<SyllabusDataOutputModel>();
+
+            UseDataContext(ctx =>
+            {
+                var getSyllabusList = ctx.Syllabus
+                                     .AsNoTracking()
+                                     .Where(w => 
+                                            w.UserId == userId &&
+                                            w.IsActive.Value)
+                                     .Select(s => _mapper.Map<SyllabusDto>(s))
+                                     .ToList();
+
+                if (getSyllabusList.Count() > 0)
+                {
+                    var getSyllabusData = _mapper.Map<IEnumerable<SyllabusModel>>(getSyllabusList);
+
+                    if(getSyllabusData.Count() > 0)
+                    {
+                        foreach (var item in getSyllabusData)
+                        {
+                            var syllabusItem = new SyllabusDataOutputModel()
+                            {
+                                Id = item.Id,
+                                UserId = item.UserId,
+                                ClassCode = item.ClassCode,
+                                ClassName = item.ClassName,
+                                TeacherName = item.TeacherName,
+                                ClassSchedule = !string.IsNullOrEmpty(item.ClassSchedule) ? item.ClassSchedule.Split("|").ToList() : null,
+                                ColorInHex = item.ColorInHex,
+                                CreatedBy = item.CreatedBy,
+                                DateCreated = item.DateCreated,
+                                UpdatedBy = item.UpdatedBy,
+                                DateUpdated = item.DateUpdated,
+                                IsActive = item.IsActive
+
+                            };
+
+                            outputList.Add(syllabusItem);
+                        }
+                    }
+
+                    getSyllabusListResult = outputList;
+                }
+
+                if (sortColumn.Count() > 0)
+                {
+                    getSyllabusListResult = getSyllabusListResult.MultipleSort<SyllabusDataOutputModel>(sortColumn.ToList(), SortTypeEnum.Syllabus).ToList();
+                }
+            });
+
+            return getSyllabusListResult.Page(pagination);
         }
     }
 }

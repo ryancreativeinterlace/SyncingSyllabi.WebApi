@@ -1,6 +1,7 @@
 ﻿using SyncingSyllabi.Common.Tools.Extensions;
 using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
 using SyncingSyllabi.Data.Models.Core;
 using System;
 using System.Collections.Generic;
@@ -126,7 +127,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 
                 if(sortColumn.Count() > 0)
                 {
-                    getGoalListResult = getGoalListResult.MultipleSort<GoalModel>(sortColumn.ToList()).ToList();
+                    getGoalListResult = getGoalListResult.MultipleSort<GoalModel>(sortColumn.ToList(), SortTypeEnum.Goal).ToList();
                 }
             });
 

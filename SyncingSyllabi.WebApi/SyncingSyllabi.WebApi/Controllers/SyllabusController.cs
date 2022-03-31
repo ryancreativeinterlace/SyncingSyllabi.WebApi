@@ -160,5 +160,32 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("GetSyllabusDetailsList")]
+        public IActionResult GetSyllabusDetailsList([FromBody] SyllabusRequestModel syllabusRequestModel)
+        {
+            try
+            {
+                var result = _syllabusService.GetSyllabusDetailsList(syllabusRequestModel);
+
+                var response = new SyllabusListResponseModel();
+
+                if (result.Items.Count() > 0)
+                {
+                    response.Data = result;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
