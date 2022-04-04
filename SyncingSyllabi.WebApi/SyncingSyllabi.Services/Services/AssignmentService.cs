@@ -90,5 +90,10 @@ namespace SyncingSyllabi.Services.Services
 
             return _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, sortColumnDto, paginationDto, dateRangeDto);
         }
+
+        public bool DeleteAssignment(long assignmentId, long userId)
+        {
+            return _assignmentBaseRepository.DeleteAssignment(assignmentId, userId);
+        }
     }
 }

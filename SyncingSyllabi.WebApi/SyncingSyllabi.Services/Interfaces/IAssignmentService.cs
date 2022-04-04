@@ -13,5 +13,6 @@ namespace SyncingSyllabi.Services.Interfaces
         AssignmentDto UpdateAssignment(AssignmentRequestModel assignmentRequestModel);
         AssignmentDto GetAssignment(long assignmentId, long userId);
         AssignmentListResponseModel GetAssignmentDetailsList(AssignmentRequestModel assignmentRequestModel);
+        bool DeleteAssignment(long assignmentId, long userId);
     }
 }
