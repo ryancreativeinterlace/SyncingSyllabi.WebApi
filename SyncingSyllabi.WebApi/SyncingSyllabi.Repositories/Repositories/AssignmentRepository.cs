@@ -103,22 +103,38 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
-        public AssignmentListResponseModel GetAssignmentDetailsList(long userId, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination)
+        public AssignmentListResponseModel GetAssignmentDetailsList(long userId, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination, DateRangeDto dateRange)
         {
             var result = new AssignmentListResponseModel();
 
             var errorList = new List<string>();
 
+            var getAssignmentList = new List<AssignmentDto>();
+
             IEnumerable<AssignmentModel> getAssignmentListResult = Enumerable.Empty<AssignmentModel>();
 
             UseDataContext(ctx =>
             {
-                var getAssignmentList = ctx.Assignments
-                                         .AsNoTracking()
-                                         .Where(w => w.UserId == userId &&
-                                                w.IsActive.Value)
-                                         .Select(s => _mapper.Map<AssignmentDto>(s))
-                                         .ToList();
+                if(dateRange == null)
+                {
+
+                    getAssignmentList = ctx.Assignments
+                                        .AsNoTracking()
+                                        .Where(w => w.UserId == userId &&
+                                               w.IsActive.Value)
+                                        .Select(s => _mapper.Map<AssignmentDto>(s))
+                                        .ToList();
+                }
+                else
+                {
+                    getAssignmentList = ctx.Assignments
+                                       .AsNoTracking()
+                                       .Where(w => w.UserId == userId &&
+                                              w.IsActive.Value &&
+                                              w.AssignmentDateEnd >= dateRange.StartDate && w.AssignmentDateEnd <= dateRange.EndDate)
+                                       .Select(s => _mapper.Map<AssignmentDto>(s))
+                                       .ToList();
+                }
 
                 if (getAssignmentList.Count() > 0)
                 {

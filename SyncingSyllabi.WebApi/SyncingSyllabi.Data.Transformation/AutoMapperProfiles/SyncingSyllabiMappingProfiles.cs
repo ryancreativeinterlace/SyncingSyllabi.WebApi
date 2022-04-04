@@ -18,6 +18,7 @@ namespace SyncingSyllabi.Data.Transformation.AutoMapperProfiles
             CreateMap<UserEmailTrackingDto, UserEmailTrackingModel>(MemberList.None).ReverseMap();
             CreateMap<SyllabusDto, SyllabusModel>(MemberList.None).ReverseMap();
             CreateMap<AssignmentDto, AssignmentModel>(MemberList.None).ReverseMap();
+            CreateMap<DateRangeDto, DateRangeModel>(MemberList.None).ReverseMap();
         }
     }
 }

@@ -86,8 +86,9 @@ namespace SyncingSyllabi.Services.Services
         {
             var paginationDto = assignmentRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(assignmentRequestModel.Pagination) : null;
             var sortColumnDto = assignmentRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
+            var dateRangeDto = assignmentRequestModel.DateRange.StartDate != null ? _mapper.Map<DateRangeDto>(assignmentRequestModel.DateRange) : null;
 
-            return _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, sortColumnDto, paginationDto);
+            return _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, sortColumnDto, paginationDto, dateRangeDto);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace SyncingSyllabi.Contexts.Loaders
             config.CreateMap<UserEmailTrackingDto, UserEmailTrackingModel>(MemberList.None).ReverseMap();
             config.CreateMap<SyllabusDto, SyllabusModel>(MemberList.None).ReverseMap();
             config.CreateMap<AssignmentDto, AssignmentModel>(MemberList.None).ReverseMap();
+            config.CreateMap<DateRangeDto, DateRangeModel>(MemberList.None).ReverseMap();
 
             var mapperConfig = new MapperConfiguration(config);
             mapperConfig.AssertConfigurationIsValid();

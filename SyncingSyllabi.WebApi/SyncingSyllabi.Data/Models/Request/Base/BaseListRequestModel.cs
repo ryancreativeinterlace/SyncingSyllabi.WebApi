@@ -12,12 +12,14 @@ namespace SyncingSyllabi.Data.Models.Request.Base
         {
             Pagination = new PaginationModel();
             Sort = Enumerable.Empty<SortColumnModel>();
+            DateRange = new DateRangeModel();
 
             //FilterCriteria = Enumerable.Empty<FilterCriteriaModel>();
         }
 
         public PaginationModel Pagination { get; set; }
         public IEnumerable<SortColumnModel> Sort { get; set; }
+        public DateRangeModel DateRange { get; set; }
 
         //public IEnumerable<FilterCriteriaModel> FilterCriteria { get; set; }
     }
