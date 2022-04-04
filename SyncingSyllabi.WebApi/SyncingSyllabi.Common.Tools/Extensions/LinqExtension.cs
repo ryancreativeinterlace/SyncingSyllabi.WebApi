@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static SyncingSyllabi.Data.Constants.AssignmentConstants;
 using static SyncingSyllabi.Data.Constants.GoalConstants;
 using static SyncingSyllabi.Data.Constants.SyllabusConstants;
 
@@ -78,6 +79,10 @@ namespace SyncingSyllabi.Common.Tools.Extensions
                 {
                     case SortTypeEnum.Syllabus:
                          fieldName = SyllabusFieldsIds.GetName(sortColumn[i].FieldCode);
+                    break;
+
+                    case SortTypeEnum.Assignment:
+                        fieldName = AssignmentFieldsIds.GetName(sortColumn[i].FieldCode);
                     break;
 
                     case SortTypeEnum.Goal:

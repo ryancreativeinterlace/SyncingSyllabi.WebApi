@@ -2,10 +2,12 @@
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
+using SyncingSyllabi.Data.Models.Response;
 using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SyncingSyllabi.Services.Services
@@ -78,6 +80,14 @@ namespace SyncingSyllabi.Services.Services
             getAssignmentResult = _assignmentBaseRepository.GetAssignment(assignmentId, userId);
 
             return getAssignmentResult;
+        }
+
+        public AssignmentListResponseModel GetAssignmentDetailsList(AssignmentRequestModel assignmentRequestModel)
+        {
+            var paginationDto = assignmentRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(assignmentRequestModel.Pagination) : null;
+            var sortColumnDto = assignmentRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
+
+            return _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, sortColumnDto, paginationDto);
         }
     }
 }

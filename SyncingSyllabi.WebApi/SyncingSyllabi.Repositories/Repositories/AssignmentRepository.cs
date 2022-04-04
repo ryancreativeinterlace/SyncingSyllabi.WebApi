@@ -1,5 +1,9 @@
-﻿using SyncingSyllabi.Contexts.Entities;
+﻿using SyncingSyllabi.Common.Tools.Extensions;
+using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
+using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -94,6 +98,53 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 result = _mapper.Map<AssignmentDto>(getAssignment);
 
+            });
+
+            return result;
+        }
+
+        public AssignmentListResponseModel GetAssignmentDetailsList(long userId, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination)
+        {
+            var result = new AssignmentListResponseModel();
+
+            var errorList = new List<string>();
+
+            IEnumerable<AssignmentModel> getAssignmentListResult = Enumerable.Empty<AssignmentModel>();
+
+            UseDataContext(ctx =>
+            {
+                var getAssignmentList = ctx.Assignments
+                                         .AsNoTracking()
+                                         .Where(w => w.UserId == userId &&
+                                                w.IsActive.Value)
+                                         .Select(s => _mapper.Map<AssignmentDto>(s))
+                                         .ToList();
+
+                if (getAssignmentList.Count() > 0)
+                {
+                    getAssignmentListResult = _mapper.Map<IEnumerable<AssignmentModel>>(getAssignmentList);
+
+                    if (sortColumn.Count() > 0)
+                    {
+                        getAssignmentListResult = getAssignmentListResult.MultipleSort<AssignmentModel>(sortColumn.ToList(), SortTypeEnum.Assignment).ToList();
+                    }
+
+                    if (getAssignmentListResult.Count() > 0)
+                    {
+                        result.Data = getAssignmentListResult.Page(pagination);
+                    }
+                }
+                else
+                {
+                    errorList.Add("No result");
+                }
+
+                if(errorList.Count > 0)
+                {
+                    result.Errors = errorList;
+                    result.Data.Success = false;
+                }
+                
             });
 
             return result;
