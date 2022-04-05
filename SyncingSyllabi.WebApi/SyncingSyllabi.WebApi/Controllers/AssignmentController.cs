@@ -137,7 +137,7 @@ namespace SyncingSyllabi.WebApi.Controllers
             {
                 var result = _assignmentService.DeleteAssignment(assignmentId, userId);
 
-                var response = new DeleteAssignmentResponseModel();
+                var response = new DeleteResponseModel();
 
                 response.Data.Success = result;
 

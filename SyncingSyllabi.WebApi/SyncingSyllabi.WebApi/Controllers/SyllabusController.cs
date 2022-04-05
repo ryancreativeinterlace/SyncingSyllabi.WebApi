@@ -196,13 +196,13 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpGet]
         [Route("DeleteSyllabus/{syllabusId}/{userId}")]
-        public IActionResult DeleteAssignment(long syllabusId, long userId)
+        public IActionResult DeleteSyllabus(long syllabusId, long userId)
         {
             try
             {
                 var result = _syllabusService.DeleteSyllabus(syllabusId, userId);
 
-                var response = new DeleteAssignmentResponseModel();
+                var response = new DeleteResponseModel();
 
                 response.Data.Success = result;
 

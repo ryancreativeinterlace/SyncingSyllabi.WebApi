@@ -124,5 +124,10 @@ namespace SyncingSyllabi.Services.Services
 
             return _goalBaseRepository.GetGoalDetailsList(goalRequestModel.UserId, sortColumnDto, paginationDto);
         }
+
+        public bool DeleteGoal(long goalId, long userId)
+        {
+            return _goalBaseRepository.DeleteGoal(goalId, userId);
+        }
     }
 }

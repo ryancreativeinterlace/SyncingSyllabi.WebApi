@@ -133,5 +133,36 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             return getGoalListResult.Page(pagination);
         }
+
+        public bool DeleteGoal(long goalId, long userId)
+        {
+            bool result = false;
+
+            UseDataContext(ctx =>
+            {
+
+                var getGoal = ctx.Goals
+                              .AsNoTracking()
+                              .Where(w => w.Id == goalId && w.UserId == userId && w.IsActive.Value)
+                              .Select(s => _mapper.Map<GoalEntity>(s))
+                              .FirstOrDefault();
+
+                if (getGoal != null)
+                {
+                    getGoal.IsActive = false;
+
+                    getGoal.FillCreated(getGoal.UserId);
+                    getGoal.FillUpdated(getGoal.UserId);
+
+                    ctx.Goals.Update(getGoal);
+
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+            });
+
+            return result;
+        }
     }
 }

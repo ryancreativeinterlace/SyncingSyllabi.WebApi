@@ -5,15 +5,15 @@ using System.Text;
 
 namespace SyncingSyllabi.Data.Models.Response
 {
-    public class DeleteAssignmentResponseModel : BaseResponseModel<DeleteAssignmentDataModel>
+    public class DeleteResponseModel : BaseResponseModel<DeleteDataModel>
     {
-        public DeleteAssignmentResponseModel()
+        public DeleteResponseModel()
         {
-            Data = new DeleteAssignmentDataModel();
+            Data = new DeleteDataModel();
         }
     }
 
-    public class DeleteAssignmentDataModel
+    public class DeleteDataModel
     {
         public bool Success { get; set; } = true;
     }
