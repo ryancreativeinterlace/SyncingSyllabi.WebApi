@@ -24,7 +24,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 var getGoal = ctx.Goals
                              .AsNoTracking()
                              .Where(w => w.UserId == goal.UserId &&
-                                    w.GoalTitle.ToLower() == goal.GoalTitle.ToLower())
+                                    w.GoalDescription.ToLower() == goal.GoalDescription.ToLower())
                              .Select(s => _mapper.Map<GoalEntity>(s))
                              .FirstOrDefault();
 
