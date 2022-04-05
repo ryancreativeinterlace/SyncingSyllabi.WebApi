@@ -90,5 +90,10 @@ namespace SyncingSyllabi.Services.Services
 
             return _syllabusBaseRepository.GetSyllabusDetailsList(syllabusRequestModel.UserId, sortColumnDto, paginationDto);
         }
+
+        public bool DeleteSyllabus(long syllabusId, long userId)
+        {
+            return _syllabusBaseRepository.DeleteSyllabus(syllabusId, userId);
+        }
     }
 }

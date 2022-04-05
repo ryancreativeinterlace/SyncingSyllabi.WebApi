@@ -13,5 +13,6 @@ namespace SyncingSyllabi.Services.Interfaces
         SyllabusDto UpdateSyllabus(SyllabusRequestModel syllabusRequestModel);
         SyllabusDto GetSyllabus(long syllabusId, long userId);
         PaginatedResultDto<SyllabusDataOutputModel> GetSyllabusDetailsList(SyllabusRequestModel syllabusRequestModel);
+        bool DeleteSyllabus(long syllabusId, long userId);
     }
 }

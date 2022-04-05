@@ -160,5 +160,36 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             return getSyllabusListResult.Page(pagination);
         }
+
+        public bool DeleteSyllabus(long syllabusId, long userId)
+        {
+            bool result = false;
+
+            UseDataContext(ctx =>
+            {
+
+                var getSyllabus = ctx.Syllabus
+                                  .AsNoTracking()
+                                  .Where(w => w.Id == syllabusId && w.UserId == userId && w.IsActive.Value)
+                                  .Select(s => _mapper.Map<SyllabusEntity>(s))
+                                  .FirstOrDefault();
+
+                if (getSyllabus != null)
+                {
+                    getSyllabus.IsActive = false;
+
+                    getSyllabus.FillCreated(getSyllabus.UserId);
+                    getSyllabus.FillUpdated(getSyllabus.UserId);
+
+                    ctx.Syllabus.Update(getSyllabus);
+
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+            });
+
+            return result;
+        }
     }
 }
