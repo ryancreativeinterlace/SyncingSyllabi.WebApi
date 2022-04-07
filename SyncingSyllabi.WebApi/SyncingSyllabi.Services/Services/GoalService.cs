@@ -81,7 +81,7 @@ namespace SyncingSyllabi.Services.Services
             goalModel.GoalType = goalRequestModel.GoalType != null ? (GoalTypeEnum)goalRequestModel.GoalType : 0;
             goalModel.IsActive = goalRequestModel.IsActive ?? null;
             goalModel.IsCompleted = goalRequestModel.IsCompleted ?? null;
-            goalModel.IsArchived = goalRequestModel.IsAchieved ?? null;
+            goalModel.IsArchived = goalRequestModel.IsArchived ?? null;
 
             switch (goalRequestModel.GoalType)
             {

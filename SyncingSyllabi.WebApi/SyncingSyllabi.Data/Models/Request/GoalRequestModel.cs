@@ -17,6 +17,6 @@ namespace SyncingSyllabi.Data.Models.Request
         public DateTime? GoalDateEnd { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsCompleted { get; set; }
-        public bool? IsAchieved { get; set; }
+        public bool? IsArchived { get; set; }
     }
 }
