@@ -41,6 +41,7 @@ namespace SyncingSyllabi.Data.Constants
             public const int AssignmentDateStart = 6;
             public const int AssignmentDateEnd = 7;
             public const int IsActive = 8;
+            public const int AssignmentTitle = 9;
 
             public int[] All()
             {
@@ -53,7 +54,8 @@ namespace SyncingSyllabi.Data.Constants
                     ColorInHex,
                     AssignmentDateStart,
                     AssignmentDateEnd,
-                    IsActive
+                    IsActive,
+                    AssignmentTitle
                 };
             }
 
@@ -68,7 +70,8 @@ namespace SyncingSyllabi.Data.Constants
                     ColorInHex,
                     AssignmentDateStart,
                     AssignmentDateEnd,
-                    IsActive
+                    IsActive,
+                    AssignmentTitle
                 };
             }
 
@@ -99,6 +102,7 @@ namespace SyncingSyllabi.Data.Constants
                     case AssignmentDateStart: return "Assignment Date Start";
                     case AssignmentDateEnd: return "Assignment Date End";
                     case IsActive: return "Active";
+                    case AssignmentTitle: return "Assignment Title";
 
                     default: return "Unknown";
                 }
@@ -116,6 +120,7 @@ namespace SyncingSyllabi.Data.Constants
                     case AssignmentDateEnd: return assignment.AssignmentDateEnd.Value.ToString("M/d/yyyy h:mm:ss tt") ?? string.Empty;
                     case ColorInHex: return assignment.ColorInHex ?? string.Empty;
                     case IsActive: return assignment.IsActive.ToString() ?? string.Empty;
+                    case AssignmentTitle: return assignment.AssignmentTitle.ToString() ?? string.Empty;
 
                     default: return string.Empty;
                 }
