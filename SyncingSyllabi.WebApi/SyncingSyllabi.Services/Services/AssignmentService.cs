@@ -55,6 +55,7 @@ namespace SyncingSyllabi.Services.Services
             AssignmentDto creteAssignmentResult = null;
 
             var assignmentModel = new AssignmentModel();
+            assignmentModel.Id = assignmentRequestModel.AssignmentId;
             assignmentModel.UserId = assignmentRequestModel.UserId;
             assignmentModel.SyllabusId = assignmentRequestModel.SyllabusId;
             assignmentModel.Notes = !string.IsNullOrEmpty(assignmentRequestModel.Notes) ? assignmentRequestModel.Notes.Trim() : string.Empty;
