@@ -22,6 +22,7 @@ namespace SyncingSyllabi.Contexts.Mappings
 
             builder.Property(e => e.SyllabusId).HasColumnName("syllabus_id");
             builder.Property(e => e.UserId).HasColumnName("user_id");
+            builder.Property(e => e.AssignmentTitle).HasColumnName("assignment_title");
             builder.Property(e => e.Notes).HasColumnName("notes");
             builder.Property(e => e.AssignmentDateStart).HasColumnName("assignment_date_start");
             builder.Property(e => e.AssignmentDateEnd).HasColumnName("assignment_date_end");

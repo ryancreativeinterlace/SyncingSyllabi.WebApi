@@ -3,6 +3,7 @@
 	id bigint IDENTITY(1,1) PRIMARY KEY,
 	syllabus_id bigint NULL,
 	[user_id] bigint NULL,
+	assignment_title varchar(100) NULL,
 	notes varchar(500) NULL,
 	assignment_date_start datetime NULL,
 	assignment_date_end datetime NULL,
@@ -22,6 +23,9 @@ ON assignments(syllabus_id);
 
 CREATE INDEX idx_assignments_user_id
 ON assignments(user_id);
+
+CREATE INDEX idx_assignments_title
+ON assignments(assignment_title);
 
 CREATE INDEX idx_assignments_assignment_date_start
 ON assignments(assignment_date_start);

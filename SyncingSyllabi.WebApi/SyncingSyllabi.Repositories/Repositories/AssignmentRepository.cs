@@ -25,8 +25,8 @@ namespace SyncingSyllabi.Repositories.Repositories
                 var getAssignment = ctx.Assignments
                                      .AsNoTracking()
                                      .Where(w =>
+                                            w.Id == assignment.Id &&
                                             w.UserId == assignment.UserId &&
-                                            w.SyllabusId == assignment.SyllabusId &&
                                             w.IsActive.Value)
                                      .Select(s => _mapper.Map<AssignmentEntity>(s))
                                      .FirstOrDefault();
@@ -63,6 +63,8 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 if (getAssignment != null)
                 {
+                    getAssignment.SyllabusId = assignment.SyllabusId != 0 ? assignment.SyllabusId : getAssignment.SyllabusId;
+                    getAssignment.AssignmentTitle = !string.IsNullOrEmpty(assignment.AssignmentTitle) ? assignment.AssignmentTitle : getAssignment.AssignmentTitle;
                     getAssignment.Notes = !string.IsNullOrEmpty(assignment.Notes) ? assignment.Notes : getAssignment.Notes;
                     getAssignment.ColorInHex = !string.IsNullOrEmpty(assignment.ColorInHex) ? assignment.ColorInHex : getAssignment.ColorInHex;
                     getAssignment.AssignmentDateStart = assignment.AssignmentDateStart ?? getAssignment.AssignmentDateStart;

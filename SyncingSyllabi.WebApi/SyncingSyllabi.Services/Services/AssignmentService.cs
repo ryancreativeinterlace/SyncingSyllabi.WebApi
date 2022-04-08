@@ -33,7 +33,8 @@ namespace SyncingSyllabi.Services.Services
 
             var assignmentModel = new AssignmentModel();
             assignmentModel.UserId = assignmentRequestModel.UserId;
-            assignmentModel.SyllabusId = assignmentRequestModel.SyllabusId;
+            assignmentModel.SyllabusId = assignmentRequestModel.SyllabusId ?? 0;
+            assignmentModel.AssignmentTitle = !string.IsNullOrEmpty(assignmentRequestModel.AssignmentTitle) ? assignmentRequestModel.AssignmentTitle.Trim() : string.Empty;
             assignmentModel.Notes = !string.IsNullOrEmpty(assignmentRequestModel.Notes) ? assignmentRequestModel.Notes.Trim() : string.Empty;
             assignmentModel.ColorInHex = !string.IsNullOrEmpty(assignmentRequestModel.ColorInHex) ? assignmentRequestModel.ColorInHex.Trim() : string.Empty;
             assignmentModel.AssignmentDateStart = DateTime.Now;
@@ -57,7 +58,8 @@ namespace SyncingSyllabi.Services.Services
             var assignmentModel = new AssignmentModel();
             assignmentModel.Id = assignmentRequestModel.AssignmentId;
             assignmentModel.UserId = assignmentRequestModel.UserId;
-            assignmentModel.SyllabusId = assignmentRequestModel.SyllabusId;
+            assignmentModel.SyllabusId = assignmentRequestModel.SyllabusId ?? 0;
+            assignmentModel.AssignmentTitle = !string.IsNullOrEmpty(assignmentRequestModel.AssignmentTitle) ? assignmentRequestModel.AssignmentTitle.Trim() : string.Empty;
             assignmentModel.Notes = !string.IsNullOrEmpty(assignmentRequestModel.Notes) ? assignmentRequestModel.Notes.Trim() : string.Empty;
             assignmentModel.ColorInHex = !string.IsNullOrEmpty(assignmentRequestModel.ColorInHex) ? assignmentRequestModel.ColorInHex.Trim() : string.Empty;
             assignmentModel.AssignmentDateStart = assignmentRequestModel.AssignmentDateStart ?? null;
