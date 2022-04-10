@@ -155,13 +155,17 @@ namespace SyncingSyllabi.Repositories.Repositories
         {
             try
             {
-                string safeFileName = GetWebSafeFileName(fileName);
-
                 var request = new GetPreSignedUrlRequest();
                 request.BucketName = $"{_s3Settings.BucketName}{directory}";
                 request.Key = externalKey;
-                request.ResponseHeaderOverrides.ContentType = contentType;
-                request.ResponseHeaderOverrides.ContentDisposition = $"attachment; filename={safeFileName}";
+                
+                if(!string.IsNullOrEmpty(contentType))
+                {
+                    string safeFileName = GetWebSafeFileName(fileName);
+                    request.ResponseHeaderOverrides.ContentType = contentType;
+                    request.ResponseHeaderOverrides.ContentDisposition = $"attachment; filename={safeFileName}";
+                }
+              
                 request.Expires = expiry;
 
                 IAmazonS3 client = CreateS3Client();
