@@ -81,7 +81,7 @@ namespace SyncingSyllabi.Services.Services
             goalModel.GoalType = goalRequestModel.GoalType != null ? (GoalTypeEnum)goalRequestModel.GoalType : 0;
             goalModel.IsActive = goalRequestModel.IsActive ?? null;
             goalModel.IsCompleted = goalRequestModel.IsCompleted ?? null;
-            goalModel.IsArchived = goalRequestModel.IsAchieved ?? null;
+            goalModel.IsArchived = goalRequestModel.IsArchived ?? null;
 
             switch (goalRequestModel.GoalType)
             {
@@ -123,6 +123,11 @@ namespace SyncingSyllabi.Services.Services
             var sortColumnDto = goalRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
 
             return _goalBaseRepository.GetGoalDetailsList(goalRequestModel.UserId, sortColumnDto, paginationDto);
+        }
+
+        public bool DeleteGoal(long goalId, long userId)
+        {
+            return _goalBaseRepository.DeleteGoal(goalId, userId);
         }
     }
 }

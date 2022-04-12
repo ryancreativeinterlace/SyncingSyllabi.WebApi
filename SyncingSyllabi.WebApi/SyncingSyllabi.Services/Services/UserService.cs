@@ -77,7 +77,7 @@ namespace SyncingSyllabi.Services.Services
                     _s3FileRepository.UploadFile(_s3Settings.UserFileDirectory, fileName, fileBytes);
                 }
 
-                userModel.ImageName = $"{fileName}{Path.GetExtension(userRequestModel.ImageFile.FileName)}";
+                userModel.ImageName = fileName;
                 userModel.ImageUrl = $"{_s3Settings.UserFileDirectory}/{userModel.ImageName}";
             }
 
@@ -86,6 +86,12 @@ namespace SyncingSyllabi.Services.Services
             if(user != null)
             {
                 createUserResult = _userBaseRepository.CreateUser(user);
+                
+                if(!string.IsNullOrEmpty(createUserResult.ImageUrl))
+                {
+                    // Get Presigned URL
+                    createUserResult.ImageUrl = _s3FileRepository.GetPreSignedUrl(_s3Settings.UserFileDirectory, createUserResult.ImageName, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+                }
 
                 // Send email verification
                 if(createUserResult != null && !createUserResult.IsGoogle.Value)
@@ -167,7 +173,7 @@ namespace SyncingSyllabi.Services.Services
                     _s3FileRepository.UploadFile(_s3Settings.UserFileDirectory, fileName, fileBytes);
                 }
 
-                userModel.ImageName = $"{fileName}{Path.GetExtension(userRequestModel.ImageFile.FileName)}";
+                userModel.ImageName = fileName;
                 userModel.ImageUrl = $"{_s3Settings.UserFileDirectory}/{userModel.ImageName}";
             }
 
@@ -177,6 +183,12 @@ namespace SyncingSyllabi.Services.Services
             if (user != null)
             {
                 updateUserResult = _userBaseRepository.UpdateUser(user);
+
+                if (!string.IsNullOrEmpty(updateUserResult.ImageUrl))
+                {
+                    // Get Presigned URL
+                    updateUserResult.ImageUrl = _s3FileRepository.GetPreSignedUrl(_s3Settings.UserFileDirectory, updateUserResult.ImageName, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+                }
             }
 
             return updateUserResult;
@@ -186,12 +198,24 @@ namespace SyncingSyllabi.Services.Services
         {
             var userLogin = _userBaseRepository.GetActiveUserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password), authRequestModel.IsGoogle);
 
+            if (!string.IsNullOrEmpty(userLogin.ImageUrl))
+            {
+                // Get Presigned URL
+                userLogin.ImageUrl = _s3FileRepository.GetPreSignedUrl(_s3Settings.UserFileDirectory, userLogin.ImageName, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+            }
+
             return userLogin;
         }
 
         public UserDto UserLogin(AuthRequestModel authRequestModel)
         {
             var userLogin = _userBaseRepository.UserLogin(authRequestModel.Email, EncryptionHelper.EncryptString(authRequestModel.Password), authRequestModel.IsGoogle);
+
+            if (!string.IsNullOrEmpty(userLogin.ImageUrl))
+            {
+                // Get Presigned URL
+                userLogin.ImageUrl = _s3FileRepository.GetPreSignedUrl(_s3Settings.UserFileDirectory, userLogin.ImageName, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+            }
 
             return userLogin;
         }
@@ -200,12 +224,24 @@ namespace SyncingSyllabi.Services.Services
         {
             var userDetail = _userBaseRepository.GetUserById(userId);
 
+            if (!string.IsNullOrEmpty(userDetail.ImageUrl))
+            {
+                // Get Presigned URL
+                userDetail.ImageUrl = _s3FileRepository.GetPreSignedUrl(_s3Settings.UserFileDirectory, userDetail.ImageName, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+            }
+
             return userDetail;
         }
 
         public UserDto GetUserByEmail(string email)
         {
             var userDetail = _userBaseRepository.GetUserByEmail(email);
+
+            if (!string.IsNullOrEmpty(userDetail.ImageUrl))
+            {
+                // Get Presigned URL
+                userDetail.ImageUrl = _s3FileRepository.GetPreSignedUrl(_s3Settings.UserFileDirectory, userDetail.ImageName, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+            }
 
             return userDetail;
         }

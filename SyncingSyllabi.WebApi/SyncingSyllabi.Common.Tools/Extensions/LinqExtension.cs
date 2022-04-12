@@ -1,9 +1,12 @@
 ﻿using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static SyncingSyllabi.Data.Constants.AssignmentConstants;
 using static SyncingSyllabi.Data.Constants.GoalConstants;
+using static SyncingSyllabi.Data.Constants.SyllabusConstants;
 
 namespace SyncingSyllabi.Common.Tools.Extensions
 {
@@ -65,16 +68,29 @@ namespace SyncingSyllabi.Common.Tools.Extensions
             }
         }
 
-        public static IEnumerable<T> MultipleSort<T>(this IEnumerable<T> data, List<SortColumnDto> sortColumn)
+        public static IEnumerable<T> MultipleSort<T>(this IEnumerable<T> data, List<SortColumnDto> sortColumn, SortTypeEnum sortTypeEnum)
         {
             var sortExpressions = new List<Tuple<string, string>>();
             for (int i = 0; i < sortColumn.Count(); i++)
             {
-                var fieldName = GoalFieldsIds.GetName(sortColumn[i].FieldCode);
-                var sortOrder = (sortColumn[i].Direction.Length > 1) ? sortColumn[i].Direction.Trim().ToLower() : "asc";
+                var fieldName = string.Empty;
 
-                //Sort GoalTypeName
-                //fieldName = (fieldName == "GoalTypeName") ? fieldName + "Text" : fieldName;
+                switch (sortTypeEnum)
+                {
+                    case SortTypeEnum.Syllabus:
+                         fieldName = SyllabusFieldsIds.GetName(sortColumn[i].FieldCode);
+                    break;
+
+                    case SortTypeEnum.Assignment:
+                        fieldName = AssignmentFieldsIds.GetName(sortColumn[i].FieldCode);
+                    break;
+
+                    case SortTypeEnum.Goal:
+                        fieldName = GoalFieldsIds.GetName(sortColumn[i].FieldCode);
+                    break;
+                }
+
+                var sortOrder = (sortColumn[i].Direction.Length > 1) ? sortColumn[i].Direction.Trim().ToLower() : "asc";
 
                 sortExpressions.Add(new Tuple<string, string>(fieldName, sortOrder));
             }

@@ -12,5 +12,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
         GoalDto UpdateGoal(GoalDto goalDto);
         GoalDto GetGoalDetails(long goalId);
         PaginatedResultDto<GoalModel> GetGoalDetailsList(long userId, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination);
+        bool DeleteGoal(long goalId, long userId);
     }
 }

@@ -140,5 +140,25 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("DeleteGoal/{goalId}/{userId}")]
+        public IActionResult DeleteGoal(long goalId, long userId)
+        {
+            try
+            {
+                var result = _goalService.DeleteGoal(goalId, userId);
+
+                var response = new DeleteResponseModel();
+
+                response.Data.Success = result;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

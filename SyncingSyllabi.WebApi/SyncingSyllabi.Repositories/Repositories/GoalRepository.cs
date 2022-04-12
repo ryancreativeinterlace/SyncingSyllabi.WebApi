@@ -1,6 +1,7 @@
 ﻿using SyncingSyllabi.Common.Tools.Extensions;
 using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
 using SyncingSyllabi.Data.Models.Core;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 var getGoal = ctx.Goals
                              .AsNoTracking()
-                             .Where(w => w.UserId == goal.UserId &&
-                                    w.GoalTitle.ToLower() == goal.GoalTitle.ToLower())
+                             .Where(w => w.Id == goal.Id)
                              .Select(s => _mapper.Map<GoalEntity>(s))
                              .FirstOrDefault();
 
@@ -126,11 +126,42 @@ namespace SyncingSyllabi.Repositories.Repositories
                 
                 if(sortColumn.Count() > 0)
                 {
-                    getGoalListResult = getGoalListResult.MultipleSort<GoalModel>(sortColumn.ToList()).ToList();
+                    getGoalListResult = getGoalListResult.MultipleSort<GoalModel>(sortColumn.ToList(), SortTypeEnum.Goal).ToList();
                 }
             });
 
             return getGoalListResult.Page(pagination);
+        }
+
+        public bool DeleteGoal(long goalId, long userId)
+        {
+            bool result = false;
+
+            UseDataContext(ctx =>
+            {
+
+                var getGoal = ctx.Goals
+                              .AsNoTracking()
+                              .Where(w => w.Id == goalId && w.UserId == userId && w.IsActive.Value)
+                              .Select(s => _mapper.Map<GoalEntity>(s))
+                              .FirstOrDefault();
+
+                if (getGoal != null)
+                {
+                    getGoal.IsActive = false;
+
+                    getGoal.FillCreated(getGoal.UserId);
+                    getGoal.FillUpdated(getGoal.UserId);
+
+                    ctx.Goals.Update(getGoal);
+
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+            });
+
+            return result;
         }
     }
 }

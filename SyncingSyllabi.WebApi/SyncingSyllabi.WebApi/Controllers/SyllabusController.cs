@@ -160,5 +160,58 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("GetSyllabusDetailsList")]
+        public IActionResult GetSyllabusDetailsList([FromBody] SyllabusRequestModel syllabusRequestModel)
+        {
+            try
+            {
+                var error = new List<string>();
+
+                var result = _syllabusService.GetSyllabusDetailsList(syllabusRequestModel);
+
+                var response = new SyllabusListResponseModel();
+
+                if (result.Items.Count() > 0)
+                {
+                    response.Data = result;
+                }
+                else
+                {
+
+                    error.Add("No result or UserId dont Exist,");
+
+                    response.Errors = error;
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("DeleteSyllabus/{syllabusId}/{userId}")]
+        public IActionResult DeleteSyllabus(long syllabusId, long userId)
+        {
+            try
+            {
+                var result = _syllabusService.DeleteSyllabus(syllabusId, userId);
+
+                var response = new DeleteResponseModel();
+
+                response.Data.Success = result;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -112,5 +112,41 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("GetAssignmentDetailsList")]
+        public IActionResult GetAssignmentDetailsList([FromBody] AssignmentRequestModel assignmentRequestModel)
+        {
+            try
+            {
+                var result = _assignmentService.GetAssignmentDetailsList(assignmentRequestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("DeleteAssignment/{assignmentId}/{userId}")]
+        public IActionResult DeleteAssignment(long assignmentId, long userId)
+        {
+            try
+            {
+                var result = _assignmentService.DeleteAssignment(assignmentId, userId);
+
+                var response = new DeleteResponseModel();
+
+                response.Data.Success = result;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
