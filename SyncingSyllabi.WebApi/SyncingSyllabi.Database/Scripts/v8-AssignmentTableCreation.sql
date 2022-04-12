@@ -12,6 +12,7 @@
 	created_by bigint NULL,
 	date_updated datetime NULL,
 	updated_by bigint NULL,
+	is_completed bit NULL,
 	is_active bit NULL
 );
 
@@ -32,3 +33,6 @@ ON assignments(assignment_date_start);
 
 CREATE INDEX idx_assignments_assignment_date_end
 ON assignments(assignment_date_end);
+
+CREATE INDEX idx_assignments_is_completed
+ON assignments(is_completed);

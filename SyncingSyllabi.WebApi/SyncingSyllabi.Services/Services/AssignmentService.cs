@@ -39,6 +39,7 @@ namespace SyncingSyllabi.Services.Services
             assignmentModel.ColorInHex = !string.IsNullOrEmpty(assignmentRequestModel.ColorInHex) ? assignmentRequestModel.ColorInHex.Trim() : string.Empty;
             assignmentModel.AssignmentDateStart = DateTime.Now;
             assignmentModel.AssignmentDateEnd = assignmentRequestModel.AssignmentDateEnd;
+            assignmentModel.IsCompleted = assignmentRequestModel.IsCompleted ?? null;
             assignmentModel.IsActive = true;
 
             AssignmentDto assignment = _mapper.Map<AssignmentDto>(assignmentModel);
@@ -64,6 +65,7 @@ namespace SyncingSyllabi.Services.Services
             assignmentModel.ColorInHex = !string.IsNullOrEmpty(assignmentRequestModel.ColorInHex) ? assignmentRequestModel.ColorInHex.Trim() : string.Empty;
             assignmentModel.AssignmentDateStart = assignmentRequestModel.AssignmentDateStart ?? null;
             assignmentModel.AssignmentDateEnd = assignmentRequestModel.AssignmentDateEnd ?? null;
+            assignmentModel.IsCompleted = assignmentRequestModel.IsCompleted ?? null;
             assignmentModel.IsActive = assignmentRequestModel.IsActive ?? null;
 
             AssignmentDto assignment = _mapper.Map<AssignmentDto>(assignmentModel);

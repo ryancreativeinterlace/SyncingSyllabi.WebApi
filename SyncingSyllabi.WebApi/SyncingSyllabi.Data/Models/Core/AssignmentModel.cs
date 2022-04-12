@@ -14,5 +14,6 @@ namespace SyncingSyllabi.Data.Models.Core
         public DateTime? AssignmentDateStart { get; set; }
         public DateTime? AssignmentDateEnd { get; set; }
         public string ColorInHex { get; set; }
+        public bool? IsCompleted { get; set; }
     }
 }

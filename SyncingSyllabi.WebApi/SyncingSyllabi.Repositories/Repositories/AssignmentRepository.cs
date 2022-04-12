@@ -69,6 +69,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getAssignment.ColorInHex = !string.IsNullOrEmpty(assignment.ColorInHex) ? assignment.ColorInHex : getAssignment.ColorInHex;
                     getAssignment.AssignmentDateStart = assignment.AssignmentDateStart ?? getAssignment.AssignmentDateStart;
                     getAssignment.AssignmentDateEnd = assignment.AssignmentDateEnd ?? getAssignment.AssignmentDateEnd;
+                    getAssignment.IsCompleted = assignment.IsCompleted ?? getAssignment.IsCompleted;
                     getAssignment.IsActive = assignment.IsActive ?? getAssignment.IsActive;
 
                     getAssignment.FillCreated(getAssignment.UserId);
