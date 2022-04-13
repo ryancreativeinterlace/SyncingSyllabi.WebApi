@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using SyncingSyllabi.Common.Tools.Helpers;
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Data.Models.Response;
+using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Services.Interfaces;
 using System;
@@ -14,16 +16,22 @@ namespace SyncingSyllabi.Services.Services
 {
     public class SyllabusService : ISyllabusService
     {
+        private readonly S3Settings _s3Settings;
         private readonly IMapper _mapper;
+        private readonly IS3FileRepository _s3FileRepository;
         private readonly ISyllabusBaseRepository _syllabusBaseRepository;
 
         public SyllabusService
         (
+            S3Settings s3Settings,
             IMapper mapper,
+            IS3FileRepository s3FileRepository,
             ISyllabusBaseRepository syllabusBaseRepository
         )
         {
+            _s3Settings = s3Settings;
             _mapper = mapper;
+            _s3FileRepository = s3FileRepository;
             _syllabusBaseRepository = syllabusBaseRepository;
         }
 
@@ -41,6 +49,18 @@ namespace SyncingSyllabi.Services.Services
             syllabusModel.IsActive = true;
 
             SyllabusDto syllabus = _mapper.Map<SyllabusDto>(syllabusModel);
+
+            if (syllabusRequestModel.ImageFile != null)
+            {
+                var fileName = Guid.NewGuid().ToString();
+
+                var fileBytes = FileHelper.FileMemoryStreamConverter(syllabusRequestModel.ImageFile);
+
+                if (fileBytes.Length > 0)
+                {
+                    _s3FileRepository.StartDetectAsync(_s3Settings.SyllabusFilesDirectory, fileName, fileBytes).GetAwaiter().GetResult();
+                }
+            }
 
             if (syllabus != null)
             {

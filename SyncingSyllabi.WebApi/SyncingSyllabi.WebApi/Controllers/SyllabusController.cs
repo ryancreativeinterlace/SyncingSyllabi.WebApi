@@ -31,7 +31,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("CreateSyllabus")]
-        public IActionResult CreateSyllabus([FromBody] SyllabusRequestModel syllabusRequestModel)
+        public IActionResult CreateSyllabus([FromForm] SyllabusRequestModel syllabusRequestModel)
         {
             try
             {

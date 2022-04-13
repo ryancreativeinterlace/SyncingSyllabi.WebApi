@@ -8,7 +8,8 @@ using SyncingSyllabi.Data.Constants;
 using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Repositories.Interfaces;
 using System;
-using System.Collections.Generic;
+using Amazon.Textract;
+using Amazon.Textract.Model;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -236,6 +237,31 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 throw (ex);
             }
+        }
+
+        public async Task StartDetectAsync(string directory, string externalKey, byte[] buffer)
+        {
+
+            var awsCredentials = new Amazon.Runtime.BasicAWSCredentials(EncryptionHelper.DecryptString(AwsConstants.AKI), EncryptionHelper.DecryptString(AwsConstants.SAK));
+
+            RegionEndpoint region = RegionEndpoint.GetBySystemName(_s3Settings.Region);
+
+            var textractClient = new AmazonTextractClient(awsCredentials, region);
+            
+            var detectResponse = await textractClient.DetectDocumentTextAsync(new DetectDocumentTextRequest
+            {
+                Document = new Document
+                {
+                    Bytes = new MemoryStream(buffer)
+                }
+            });
+
+            foreach (var block in detectResponse.Blocks)
+            {
+                Console.WriteLine($"Type {block.BlockType}, Text: {block.Text}");
+            }
+
+            await this.UploadFile(directory, externalKey, buffer);
         }
     }
 }

@@ -10,5 +10,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
         Task UploadFile(string directory, string externalKey, byte[] buffer);
         Task<byte[]> DownloadFile(string directory, string externalKey);
         string GetPreSignedUrl(string directory, string externalKey, string contentType, string fileName, DateTime expiry);
+        Task StartDetectAsync(string directory, string externalKey, byte[] buffer);
     }
 }
