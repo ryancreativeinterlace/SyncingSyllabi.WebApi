@@ -36,3 +36,6 @@ ON assignments(assignment_date_end);
 
 CREATE INDEX idx_assignments_is_completed
 ON assignments(is_completed);
+
+CREATE INDEX idx_assignments_is_active
+ON assignments(is_active);
