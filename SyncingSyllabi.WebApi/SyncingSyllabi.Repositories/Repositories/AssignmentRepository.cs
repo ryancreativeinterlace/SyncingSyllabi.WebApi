@@ -106,7 +106,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
-        public AssignmentListResponseModel GetAssignmentDetailsList(long userId, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination, DateRangeDto dateRange)
+        public AssignmentListResponseModel GetAssignmentDetailsList(long userId, bool? isCompleted, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination, DateRangeDto dateRange)
         {
             var result = new AssignmentListResponseModel();
 
@@ -124,7 +124,8 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getAssignmentList = ctx.Assignments
                                         .AsNoTracking()
                                         .Where(w => w.UserId == userId &&
-                                               w.IsActive.Value)
+                                               w.IsActive.Value &&
+                                               w.IsCompleted.Value == isCompleted.Value)
                                         .Select(s => _mapper.Map<AssignmentDto>(s))
                                         .ToList();
                 }
@@ -134,6 +135,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                                        .AsNoTracking()
                                        .Where(w => w.UserId == userId &&
                                               w.IsActive.Value &&
+                                              w.IsCompleted.Value == isCompleted.Value &&
                                               w.AssignmentDateEnd >= dateRange.StartDate && w.AssignmentDateEnd <= dateRange.EndDate)
                                        .Select(s => _mapper.Map<AssignmentDto>(s))
                                        .ToList();

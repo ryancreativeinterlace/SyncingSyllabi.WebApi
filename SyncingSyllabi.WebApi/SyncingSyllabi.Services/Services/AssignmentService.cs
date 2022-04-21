@@ -39,7 +39,7 @@ namespace SyncingSyllabi.Services.Services
             assignmentModel.ColorInHex = !string.IsNullOrEmpty(assignmentRequestModel.ColorInHex) ? assignmentRequestModel.ColorInHex.Trim() : string.Empty;
             assignmentModel.AssignmentDateStart = DateTime.Now;
             assignmentModel.AssignmentDateEnd = assignmentRequestModel.AssignmentDateEnd;
-            assignmentModel.IsCompleted = assignmentRequestModel.IsCompleted ?? null;
+            assignmentModel.IsCompleted = false;
             assignmentModel.IsActive = true;
 
             AssignmentDto assignment = _mapper.Map<AssignmentDto>(assignmentModel);
@@ -93,7 +93,7 @@ namespace SyncingSyllabi.Services.Services
             var sortColumnDto = assignmentRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
             var dateRangeDto = assignmentRequestModel.DateRange.StartDate != null ? _mapper.Map<DateRangeDto>(assignmentRequestModel.DateRange) : null;
 
-            return _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, sortColumnDto, paginationDto, dateRangeDto);
+            return _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
         }
 
         public bool DeleteAssignment(long assignmentId, long userId)
