@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SyncingSyllabi.Common.Tools.Helpers;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Data.Models.Response;
@@ -50,16 +51,16 @@ namespace SyncingSyllabi.Services.Services
 
             SyllabusDto syllabus = _mapper.Map<SyllabusDto>(syllabusModel);
 
-            if (syllabusRequestModel.ImageFile != null)
+            if (syllabusRequestModel.File != null)
             {
                 var fileName = Guid.NewGuid().ToString();
 
-                var fileBytes = FileHelper.FileMemoryStreamConverter(syllabusRequestModel.ImageFile);
+                //var fileBytes = FileHelper.ConvertPdfToImage(syllabusRequestModel.File);
 
-                if (fileBytes.Length > 0)
-                {
-                    _s3FileRepository.StartDetectAsync(_s3Settings.SyllabusFilesDirectory, fileName, fileBytes).GetAwaiter().GetResult();
-                }
+                //if (fileBytes.Length > 0)
+                //{
+                //    _s3FileRepository.SyllabusDetectAsync(_s3Settings.SyllabusFilesDirectory, fileName, fileBytes).GetAwaiter().GetResult();
+                //}
             }
 
             if (syllabus != null)
@@ -114,6 +115,34 @@ namespace SyncingSyllabi.Services.Services
         public bool DeleteSyllabus(long syllabusId, long userId)
         {
             return _syllabusBaseRepository.DeleteSyllabus(syllabusId, userId);
+        }
+
+        public OcrScanReponseDataModel OcrScan(OcrScanRequestModel syllabusRequestModel)
+        {
+            OcrScanReponseDataModel syllabusResult = null;
+
+            if (syllabusRequestModel.ImageFile != null || syllabusRequestModel.PdfFile.Count() > 0)
+            {
+                var fileName = Guid.NewGuid().ToString();
+
+                //var fileBytes = FileHelper.ConvertPdfToImage(syllabusRequestModel.File, syllabusRequestModel.Pages);
+
+                //if (fileBytes.Length > 0)
+                //{
+                //    syllabusResult = _s3FileRepository.SyllabusDetectAsync(_s3Settings.SyllabusFilesDirectory, fileName, fileBytes).GetAwaiter().GetResult();
+                //}
+
+                if(syllabusRequestModel.OcrUploadTypeEnum == OcrUploadTypeEnum.Pdf)
+                {
+                    syllabusResult = _s3FileRepository.SyllabusDetectAsync(null, syllabusRequestModel.PdfFile, syllabusRequestModel.Pages, syllabusRequestModel.OcrTypeEnum).GetAwaiter().GetResult();
+                }
+                else
+                {
+                    syllabusResult = _s3FileRepository.SyllabusDetectAsync(syllabusRequestModel.ImageFile, null, syllabusRequestModel.Pages, syllabusRequestModel.OcrTypeEnum).GetAwaiter().GetResult();
+                }
+            }
+
+            return syllabusResult;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("CreateSyllabus")]
-        public IActionResult CreateSyllabus([FromForm] SyllabusRequestModel syllabusRequestModel)
+        public IActionResult CreateSyllabus([FromBody] SyllabusRequestModel syllabusRequestModel)
         {
             try
             {
@@ -205,6 +205,33 @@ namespace SyncingSyllabi.WebApi.Controllers
                 var response = new DeleteResponseModel();
 
                 response.Data.Success = result;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("OcrScan")]
+        public IActionResult OcrScan([FromForm] OcrScanRequestModel syllabusRequestModel)
+        {
+            try
+            {
+                var result = _syllabusService.OcrScan(syllabusRequestModel);
+
+                var response = new OcrScanResponseModel();
+
+                if(result != null && (result.OcrSyllabusModel != null || result.OcrAssignmentModel != null))
+                {
+                    response.Data = result;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
 
                 return Ok(response);
             }
