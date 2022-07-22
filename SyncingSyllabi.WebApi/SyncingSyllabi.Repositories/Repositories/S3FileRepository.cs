@@ -651,7 +651,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     var line = assignmentAnalyze.Blocks.Where(w => w.BlockType.Value == "LINE").ToList();
 
                     // Loop each row
-                    var counter = assignmentAnalyze.Blocks.Where(w => w.BlockType.Value == "CELL").Select(s => s.RowIndex).GroupBy(gb => new { gb }).Count();
+                    var counter = assignmentAnalyze.Blocks.Where(w => w.BlockType.Value == "CELL").Select(s => s.RowIndex).GroupBy(gb => new { gb }).Count() + 1;
 
                     var deadlineFilter = new List<string>()
                     {
@@ -849,12 +849,12 @@ namespace SyncingSyllabi.Repositories.Repositories
                     //                                }));
                     //}
 
-                    syllabusModel.OcrAssignmentModel = assgnList;
-
                     //syllabusModel.OcrAssignmentModel.AssignmentTitle = assignmentTitleList.GroupBy(gp => gp.Name).Select(s => s.FirstOrDefault()).ToList();
                 }
             }
-           
+
+            syllabusModel.OcrAssignmentModel = assgnList;
+
             //await this.UploadFile(directory, externalKey, buffer);
 
             return syllabusModel;
