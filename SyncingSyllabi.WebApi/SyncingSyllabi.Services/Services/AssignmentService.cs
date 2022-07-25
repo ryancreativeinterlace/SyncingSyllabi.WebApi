@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using SyncingSyllabi.Common.Tools.Helpers;
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Data.Models.Response;
+using SyncingSyllabi.Data.Settings;
 using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Services.Interfaces;
 using System;
@@ -16,15 +18,21 @@ namespace SyncingSyllabi.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IAssignmentBaseRepository _assignmentBaseRepository;
+        private readonly IS3FileRepository _s3FileRepository;
+        private readonly S3Settings _s3Settings;
 
         public AssignmentService
         (
             IMapper mapper,
-            IAssignmentBaseRepository assignmentBaseRepository
+            IAssignmentBaseRepository assignmentBaseRepository,
+            IS3FileRepository s3FileRepository,
+            S3Settings s3Settings
         )
         {
             _mapper = mapper;
             _assignmentBaseRepository = assignmentBaseRepository;
+            _s3FileRepository = s3FileRepository;
+            _s3Settings = s3Settings;
         }
 
         public AssignmentDto CreateAssignment(AssignmentRequestModel assignmentRequestModel)
@@ -41,6 +49,22 @@ namespace SyncingSyllabi.Services.Services
             assignmentModel.AssignmentDateEnd = assignmentRequestModel.AssignmentDateEnd;
             assignmentModel.IsCompleted = false;
             assignmentModel.IsActive = true;
+
+            if(assignmentRequestModel.AttachmentFile != null)
+            {
+                string ext = System.IO.Path.GetExtension(assignmentRequestModel.AttachmentFile.FileName);
+
+                var fileName = $"{Guid.NewGuid().ToString()}{ext}";
+
+                var fileBytes = FileHelper.FileMemoryStreamConverter(assignmentRequestModel.AttachmentFile);
+
+                if (fileBytes.Length > 0)
+                {
+                    _s3FileRepository.UploadFile(_s3Settings.AssignmentAttachmentDirectory, fileName, fileBytes).GetAwaiter().GetResult();
+
+                    assignmentModel.Attachment = fileName;
+                }
+            }
 
             AssignmentDto assignment = _mapper.Map<AssignmentDto>(assignmentModel);
 
@@ -68,6 +92,22 @@ namespace SyncingSyllabi.Services.Services
             assignmentModel.IsCompleted = assignmentRequestModel.IsCompleted ?? null;
             assignmentModel.IsActive = assignmentRequestModel.IsActive ?? null;
 
+            if (assignmentRequestModel.AttachmentFile != null)
+            {
+                string ext = System.IO.Path.GetExtension(assignmentRequestModel.AttachmentFile.FileName);
+
+                var fileName = $"{Guid.NewGuid().ToString()}{ext}";
+
+                var fileBytes = FileHelper.FileMemoryStreamConverter(assignmentRequestModel.AttachmentFile);
+
+                if (fileBytes.Length > 0)
+                {
+                    _s3FileRepository.UploadFile(_s3Settings.AssignmentAttachmentDirectory, fileName, fileBytes).GetAwaiter().GetResult();
+
+                    assignmentModel.Attachment = fileName;
+                }
+            }
+
             AssignmentDto assignment = _mapper.Map<AssignmentDto>(assignmentModel);
 
             if (assignment != null)
@@ -84,16 +124,36 @@ namespace SyncingSyllabi.Services.Services
 
             getAssignmentResult = _assignmentBaseRepository.GetAssignment(assignmentId, userId);
 
+            if (!string.IsNullOrEmpty(getAssignmentResult.Attachment))
+            {
+                // Get Presigned URL
+                getAssignmentResult.Attachment = _s3FileRepository.GetPreSignedUrl(_s3Settings.AssignmentAttachmentDirectory, getAssignmentResult.Attachment, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+            }
+
             return getAssignmentResult;
         }
 
-        public AssignmentListResponseModel GetAssignmentDetailsList(AssignmentRequestModel assignmentRequestModel)
+        public AssignmentListResponseModel GetAssignmentDetailsList(AssignmentListRequestModel assignmentRequestModel)
         {
             var paginationDto = assignmentRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(assignmentRequestModel.Pagination) : null;
             var sortColumnDto = assignmentRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
             var dateRangeDto = assignmentRequestModel.DateRange.StartDate != null ? _mapper.Map<DateRangeDto>(assignmentRequestModel.DateRange) : null;
 
-            return _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
+            var getAssignmentList =_assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
+
+            if(getAssignmentList.Data.Items.Count() > 0)
+            {
+                foreach (var assignment in getAssignmentList.Data.Items)
+                {
+                    if(assignment.Attachment != null)
+                    {
+                        // Get Presigned URL
+                        assignment.Attachment = _s3FileRepository.GetPreSignedUrl(_s3Settings.AssignmentAttachmentDirectory, assignment.Attachment, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+                    }
+                }
+            }
+
+            return getAssignmentList;
         }
 
         public bool DeleteAssignment(long assignmentId, long userId)
