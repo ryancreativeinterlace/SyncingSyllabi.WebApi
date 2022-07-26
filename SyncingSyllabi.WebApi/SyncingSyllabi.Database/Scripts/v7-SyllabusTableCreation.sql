@@ -2,8 +2,8 @@
 (
 	id bigint IDENTITY(1,1) PRIMARY KEY,
 	[user_id] bigint NULL,
-	class_code varchar(50),
-	class_name varchar(50),
+	class_code varchar(500),
+	class_name varchar(500),
 	class_schedule datetime NULL,
 	teacher_name varchar(100),
 	color_in_hex varchar(50) NULL,

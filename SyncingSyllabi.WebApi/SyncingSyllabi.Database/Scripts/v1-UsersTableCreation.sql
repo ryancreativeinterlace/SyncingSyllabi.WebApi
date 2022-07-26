@@ -17,7 +17,8 @@
 	is_email_confirm bit NULL,
 	is_google bit NULL,
 	is_reset_password bit NULL,
-	is_active bit NULL
+	is_active bit NULL,
+	notification_token varchar(800) NULL
 );
 
 
@@ -38,3 +39,6 @@ ON users(password);
 
 CREATE INDEX idx_user_image_url
 ON users(image_url);
+
+CREATE INDEX idx_user_notification_token
+ON users(notification_token);
