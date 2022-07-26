@@ -1,4 +1,5 @@
-﻿using SyncingSyllabi.Data.Models.Request.Base;
+﻿using Microsoft.AspNetCore.Http;
+using SyncingSyllabi.Data.Models.Request.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,5 +18,9 @@ namespace SyncingSyllabi.Data.Models.Request
         public string ColorInHex { get; set; }
         public bool? IsCompleted { get; set; }
         public bool? IsActive { get; set; }
+
+        // Attachment
+        public byte[] AttachmentBytes { get; set; }
+        public IFormFile AttachmentFile { get; set; }
     }
 }

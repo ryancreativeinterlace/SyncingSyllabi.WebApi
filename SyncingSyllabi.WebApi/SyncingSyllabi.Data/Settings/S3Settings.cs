@@ -12,5 +12,7 @@ namespace SyncingSyllabi.Data.Settings
         public string BucketName { get; set; }
         public string UserFileDirectory { get; set; }
         public string EmailTemplateDirectory { get; set; }
+        public string SyllabusFilesDirectory { get; set; }
+        public string AssignmentAttachmentDirectory { get; set; }
     }
 }

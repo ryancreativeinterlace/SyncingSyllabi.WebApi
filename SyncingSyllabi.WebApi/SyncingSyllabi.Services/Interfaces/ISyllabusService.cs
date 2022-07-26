@@ -14,5 +14,6 @@ namespace SyncingSyllabi.Services.Interfaces
         SyllabusDto GetSyllabus(long syllabusId, long userId);
         PaginatedResultDto<SyllabusDataOutputModel> GetSyllabusDetailsList(SyllabusRequestModel syllabusRequestModel);
         bool DeleteSyllabus(long syllabusId, long userId);
+        OcrScanReponseDataModel OcrScan(OcrScanRequestModel syllabusRequestModel);
     }
 }

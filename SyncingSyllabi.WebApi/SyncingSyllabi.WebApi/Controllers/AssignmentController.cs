@@ -31,7 +31,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("CreateAssignment")]
-        public IActionResult CreateAssignment([FromBody] AssignmentRequestModel assignmentRequestModel)
+        public IActionResult CreateAssignment([FromForm] AssignmentRequestModel assignmentRequestModel)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("UpdateAssignment")]
-        public IActionResult UpdateAssignment([FromBody] AssignmentRequestModel assignmentRequestModel)
+        public IActionResult UpdateAssignment([FromForm] AssignmentRequestModel assignmentRequestModel)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("GetAssignmentDetailsList")]
-        public IActionResult GetAssignmentDetailsList([FromBody] AssignmentRequestModel assignmentRequestModel)
+        public IActionResult GetAssignmentDetailsList([FromBody] AssignmentListRequestModel assignmentRequestModel)
         {
             try
             {

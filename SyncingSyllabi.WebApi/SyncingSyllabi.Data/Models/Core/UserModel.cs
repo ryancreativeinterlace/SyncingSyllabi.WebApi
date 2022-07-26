@@ -19,5 +19,6 @@ namespace SyncingSyllabi.Data.Models.Core
         public bool? IsEmailConfirm { get; set; }
         public bool? IsResetPassword { get; set; }
         public bool? IsGoogle { get; set; }
+        public string NotificationToken { get; set; }
     }
 }

@@ -12,6 +12,7 @@
 	created_by bigint NULL,
 	date_updated datetime NULL,
 	updated_by bigint NULL,
+	attachment varchar(800) NULL,
 	is_completed bit NULL,
 	is_active bit NULL
 );
@@ -36,3 +37,9 @@ ON assignments(assignment_date_end);
 
 CREATE INDEX idx_assignments_is_completed
 ON assignments(is_completed);
+
+CREATE INDEX idx_assignments_is_active
+ON assignments(is_active);
+
+CREATE INDEX idx_assignments_attachment
+ON assignments(attachment);

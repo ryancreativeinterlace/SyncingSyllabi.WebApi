@@ -28,6 +28,7 @@ namespace SyncingSyllabi.Contexts.Mappings
             builder.Property(e => e.AssignmentDateEnd).HasColumnName("assignment_date_end");
             builder.Property(e => e.ColorInHex).HasColumnName("color_in_hex");
             builder.Property(e => e.IsCompleted).HasColumnName("is_completed");
+            builder.Property(e => e.Attachment).HasColumnName("attachment");
         }
     }
 }
