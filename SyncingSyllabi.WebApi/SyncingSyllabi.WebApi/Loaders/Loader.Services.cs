@@ -54,6 +54,7 @@ namespace SyncingSyllabi.WebApi.Loaders
             services.AddScopedTraced<IEmailService, EmailService>();
             services.AddScopedTraced<ISyllabusService, SyllabusService>();
             services.AddScopedTraced<IAssignmentService, AssignmentService>();
+            services.AddScopedTraced<INotificationService, NotificationService>();
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Common.Tools.Utilities;
 using SyncingSyllabi.Data.Enums;
+using SyncingSyllabi.Data.Models.Response;
 
 namespace SyncingSyllabi.Repositories.Repositories
 {
@@ -305,6 +306,45 @@ namespace SyncingSyllabi.Repositories.Repositories
                     ctx.SaveChanges();
                 });
             });
+        }
+
+        public NotificationTokenResponseModel UpdateUserNotification(UserDto userDto)
+        {
+            var result = new NotificationTokenResponseModel();
+
+            var errorList = new List<string>();
+
+            var user = _mapper.Map<UserEntity>(userDto);
+
+            UseDataContext(ctx =>
+            {
+                var getUser = ctx.Users
+                             .AsNoTracking()
+                             .Where(w => w.Id == user.Id)
+                             .Select(s => _mapper.Map<UserEntity>(s))
+                             .FirstOrDefault();
+
+                if (getUser != null)
+                {
+                    getUser.NotificationToken = !string.IsNullOrEmpty(user.NotificationToken) ? user.NotificationToken : getUser.NotificationToken;
+
+                    getUser.FillUpdated(getUser.Id);
+
+                    ctx.Users.Update(getUser);
+
+                    ctx.SaveChanges();
+
+                    result.Data.Success = true;
+                }
+                else
+                {
+                    errorList.Add("User don't exist");
+                    result.Data.Success = false;
+                    result.Errors = errorList;
+                }
+            });
+
+            return result;
         }
 
     }
