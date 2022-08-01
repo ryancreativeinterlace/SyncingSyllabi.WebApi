@@ -36,6 +36,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{FE81A65A-A94F-4E87-A3D1-294FFD7E3947}"
 	ProjectSection(SolutionItems) = preProject
 		SyncingSyllabi.Database\Scripts\v1-UsersTableCreation.sql = SyncingSyllabi.Database\Scripts\v1-UsersTableCreation.sql
+		SyncingSyllabi.Database\Scripts\v10-NotificationTableCreation.sql = SyncingSyllabi.Database\Scripts\v10-NotificationTableCreation.sql
 		SyncingSyllabi.Database\Scripts\v2-AuthTableCreation.sql = SyncingSyllabi.Database\Scripts\v2-AuthTableCreation.sql
 		SyncingSyllabi.Database\Scripts\v3-GoalsTableCreation.sql = SyncingSyllabi.Database\Scripts\v3-GoalsTableCreation.sql
 		SyncingSyllabi.Database\Scripts\v4-UserCodeTableCreation.sql = SyncingSyllabi.Database\Scripts\v4-UserCodeTableCreation.sql

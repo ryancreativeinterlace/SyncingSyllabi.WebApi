@@ -9,5 +9,6 @@ namespace SyncingSyllabi.Services.Interfaces
     public interface INotificationService
     {
         NotificationTokenResponseModel UpdateUserNotification(NotificationTokenRequestModel userRequestModel);
+        NotificationTokenResponseModel SendNotification(SendNotificationRequestModel sendNotificationRequestModel);
     }
 }

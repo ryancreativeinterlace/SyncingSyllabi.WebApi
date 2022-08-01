@@ -44,5 +44,21 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("SendNotification")]
+        public IActionResult SendNotification([FromBody] SendNotificationRequestModel sendNotificationRequestModel)
+        {
+            try
+            {
+                var result = _notificationService.SendNotification(sendNotificationRequestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

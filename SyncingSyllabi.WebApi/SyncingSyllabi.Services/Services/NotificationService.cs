@@ -15,15 +15,18 @@ namespace SyncingSyllabi.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IUserBaseRepository _userBaseRepository;
+        private readonly INotificationBaseRepository _notificationBaseRepository;
 
         public NotificationService
         (
             IMapper mapper,
-            IUserBaseRepository userBaseRepository
+            IUserBaseRepository userBaseRepository,
+            INotificationBaseRepository notificationBaseRepository
         )
         {
             _mapper = mapper;
             _userBaseRepository = userBaseRepository;
+            _notificationBaseRepository = notificationBaseRepository;
         }
 
         public NotificationTokenResponseModel UpdateUserNotification(NotificationTokenRequestModel userRequestModel)
@@ -40,9 +43,31 @@ namespace SyncingSyllabi.Services.Services
             if (user != null)
             {
                 updateNotificationToken = _userBaseRepository.UpdateUserNotification(user);
+
             }
 
             return updateNotificationToken;
+        }
+
+        public NotificationTokenResponseModel SendNotification(SendNotificationRequestModel sendNotificationRequestModel)
+        {
+            NotificationTokenResponseModel sendNotification = null;
+
+            var sendNoty = new UserNotificationModel();
+
+            sendNoty.UserId = sendNotificationRequestModel.UserId;
+            sendNoty.Title = sendNotificationRequestModel.Title;
+            sendNoty.Message = sendNotificationRequestModel.Message;
+            sendNoty.IsActive = true;
+
+            UserNotificationDto userNoty = _mapper.Map<UserNotificationDto>(sendNoty);
+
+            if(userNoty != null)
+            {
+                var createNoty = _notificationBaseRepository.CreateUserNotification(userNoty);
+            }
+
+            return sendNotification;
         }
     }
 }
