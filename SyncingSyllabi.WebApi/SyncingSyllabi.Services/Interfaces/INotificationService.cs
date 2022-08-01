@@ -3,12 +3,13 @@ using SyncingSyllabi.Data.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SyncingSyllabi.Services.Interfaces
 {
     public interface INotificationService
     {
         NotificationTokenResponseModel UpdateUserNotification(NotificationTokenRequestModel userRequestModel);
-        NotificationTokenResponseModel SendNotification(SendNotificationRequestModel sendNotificationRequestModel);
+        Task<NotificationTokenResponseModel> SendNotification(SendNotificationRequestModel sendNotificationRequestModel);
     }
 }

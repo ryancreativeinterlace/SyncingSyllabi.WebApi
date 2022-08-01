@@ -19,6 +19,7 @@ namespace SyncingSyllabi.Data.Transformation.AutoMapperProfiles
             CreateMap<SyllabusDto, SyllabusModel>(MemberList.None).ReverseMap();
             CreateMap<AssignmentDto, AssignmentModel>(MemberList.None).ReverseMap();
             CreateMap<DateRangeDto, DateRangeModel>(MemberList.None).ReverseMap();
+            CreateMap<UserNotificationDto, UserNotificationModel>(MemberList.None).ReverseMap();
         }
     }
 }

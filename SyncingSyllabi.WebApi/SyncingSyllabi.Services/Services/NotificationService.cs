@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FirebaseAdmin.Messaging;
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
@@ -8,6 +9,7 @@ using SyncingSyllabi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SyncingSyllabi.Services.Services
 {
@@ -49,9 +51,12 @@ namespace SyncingSyllabi.Services.Services
             return updateNotificationToken;
         }
 
-        public NotificationTokenResponseModel SendNotification(SendNotificationRequestModel sendNotificationRequestModel)
+        public async Task<NotificationTokenResponseModel> SendNotification(SendNotificationRequestModel sendNotificationRequestModel)
         {
-            NotificationTokenResponseModel sendNotification = null;
+            var error = string.Empty;
+            var errorList = new List<string>();
+
+            var sendNotification = new NotificationTokenResponseModel();
 
             var sendNoty = new UserNotificationModel();
 
@@ -60,11 +65,44 @@ namespace SyncingSyllabi.Services.Services
             sendNoty.Message = sendNotificationRequestModel.Message;
             sendNoty.IsActive = true;
 
-            UserNotificationDto userNoty = _mapper.Map<UserNotificationDto>(sendNoty);
+            var userNoty = _mapper.Map<UserNotificationDto>(sendNoty);
 
             if(userNoty != null)
             {
-                var createNoty = _notificationBaseRepository.CreateUserNotification(userNoty);
+                var getUser = _userBaseRepository.GetUserById(sendNoty.UserId);
+
+                if(getUser != null && !string.IsNullOrEmpty(getUser.NotificationToken))
+                {
+                    // Send Message
+                    var message = new Message()
+                    {
+                        Notification = new Notification
+                        {
+                            Title = sendNoty.Title,
+                            Body = sendNoty.Message,
+                           
+                        },
+                        Token = getUser.NotificationToken,
+                    };
+
+                    var messaging = FirebaseMessaging.DefaultInstance;
+
+                    var send = await messaging.SendAsync(message);
+
+                    if(send != null)
+                    {
+                        // Save noty on database
+                        var createNoty = _notificationBaseRepository.CreateUserNotification(userNoty);
+                    }
+                }
+
+                else
+                {
+                    error = "User or notification token don't exist.";
+                    errorList.Add(error);
+                    sendNotification.Errors = errorList;
+                    sendNotification.Data.Success = false;
+                }
             }
 
             return sendNotification;

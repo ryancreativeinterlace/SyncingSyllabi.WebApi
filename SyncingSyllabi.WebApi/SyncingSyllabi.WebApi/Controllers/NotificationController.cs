@@ -47,11 +47,11 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("SendNotification")]
-        public IActionResult SendNotification([FromBody] SendNotificationRequestModel sendNotificationRequestModel)
+        public async Task<IActionResult> SendNotification([FromBody] SendNotificationRequestModel sendNotificationRequestModel)
         {
             try
             {
-                var result = _notificationService.SendNotification(sendNotificationRequestModel);
+                var result = await _notificationService.SendNotification(sendNotificationRequestModel);
 
                 return Ok(result);
             }
