@@ -10,7 +10,8 @@
 	updated_by bigint NULL,
 	notification_status int NULL,
 	notification_status_name varchar(100) NULL,
-	is_active bit NULL
+	is_active bit NULL,
+	is_read bit NULL,
 );
 
 
@@ -31,5 +32,8 @@ ON user_notifications(notification_status);
 
 CREATE INDEX idx_user_notifications_is_active
 ON user_notifications(is_active);
+
+CREATE INDEX idx_user_notifications_is_read
+ON user_notifications(is_read);
 
 

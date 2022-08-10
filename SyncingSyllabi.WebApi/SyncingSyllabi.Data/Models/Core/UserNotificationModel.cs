@@ -13,5 +13,6 @@ namespace SyncingSyllabi.Data.Models.Core
         public string Message { get; set; }
         public NotificationStatusEnum NotificationStatus { get; set; }
         public string NotificationStatusName { get; set; }
+        public bool IsRead { get; set; }
     }
 }

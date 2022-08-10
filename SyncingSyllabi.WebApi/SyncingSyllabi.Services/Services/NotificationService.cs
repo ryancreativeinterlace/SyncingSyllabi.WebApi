@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FirebaseAdmin.Messaging;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
 using SyncingSyllabi.Data.Models.Core;
 using SyncingSyllabi.Data.Models.Request;
 using SyncingSyllabi.Data.Models.Response;
@@ -64,46 +65,50 @@ namespace SyncingSyllabi.Services.Services
             sendNoty.Title = sendNotificationRequestModel.Title;
             sendNoty.Message = sendNotificationRequestModel.Message;
             sendNoty.IsActive = true;
+            sendNoty.IsRead = false;
 
-            var userNoty = _mapper.Map<UserNotificationDto>(sendNoty);
+            var getUser = _userBaseRepository.GetUserById(sendNoty.UserId);
 
-            if(userNoty != null)
+            if (getUser != null && !string.IsNullOrEmpty(getUser.NotificationToken))
             {
-                var getUser = _userBaseRepository.GetUserById(sendNoty.UserId);
-
-                if(getUser != null && !string.IsNullOrEmpty(getUser.NotificationToken))
+                // Send Message
+                var message = new Message()
                 {
-                    // Send Message
-                    var message = new Message()
+                    Notification = new Notification
                     {
-                        Notification = new Notification
-                        {
-                            Title = sendNoty.Title,
-                            Body = sendNoty.Message,
-                           
-                        },
-                        Token = getUser.NotificationToken,
-                    };
+                        Title = sendNoty.Title,
+                        Body = sendNoty.Message,
 
-                    var messaging = FirebaseMessaging.DefaultInstance;
+                    },
+                    Token = getUser.NotificationToken,
+                };
 
-                    var send = await messaging.SendAsync(message);
+                var messaging = FirebaseMessaging.DefaultInstance;
 
-                    if(send != null)
-                    {
-                        // Save noty on database
-                        var createNoty = _notificationBaseRepository.CreateUserNotification(userNoty);
-                    }
+                var send = await messaging.SendAsync(message);
+
+                if (send != null)
+                {
+                    sendNoty.NotificationStatus = NotificationStatusEnum.Success;
+                    sendNoty.NotificationStatusName = NotificationStatusEnum.Success.ToString();
                 }
-
                 else
                 {
-                    error = "User or notification token don't exist.";
-                    errorList.Add(error);
-                    sendNotification.Errors = errorList;
-                    sendNotification.Data.Success = false;
+                    sendNoty.NotificationStatus = NotificationStatusEnum.Failed;
+                    sendNoty.NotificationStatusName = NotificationStatusEnum.Failed.ToString();
                 }
             }
+            else
+            {
+                error = "User or notification token don't exist.";
+                errorList.Add(error);
+                sendNotification.Errors = errorList;
+                sendNotification.Data.Success = false;
+            }
+            var userNoty = _mapper.Map<UserNotificationDto>(sendNoty);
+
+            // Save noty on database
+            var createNoty = _notificationBaseRepository.CreateUserNotification(userNoty);
 
             return sendNotification;
         }
