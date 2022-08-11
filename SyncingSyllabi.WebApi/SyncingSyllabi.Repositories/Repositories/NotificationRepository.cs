@@ -74,7 +74,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                         getUserNotificationList = ctx.UserNotifications
                                                         .AsNoTracking()
                                                         .Where(w => w.UserId == userId &&
-                                                               !w.IsRead &&
+                                                               !w.IsRead.Value &&
                                                                w.IsActive.Value)
                                                         .Select(s => _mapper.Map<UserNotificationDto>(s))
                                                         .ToList();
@@ -85,7 +85,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                         getUserNotificationList = ctx.UserNotifications
                                                         .AsNoTracking()
                                                         .Where(w => w.UserId == userId &&
-                                                               w.IsRead &&
+                                                               w.IsRead.Value &&
                                                                w.IsActive.Value)
                                                         .Select(s => _mapper.Map<UserNotificationDto>(s))
                                                         .ToList();
@@ -111,6 +111,61 @@ namespace SyncingSyllabi.Repositories.Repositories
                 {
                     result.Errors = errorList;
                     result.Data.Success = false;
+                }
+
+            });
+
+            return result;
+        }
+
+        public UserNotificationDto GetUserNoficaitonById(long noficaitionId)
+        {
+            UserNotificationDto result = null;
+
+            UseDataContext(ctx =>
+            {
+                var getNotification = ctx.UserNotifications
+                                     .AsNoTracking()
+                                     .Where(w => w.Id == noficaitionId &&
+                                            w.IsActive.Value)
+                                     .Select(s => _mapper.Map<UserNotificationEntity>(s))
+                                     .FirstOrDefault();
+
+                if (getNotification != null)
+                {
+                    result = _mapper.Map<UserNotificationDto>(getNotification);
+                }
+            });
+
+            return result;
+        }
+
+        public UserNotificationDto UpdateNofication(UserNotificationDto userNotificationDto)
+        {
+            UserNotificationDto result = null;
+
+            var notification = _mapper.Map<UserNotificationEntity>(userNotificationDto);
+
+            UseDataContext(ctx =>
+            {
+                var getNotifcation = ctx.UserNotifications
+                                     .AsNoTracking()
+                                     .Where(w => w.Id == notification.Id && w.IsActive.Value)
+                                     .Select(s => _mapper.Map<UserNotificationEntity>(s))
+                                     .FirstOrDefault();
+
+                if (getNotifcation != null)
+                {
+                    getNotifcation.IsActive = notification.IsActive ?? getNotifcation.IsActive;
+                    getNotifcation.IsRead = notification.IsRead ?? getNotifcation.IsRead;
+
+                    getNotifcation.FillUpdated(getNotifcation.UserId);
+
+                    ctx.UserNotifications.Update(getNotifcation);
+
+                    ctx.SaveChanges();
+
+                    result = _mapper.Map<UserNotificationDto>(getNotifcation);
                 }
 
             });

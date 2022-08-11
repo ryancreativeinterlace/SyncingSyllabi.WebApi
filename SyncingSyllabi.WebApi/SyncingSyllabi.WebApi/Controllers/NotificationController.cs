@@ -76,5 +76,21 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("ReadNotification")]
+        public IActionResult ReadNotification([FromBody] ReadNotificationRequestModel readNotificationRequestModel)
+        {
+            try
+            {
+                var result = _notificationService.ReadNotification(readNotificationRequestModel.NotificationId);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

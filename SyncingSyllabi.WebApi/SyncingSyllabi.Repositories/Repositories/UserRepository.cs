@@ -308,7 +308,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             });
         }
 
-        public NotificationTokenResponseModel UpdateUserNotification(UserDto userDto)
+        public NotificationTokenResponseModel UpdateUserNotificationToken(UserDto userDto)
         {
             var result = new NotificationTokenResponseModel();
 

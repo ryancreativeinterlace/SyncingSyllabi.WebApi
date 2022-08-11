@@ -12,5 +12,6 @@ namespace SyncingSyllabi.Services.Interfaces
         NotificationTokenResponseModel UpdateUserNotification(NotificationTokenRequestModel userRequestModel);
         Task<NotificationTokenResponseModel> SendNotification(SendNotificationRequestModel sendNotificationRequestModel);
         UserNotificationListResponseModel GetUserNotificationList(UserNotificationListRequestModel userNotificationListRequestModel);
+        NotificationTokenResponseModel ReadNotification(long notificationId);
     }
 }

@@ -45,7 +45,7 @@ namespace SyncingSyllabi.Services.Services
 
             if (user != null)
             {
-                updateNotificationToken = _userBaseRepository.UpdateUserNotification(user);
+                updateNotificationToken = _userBaseRepository.UpdateUserNotificationToken(user);
 
             }
 
@@ -54,7 +54,6 @@ namespace SyncingSyllabi.Services.Services
 
         public async Task<NotificationTokenResponseModel> SendNotification(SendNotificationRequestModel sendNotificationRequestModel)
         {
-            var error = string.Empty;
             var errorList = new List<string>();
 
             var sendNotification = new NotificationTokenResponseModel();
@@ -100,8 +99,7 @@ namespace SyncingSyllabi.Services.Services
             }
             else
             {
-                error = "User or notification token don't exist.";
-                errorList.Add(error);
+                errorList.Add("User or notification token don't exist.");
                 sendNotification.Errors = errorList;
                 sendNotification.Data.Success = false;
             }
@@ -120,6 +118,37 @@ namespace SyncingSyllabi.Services.Services
             var getUserNoficationList = _notificationBaseRepository.GetUserNoficationList(userNotificationListRequestModel.UserId, userNotificationListRequestModel.UserNotificationStatus, paginationDto);
 
             return getUserNoficationList;
+        }
+
+        public NotificationTokenResponseModel ReadNotification(long notificationId)
+        {
+            var errorList = new List<string>();
+
+            var readNotificationResult = new NotificationTokenResponseModel();
+
+            var getNotification = _notificationBaseRepository.GetUserNoficaitonById(notificationId);
+
+            if (getNotification != null)
+            {
+                getNotification.IsRead = true;
+
+                var readNotifcation = _notificationBaseRepository.UpdateNofication(getNotification);
+
+                if(readNotifcation == null)
+                {
+                    errorList.Add("Notificaation can't be updated.");
+                    readNotificationResult.Errors = errorList;
+                    readNotificationResult.Data.Success = false;
+                }
+            }
+            else
+            {
+                errorList.Add("Notificaation don't exist.");
+                readNotificationResult.Errors = errorList;
+                readNotificationResult.Data.Success = false;
+            }
+
+            return readNotificationResult;
         }
     }
 }

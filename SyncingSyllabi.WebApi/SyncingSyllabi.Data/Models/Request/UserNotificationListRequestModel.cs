@@ -11,4 +11,9 @@ namespace SyncingSyllabi.Data.Models.Request
         public Int64 UserId { get; set; }
         public UserNotificationStatusEnum UserNotificationStatus { get; set; }
     }
+
+    public class ReadNotificationRequestModel
+    {
+        public Int64 NotificationId { get; set; }
+    }
 }
