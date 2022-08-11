@@ -26,6 +26,7 @@ namespace SyncingSyllabi.Contexts.Mappings
             builder.Property(e => e.Message).HasColumnName("message");
             builder.Property(e => e.NotificationStatus).HasColumnName("notification_status");
             builder.Property(e => e.NotificationStatusName).HasColumnName("notification_status_name");
+            builder.Property(e => e.IsRead).HasColumnName("is_read");
         }
     }
 }

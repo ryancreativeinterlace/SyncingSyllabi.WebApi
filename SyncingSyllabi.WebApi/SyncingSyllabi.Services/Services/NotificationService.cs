@@ -112,5 +112,14 @@ namespace SyncingSyllabi.Services.Services
 
             return sendNotification;
         }
+
+        public UserNotificationListResponseModel GetUserNotificationList(UserNotificationListRequestModel userNotificationListRequestModel)
+        {
+            var paginationDto = userNotificationListRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(userNotificationListRequestModel.Pagination) : null;
+
+            var getUserNoficationList = _notificationBaseRepository.GetUserNoficationList(userNotificationListRequestModel.UserId, userNotificationListRequestModel.UserNotificationStatus, paginationDto);
+
+            return getUserNoficationList;
+        }
     }
 }

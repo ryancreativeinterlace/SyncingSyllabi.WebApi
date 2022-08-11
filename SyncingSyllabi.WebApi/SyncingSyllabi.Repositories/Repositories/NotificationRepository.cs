@@ -1,5 +1,9 @@
-﻿using SyncingSyllabi.Contexts.Entities;
+﻿using SyncingSyllabi.Common.Tools.Extensions;
+using SyncingSyllabi.Contexts.Entities;
 using SyncingSyllabi.Data.Dtos.Core;
+using SyncingSyllabi.Data.Enums;
+using SyncingSyllabi.Data.Models.Core;
+using SyncingSyllabi.Data.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,6 +39,80 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     result = _mapper.Map<UserNotificationDto>(userNotification);
                 }
+            });
+
+            return result;
+        }
+
+        public UserNotificationListResponseModel GetUserNoficationList(long userId, UserNotificationStatusEnum userNotificationStatusEnum, PaginationDto pagination)
+        {
+            var result = new UserNotificationListResponseModel();
+
+            var errorList = new List<string>();
+
+            var getUserNotificationList = new List<UserNotificationDto>();
+
+            IEnumerable<UserNotificationModel> getUserNotificationListResult = Enumerable.Empty<UserNotificationModel>();
+
+            UseDataContext(ctx =>
+            {
+                switch(userNotificationStatusEnum)
+                {
+                    case UserNotificationStatusEnum.All:
+
+                        getUserNotificationList = ctx.UserNotifications
+                                                        .AsNoTracking()
+                                                        .Where(w => w.UserId == userId &&
+                                                               w.IsActive.Value)
+                                                        .Select(s => _mapper.Map<UserNotificationDto>(s))
+                                                        .ToList();
+
+                    break;
+
+                    case UserNotificationStatusEnum.NotYetRead:
+
+                        getUserNotificationList = ctx.UserNotifications
+                                                        .AsNoTracking()
+                                                        .Where(w => w.UserId == userId &&
+                                                               !w.IsRead &&
+                                                               w.IsActive.Value)
+                                                        .Select(s => _mapper.Map<UserNotificationDto>(s))
+                                                        .ToList();
+                    break;
+
+                    case UserNotificationStatusEnum.Read:
+
+                        getUserNotificationList = ctx.UserNotifications
+                                                        .AsNoTracking()
+                                                        .Where(w => w.UserId == userId &&
+                                                               w.IsRead &&
+                                                               w.IsActive.Value)
+                                                        .Select(s => _mapper.Map<UserNotificationDto>(s))
+                                                        .ToList();
+
+                    break;
+                }
+
+                if (getUserNotificationList.Count() > 0)
+                {
+                    getUserNotificationListResult = _mapper.Map<IEnumerable<UserNotificationModel>>(getUserNotificationList);
+
+                    if (getUserNotificationListResult.Count() > 0)
+                    {
+                        result.Data = getUserNotificationListResult.Page(pagination);
+                    }
+                }
+                else
+                {
+                    errorList.Add("No result");
+                }
+
+                if (errorList.Count > 0)
+                {
+                    result.Errors = errorList;
+                    result.Data.Success = false;
+                }
+
             });
 
             return result;

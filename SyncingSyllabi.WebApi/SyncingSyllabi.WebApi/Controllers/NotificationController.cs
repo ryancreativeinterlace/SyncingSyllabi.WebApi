@@ -60,5 +60,21 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("UserNotificationList")]
+        public IActionResult UserNotificationList([FromBody] UserNotificationListRequestModel userNotificationListRequestModel)
+        {
+            try
+            {
+                var result = _notificationService.GetUserNotificationList(userNotificationListRequestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
