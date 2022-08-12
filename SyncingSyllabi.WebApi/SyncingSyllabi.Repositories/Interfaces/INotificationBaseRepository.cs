@@ -10,7 +10,7 @@ namespace SyncingSyllabi.Repositories.Interfaces
     public interface INotificationBaseRepository
     {
         UserNotificationDto CreateUserNotification(UserNotificationDto userNotificationDto);
-        UserNotificationListResponseModel GetUserNoficationList(long userId, UserNotificationStatusEnum userNotificationStatusEnum, PaginationDto pagination);
+        UserNotificationListResponseModel GetUserNoficationList(long userId, UserNotificationStatusEnum userNotificationStatusEnum, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination);
         UserNotificationDto GetUserNoficaitonById(long noficaitionId);
         UserNotificationDto UpdateNofication(UserNotificationDto userNotificationDto);
     }

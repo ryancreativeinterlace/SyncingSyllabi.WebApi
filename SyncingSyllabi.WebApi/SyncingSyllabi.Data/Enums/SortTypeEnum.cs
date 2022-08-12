@@ -9,6 +9,7 @@ namespace SyncingSyllabi.Data.Enums
         None = 0,
         Syllabus = 1,
         Assignment = 2,
-        Goal = 3
+        Goal = 3,
+        UserNotification = 4
     }
 }

@@ -44,7 +44,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
-        public UserNotificationListResponseModel GetUserNoficationList(long userId, UserNotificationStatusEnum userNotificationStatusEnum, PaginationDto pagination)
+        public UserNotificationListResponseModel GetUserNoficationList(long userId, UserNotificationStatusEnum userNotificationStatusEnum, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination)
         {
             var result = new UserNotificationListResponseModel();
 
@@ -96,6 +96,11 @@ namespace SyncingSyllabi.Repositories.Repositories
                 if (getUserNotificationList.Count() > 0)
                 {
                     getUserNotificationListResult = _mapper.Map<IEnumerable<UserNotificationModel>>(getUserNotificationList);
+
+                    if (sortColumn.Count() > 0)
+                    {
+                        getUserNotificationListResult = getUserNotificationListResult.MultipleSort<UserNotificationModel>(sortColumn.ToList(), SortTypeEnum.UserNotification).ToList();
+                    }
 
                     if (getUserNotificationListResult.Count() > 0)
                     {

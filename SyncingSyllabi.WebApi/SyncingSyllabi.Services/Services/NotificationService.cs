@@ -9,6 +9,7 @@ using SyncingSyllabi.Repositories.Interfaces;
 using SyncingSyllabi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -114,8 +115,8 @@ namespace SyncingSyllabi.Services.Services
         public UserNotificationListResponseModel GetUserNotificationList(UserNotificationListRequestModel userNotificationListRequestModel)
         {
             var paginationDto = userNotificationListRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(userNotificationListRequestModel.Pagination) : null;
-
-            var getUserNoficationList = _notificationBaseRepository.GetUserNoficationList(userNotificationListRequestModel.UserId, userNotificationListRequestModel.UserNotificationStatus, paginationDto);
+            var sortColumnDto = userNotificationListRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
+            var getUserNoficationList = _notificationBaseRepository.GetUserNoficationList(userNotificationListRequestModel.UserId, userNotificationListRequestModel.UserNotificationStatus, sortColumnDto, paginationDto);
 
             return getUserNoficationList;
         }
