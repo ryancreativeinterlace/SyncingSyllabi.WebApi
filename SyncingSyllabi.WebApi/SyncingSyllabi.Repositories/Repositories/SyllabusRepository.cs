@@ -27,6 +27,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                                  .Where(w =>
                                         (w.ClassCode.ToLower() == syllabus.ClassCode.ToLower() ||
                                         w.ClassName.ToLower() == syllabus.ClassName.ToLower()) &&
+                                        w.UserId == syllabus.UserId &&
                                         w.IsActive.Value)
                                  .Select(s => _mapper.Map<SyllabusEntity>(s))
                                  .FirstOrDefault();
