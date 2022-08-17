@@ -92,5 +92,21 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("RemoveNotification")]
+        public IActionResult RemoveNotification([FromBody] ReadNotificationRequestModel readNotificationRequestModel)
+        {
+            try
+            {
+                var result = _notificationService.RemoveNotification(readNotificationRequestModel.NotificationId);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

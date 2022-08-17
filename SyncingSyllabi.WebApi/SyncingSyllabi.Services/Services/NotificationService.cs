@@ -135,7 +135,38 @@ namespace SyncingSyllabi.Services.Services
 
                 var readNotifcation = _notificationBaseRepository.UpdateNofication(getNotification);
 
-                if(readNotifcation == null)
+                if (readNotifcation == null)
+                {
+                    errorList.Add("Notificaation can't be updated.");
+                    readNotificationResult.Errors = errorList;
+                    readNotificationResult.Data.Success = false;
+                }
+            }
+            else
+            {
+                errorList.Add("Notificaation don't exist.");
+                readNotificationResult.Errors = errorList;
+                readNotificationResult.Data.Success = false;
+            }
+
+            return readNotificationResult;
+        }
+
+        public NotificationTokenResponseModel RemoveNotification(long notificationId)
+        {
+            var errorList = new List<string>();
+
+            var readNotificationResult = new NotificationTokenResponseModel();
+
+            var getNotification = _notificationBaseRepository.GetUserNoficaitonById(notificationId);
+
+            if (getNotification != null)
+            {
+                getNotification.IsActive = false;
+
+                var readNotifcation = _notificationBaseRepository.UpdateNofication(getNotification);
+
+                if (readNotifcation == null)
                 {
                     errorList.Add("Notificaation can't be updated.");
                     readNotificationResult.Errors = errorList;
