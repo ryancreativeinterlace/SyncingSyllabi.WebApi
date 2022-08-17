@@ -1,14 +1,11 @@
-﻿using Amazon.Lambda.Core;
+using Amazon.Lambda.Core;
 using Microsoft.Extensions.DependencyInjection;
-using SyncingSyllabi.Common.Tools.Hosting;
 using SyncingSyllabi.Common.Tools.Utilities;
+using SyncingSyllabi.Common.Tools.Hosting;
 using SyncingSyllabi.Data.Settings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
+[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace SyncingSyllabi.Worker.DueDateHandler
 {

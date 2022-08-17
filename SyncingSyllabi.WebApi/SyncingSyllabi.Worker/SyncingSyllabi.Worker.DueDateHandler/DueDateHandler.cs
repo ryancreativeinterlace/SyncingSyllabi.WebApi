@@ -1,5 +1,4 @@
 ﻿using SyncingSyllabi.Common.Tools.Hosting;
-using SyncingSyllabi.Common.Tools.Utilities;
 using SyncingSyllabi.Data.Settings;
 using System;
 using System.Collections.Generic;
@@ -25,7 +24,7 @@ namespace SyncingSyllabi.Worker.DueDateHandler
             {
                 Console.WriteLine($"Trigger Due Date {_dueDateSettings.ApiUrl}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 throw;

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SyncingSyllabi.Worker.DueDateHandler
 {
@@ -14,7 +16,7 @@ namespace SyncingSyllabi.Worker.DueDateHandler
                 var func = new Function();
                 func.FunctionHandler(null, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
