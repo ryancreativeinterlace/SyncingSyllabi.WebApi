@@ -6,7 +6,18 @@ namespace SyncingSyllabi.Worker.DueDateHandler
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "DEV");
+            Environment.SetEnvironmentVariable("DueDateSettings__ApiUrl", "dev");
+
+            try
+            {
+                var func = new Function();
+                func.FunctionHandler(null, null);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }
