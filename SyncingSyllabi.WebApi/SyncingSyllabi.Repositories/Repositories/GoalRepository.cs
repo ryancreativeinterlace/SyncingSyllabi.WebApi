@@ -163,5 +163,30 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             return result;
         }
+
+        public IEnumerable<GoalDto> GetDueGoals(DateTime dateTime)
+        {
+            List<GoalDto> result = null;
+
+            UseDataContext(ctx =>
+            {
+
+                var getGoals = ctx.Goals
+                                    .AsNoTracking()
+                                    .Where(w => w.GoalDateEnd.HasValue &&
+                                                w.GoalDateEnd.Value.Date == dateTime.Date &&
+                                                w.IsActive.Value)
+                                    .Select(s => _mapper.Map<GoalEntity>(s))
+                                    .ToList();
+
+
+                if (getGoals.Count > 0)
+                {
+                    result.AddRange(_mapper.Map<IEnumerable<GoalDto>>(getGoals));
+                }
+            });
+
+            return result;
+        }
     }
 }
