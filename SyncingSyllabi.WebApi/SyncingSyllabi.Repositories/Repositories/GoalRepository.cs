@@ -166,7 +166,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
         public IEnumerable<GoalDto> GetDueGoals(DateTime dateTime)
         {
-            List<GoalDto> result = null;
+            var result = new List<GoalDto>();
 
             UseDataContext(ctx =>
             {
@@ -175,14 +175,16 @@ namespace SyncingSyllabi.Repositories.Repositories
                                     .AsNoTracking()
                                     .Where(w => w.GoalDateEnd.HasValue &&
                                                 w.GoalDateEnd.Value.Date == dateTime.Date &&
-                                                w.IsActive.Value)
-                                    .Select(s => _mapper.Map<GoalEntity>(s))
+                                                w.IsActive.Value &&
+                                                !w.IsCompleted.Value &&
+                                                !w.IsArchived.Value)
+                                    .Select(s => _mapper.Map<GoalDto>(s))
                                     .ToList();
 
 
                 if (getGoals.Count > 0)
                 {
-                    result.AddRange(_mapper.Map<IEnumerable<GoalDto>>(getGoals));
+                    result.AddRange(getGoals);
                 }
             });
 

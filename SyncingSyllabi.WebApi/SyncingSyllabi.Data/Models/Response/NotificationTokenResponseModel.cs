@@ -17,4 +17,18 @@ namespace SyncingSyllabi.Data.Models.Response
     {
         public bool Success { get; set; } = true;
     }
+
+    public class NotificationDueDateResponseModel : BaseResponseModel<NotificationDueDateResponseDataModel>
+    {
+        public NotificationDueDateResponseModel()
+        {
+            Data = new NotificationDueDateResponseDataModel();
+        }
+    }
+
+    public class NotificationDueDateResponseDataModel
+    {
+        public bool HasDueNotification { get; set; }
+        public bool Success { get; set; } = true;
+    }
 }

@@ -19,17 +19,23 @@ namespace SyncingSyllabi.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IUserBaseRepository _userBaseRepository;
+        private readonly IGoalBaseRepository _goalBaseRepository;
+        private readonly IAssignmentBaseRepository _assignmentBaseRepository;
         private readonly INotificationBaseRepository _notificationBaseRepository;
 
         public NotificationService
         (
             IMapper mapper,
             IUserBaseRepository userBaseRepository,
+            IGoalBaseRepository goalBaseRepository,
+            IAssignmentBaseRepository assignmentBaseRepository,
             INotificationBaseRepository notificationBaseRepository
         )
         {
             _mapper = mapper;
             _userBaseRepository = userBaseRepository;
+            _goalBaseRepository = goalBaseRepository;
+            _assignmentBaseRepository = assignmentBaseRepository;
             _notificationBaseRepository = notificationBaseRepository;
         }
 
@@ -181,6 +187,105 @@ namespace SyncingSyllabi.Services.Services
             }
 
             return readNotificationResult;
+        }
+
+        public async Task<NotificationDueDateResponseModel> GetGoalDueDate(DateTime dateTime)
+        {
+            var errorList = new List<string>();
+
+            var goalDueDate = new NotificationDueDateResponseModel();
+
+            var getGoalsDue = _goalBaseRepository.GetDueGoals(dateTime.AddDays(1));
+
+            if (getGoalsDue.Count() > 0)
+            {
+                foreach (var dueGoal in getGoalsDue)
+                {
+                    var sendNoty = new SendNotificationRequestModel();
+
+                    sendNoty.UserId = dueGoal.UserId;
+                    sendNoty.Title = $"Goal {dueGoal.GoalTitle} is almost done";
+                    sendNoty.Message = $"{dueGoal.GoalDateEnd.Value.ToShortDateString()} | {dueGoal.GoalDateEnd.Value.ToString("hh:mm tt")}";
+
+                    await this.SendNotification(sendNoty);
+                }
+
+                goalDueDate.Data.HasDueNotification = true;
+            }
+
+            return goalDueDate;
+        }
+
+        public async Task<NotificationDueDateResponseModel> GetAssignmentDueDate(DateTime dateTime)
+        {
+            var errorList = new List<string>();
+
+            var assignmentDueDate = new NotificationDueDateResponseModel();
+
+            var getAssignmentsDue = _assignmentBaseRepository.GetDueAssignments(dateTime.AddDays(1));
+
+            if (getAssignmentsDue.Count() > 0)
+            {
+                foreach (var dueAssignment in getAssignmentsDue)
+                {
+                    var sendNoty = new SendNotificationRequestModel();
+
+                    sendNoty.UserId = dueAssignment.UserId;
+                    sendNoty.Title = $"Assignment {dueAssignment.AssignmentTitle} is due tommorow";
+                    sendNoty.Message = $"Due Date: {dueAssignment.AssignmentDateEnd.Value.ToShortDateString()} | {dueAssignment.AssignmentDateEnd.Value.ToString("hh:mm tt")}";
+
+                    await this.SendNotification(sendNoty);
+                }
+
+                assignmentDueDate.Data.HasDueNotification = true;
+            }
+
+            return assignmentDueDate;
+        }
+
+        public async Task<NotificationDueDateResponseModel> GetDues(DateTime dateTime)
+        {
+            var errorList = new List<string>();
+
+            var dues = new NotificationDueDateResponseModel();
+
+            var getAssignmentsDue = _assignmentBaseRepository.GetDueAssignments(dateTime.AddDays(1));
+            var getGoalsDue = _goalBaseRepository.GetDueGoals(dateTime.AddDays(1));
+
+            if (getAssignmentsDue.Count() > 0)
+            {
+                foreach (var dueAssignment in getAssignmentsDue)
+                {
+                    var sendNoty = new SendNotificationRequestModel();
+
+                    sendNoty.UserId = dueAssignment.UserId;
+                    sendNoty.Title = $"Assignment {dueAssignment.AssignmentTitle} is due tommorow";
+                    sendNoty.Message = $"Due Date: {dueAssignment.AssignmentDateEnd.Value.ToShortDateString()} | {dueAssignment.AssignmentDateEnd.Value.ToString("hh:mm tt")}";
+
+                    await this.SendNotification(sendNoty);
+                }
+            }
+
+            if (getGoalsDue.Count() > 0)
+            {
+                foreach (var dueGoal in getGoalsDue)
+                {
+                    var sendNoty = new SendNotificationRequestModel();
+
+                    sendNoty.UserId = dueGoal.UserId;
+                    sendNoty.Title = $"Goal {dueGoal.GoalTitle} is almost done";
+                    sendNoty.Message = $"{dueGoal.GoalDateEnd.Value.ToShortDateString()} | {dueGoal.GoalDateEnd.Value.ToString("hh:mm tt")}";
+
+                    await this.SendNotification(sendNoty);
+                }
+            }
+
+            if(getAssignmentsDue.Count() > 0 || getGoalsDue.Count() > 0)
+            {
+                dues.Data.HasDueNotification = true;
+            }
+
+            return dues;
         }
     }
 }

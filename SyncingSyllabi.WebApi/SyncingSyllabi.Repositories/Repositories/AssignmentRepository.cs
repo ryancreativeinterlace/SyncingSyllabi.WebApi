@@ -205,7 +205,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
         public IEnumerable<AssignmentDto> GetDueAssignments(DateTime dateTime)
         {
-            List<AssignmentDto> result = null;
+             var result = new List<AssignmentDto>();
 
             UseDataContext(ctx =>
             {
@@ -214,13 +214,14 @@ namespace SyncingSyllabi.Repositories.Repositories
                                      .AsNoTracking()
                                      .Where(w => w.AssignmentDateEnd.HasValue &&
                                                  w.AssignmentDateEnd.Value.Date == dateTime.Date &&
-                                                 w.IsActive.Value)
-                                     .Select(s => _mapper.Map<AssignmentEntity>(s))
+                                                 w.IsActive.Value &&
+                                                 !w.IsCompleted.Value)
+                                     .Select(s => _mapper.Map<AssignmentDto>(s))
                                      .ToList();
 
                 if (getAssignments.Count > 0)
                 {
-                    result.AddRange(_mapper.Map<IEnumerable<AssignmentDto>>(getAssignments));
+                    result.AddRange(getAssignments);
                 }
             });
 

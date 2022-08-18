@@ -14,5 +14,8 @@ namespace SyncingSyllabi.Services.Interfaces
         UserNotificationListResponseModel GetUserNotificationList(UserNotificationListRequestModel userNotificationListRequestModel);
         NotificationTokenResponseModel ReadNotification(long notificationId);
         NotificationTokenResponseModel RemoveNotification(long notificationId);
+        Task<NotificationDueDateResponseModel> GetGoalDueDate(DateTime dateTime);
+        Task<NotificationDueDateResponseModel> GetAssignmentDueDate(DateTime dateTime);
+        Task<NotificationDueDateResponseModel> GetDues(DateTime dateTime);
     }
 }

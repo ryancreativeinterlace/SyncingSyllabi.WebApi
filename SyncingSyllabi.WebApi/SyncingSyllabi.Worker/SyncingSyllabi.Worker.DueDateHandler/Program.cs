@@ -9,12 +9,12 @@ namespace SyncingSyllabi.Worker.DueDateHandler
         static void Main(string[] args)
         {
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "DEV");
-            Environment.SetEnvironmentVariable("DueDateSettings__ApiUrl", "dev");
+            Environment.SetEnvironmentVariable("DueDateSettings__ApiUrl", "http://dev-api-syncingsyllabi.us-west-1.elasticbeanstalk.com/api/notification/DueNotification");
 
             try
             {
                 var func = new Function();
-                func.FunctionHandler(null, null);
+                func.FunctionHandler(null, null).GetAwaiter().GetResult();
             }
             catch (Exception ex)
             {

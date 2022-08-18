@@ -108,5 +108,22 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("DueNotification")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DueNotification()
+        {
+            try
+            {
+                var result = await _notificationService.GetDues(DateTime.Now);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

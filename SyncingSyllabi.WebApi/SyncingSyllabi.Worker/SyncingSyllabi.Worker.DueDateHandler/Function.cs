@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SyncingSyllabi.Common.Tools.Utilities;
 using SyncingSyllabi.Common.Tools.Hosting;
 using SyncingSyllabi.Data.Settings;
+using System.Threading.Tasks;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -19,11 +20,11 @@ namespace SyncingSyllabi.Worker.DueDateHandler
             services.AddScoped<IDueDateHandler, DueDateHandler>();
         }
 
-        public void FunctionHandler(object evnt, ILambdaContext context)
+        public async Task FunctionHandler(object evnt, ILambdaContext context)
         {
-            Execute((handler) =>
+            await Execute<Task>(async (handler) =>
             {
-                handler.Handle();
+                await handler.Handle();
             });
         }
     }
