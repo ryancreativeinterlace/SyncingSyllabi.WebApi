@@ -1,5 +1,6 @@
 ﻿using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Enums;
+using SyncingSyllabi.Data.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,5 +19,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
         UserCodeDto GetUserCode(long userId, CodeTypeEnum codeType);
         UserCodeDto UpdateUserCode(UserCodeDto userCodeDto);
         void CreateUserEmailTracks(IEnumerable<UserEmailTrackingDto> userEmailTrackingDtos);
+        NotificationTokenResponseModel UpdateUserNotificationToken(UserDto userDto);
     }
 }

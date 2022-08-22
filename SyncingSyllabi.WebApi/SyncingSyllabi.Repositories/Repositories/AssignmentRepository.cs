@@ -119,7 +119,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             UseDataContext(ctx =>
             {
-                if(dateRange == null)
+                if (dateRange == null)
                 {
 
                     getAssignmentList = ctx.Assignments
@@ -161,12 +161,12 @@ namespace SyncingSyllabi.Repositories.Repositories
                     errorList.Add("No result");
                 }
 
-                if(errorList.Count > 0)
+                if (errorList.Count > 0)
                 {
                     result.Errors = errorList;
                     result.Data.Success = false;
                 }
-                
+
             });
 
             return result;
@@ -197,6 +197,31 @@ namespace SyncingSyllabi.Repositories.Repositories
                     ctx.SaveChanges();
 
                     result = true;
+                }
+            });
+
+            return result;
+        }
+
+        public IEnumerable<AssignmentDto> GetDueAssignments(DateTime dateTime)
+        {
+             var result = new List<AssignmentDto>();
+
+            UseDataContext(ctx =>
+            {
+
+                var getAssignments = ctx.Assignments
+                                     .AsNoTracking()
+                                     .Where(w => w.AssignmentDateEnd.HasValue &&
+                                                 w.AssignmentDateEnd.Value.Date == dateTime.Date &&
+                                                 w.IsActive.Value &&
+                                                 !w.IsCompleted.Value)
+                                     .Select(s => _mapper.Map<AssignmentDto>(s))
+                                     .ToList();
+
+                if (getAssignments.Count > 0)
+                {
+                    result.AddRange(getAssignments);
                 }
             });
 

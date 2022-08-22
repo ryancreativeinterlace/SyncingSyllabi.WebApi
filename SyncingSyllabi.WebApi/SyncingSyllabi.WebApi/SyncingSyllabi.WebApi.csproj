@@ -49,6 +49,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include=".ebextensions\timezone.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include=".ebextensions\command.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

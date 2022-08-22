@@ -7,6 +7,7 @@ using System.Text;
 using static SyncingSyllabi.Data.Constants.AssignmentConstants;
 using static SyncingSyllabi.Data.Constants.GoalConstants;
 using static SyncingSyllabi.Data.Constants.SyllabusConstants;
+using static SyncingSyllabi.Data.Constants.UserNotificationConstants;
 
 namespace SyncingSyllabi.Common.Tools.Extensions
 {
@@ -87,6 +88,10 @@ namespace SyncingSyllabi.Common.Tools.Extensions
 
                     case SortTypeEnum.Goal:
                         fieldName = GoalFieldsIds.GetName(sortColumn[i].FieldCode);
+                    break;
+
+                    case SortTypeEnum.UserNotification:
+                        fieldName = UserNotificationFieldsIds.GetName(sortColumn[i].FieldCode);
                     break;
                 }
 

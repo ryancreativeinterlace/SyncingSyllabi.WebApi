@@ -31,6 +31,8 @@ namespace SyncingSyllabi.WebApi
 
             services.AddJWTAuthentication();
 
+            services.FireBaseAdmin();
+
             services.ConfigureSwaggerGen();
 
             services.AddControllers();

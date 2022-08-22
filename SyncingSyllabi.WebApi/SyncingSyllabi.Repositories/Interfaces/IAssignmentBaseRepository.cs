@@ -13,5 +13,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
         AssignmentDto GetAssignment(long assignmentId, long userId);
         AssignmentListResponseModel GetAssignmentDetailsList(long userId, bool? isCompleted, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination, DateRangeDto dateRange);
         bool DeleteAssignment(long assignmentId, long userId);
+        IEnumerable<AssignmentDto> GetDueAssignments(DateTime dateTime);
     }
 }

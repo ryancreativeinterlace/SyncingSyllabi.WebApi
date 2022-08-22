@@ -4,12 +4,10 @@ using System.Text;
 
 namespace SyncingSyllabi.Data.Enums
 {
-    public enum SortTypeEnum
+    public enum NotificationStatusEnum
     {
         None = 0,
-        Syllabus = 1,
-        Assignment = 2,
-        Goal = 3,
-        UserNotification = 4
+        Success = 1,
+        Failed = 2
     }
 }
