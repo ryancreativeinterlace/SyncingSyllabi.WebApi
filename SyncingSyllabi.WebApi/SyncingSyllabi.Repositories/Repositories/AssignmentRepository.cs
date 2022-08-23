@@ -71,6 +71,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getAssignment.AssignmentDateEnd = assignment.AssignmentDateEnd ?? getAssignment.AssignmentDateEnd;
                     getAssignment.IsCompleted = assignment.IsCompleted ?? getAssignment.IsCompleted;
                     getAssignment.IsActive = assignment.IsActive ?? getAssignment.IsActive;
+                    getAssignment.AttachmentFileName = !string.IsNullOrEmpty(assignment.AttachmentFileName) ? assignment.AttachmentFileName : getAssignment.AttachmentFileName;
                     getAssignment.Attachment = !string.IsNullOrEmpty(assignment.Attachment) ? assignment.Attachment : getAssignment.Attachment;
 
                     getAssignment.FillCreated(getAssignment.UserId);

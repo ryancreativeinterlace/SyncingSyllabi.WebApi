@@ -54,6 +54,8 @@ namespace SyncingSyllabi.Services.Services
             {
                 string ext = System.IO.Path.GetExtension(assignmentRequestModel.AttachmentFile.FileName);
 
+                assignmentModel.AttachmentFileName = assignmentRequestModel.AttachmentFile.FileName;
+
                 var fileName = $"{Guid.NewGuid().ToString()}{ext}";
 
                 var fileBytes = FileHelper.FileMemoryStreamConverter(assignmentRequestModel.AttachmentFile);
@@ -95,6 +97,8 @@ namespace SyncingSyllabi.Services.Services
             if (assignmentRequestModel.AttachmentFile != null)
             {
                 string ext = System.IO.Path.GetExtension(assignmentRequestModel.AttachmentFile.FileName);
+
+                assignmentModel.AttachmentFileName = assignmentRequestModel.AttachmentFile.FileName;
 
                 var fileName = $"{Guid.NewGuid().ToString()}{ext}";
 
