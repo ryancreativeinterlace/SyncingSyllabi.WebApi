@@ -228,5 +228,35 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             return result;
         }
+
+        public bool DeleteAssignmentAttachment(long assignmentId)
+        {
+            bool result = false;
+
+            UseDataContext(ctx =>
+            {
+                var getAssignment = ctx.Assignments
+                                 .AsNoTracking()
+                                 .Where(w => w.Id == assignmentId && w.IsActive.Value)
+                                 .Select(s => _mapper.Map<AssignmentEntity>(s))
+                                 .FirstOrDefault();
+
+                if (getAssignment != null)
+                {
+                    getAssignment.AttachmentFileName = null;
+                    getAssignment.Attachment = null;
+
+                    getAssignment.FillUpdated(getAssignment.UserId);
+
+                    ctx.Assignments.Update(getAssignment);
+
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+            });
+
+            return result;
+        }
     }
 }

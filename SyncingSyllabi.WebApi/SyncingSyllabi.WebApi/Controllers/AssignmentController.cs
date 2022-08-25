@@ -148,5 +148,25 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("DeleteAssignmentAttachment/{assignmentId}")]
+        public IActionResult DeleteAssignmentAttachment(long assignmentId)
+        {
+            try
+            {
+                var result = _assignmentService.DeleteAssignmentAttachment(assignmentId);
+
+                var response = new DeleteResponseModel();
+
+                response.Data.Success = result;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

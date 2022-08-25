@@ -50,7 +50,7 @@ namespace SyncingSyllabi.Services.Services
             assignmentModel.IsCompleted = false;
             assignmentModel.IsActive = true;
 
-            if(assignmentRequestModel.AttachmentFile != null)
+            if (assignmentRequestModel.AttachmentFile != null)
             {
                 string ext = System.IO.Path.GetExtension(assignmentRequestModel.AttachmentFile.FileName);
 
@@ -143,13 +143,13 @@ namespace SyncingSyllabi.Services.Services
             var sortColumnDto = assignmentRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
             var dateRangeDto = assignmentRequestModel.DateRange.StartDate != null ? _mapper.Map<DateRangeDto>(assignmentRequestModel.DateRange) : null;
 
-            var getAssignmentList =_assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
+            var getAssignmentList = _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
 
-            if(getAssignmentList.Data.Items.Count() > 0)
+            if (getAssignmentList.Data.Items.Count() > 0)
             {
                 foreach (var assignment in getAssignmentList.Data.Items)
                 {
-                    if(assignment.Attachment != null)
+                    if (assignment.Attachment != null)
                     {
                         // Get Presigned URL
                         assignment.Attachment = _s3FileRepository.GetPreSignedUrl(_s3Settings.AssignmentAttachmentDirectory, assignment.Attachment, string.Empty, string.Empty, DateTime.Now.AddDays(2));
@@ -163,6 +163,11 @@ namespace SyncingSyllabi.Services.Services
         public bool DeleteAssignment(long assignmentId, long userId)
         {
             return _assignmentBaseRepository.DeleteAssignment(assignmentId, userId);
+        }
+
+        public bool DeleteAssignmentAttachment(long assignmentId)
+        {
+            return _assignmentBaseRepository.DeleteAssignmentAttachment(assignmentId);
         }
     }
 }
