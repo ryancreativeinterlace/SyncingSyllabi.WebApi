@@ -36,9 +36,9 @@ namespace SyncingSyllabi.Services.Services
             _syllabusBaseRepository = syllabusBaseRepository;
         }
 
-        public SyllabusDto CreateSyllabus(SyllabusRequestModel syllabusRequestModel)
+        public SyllabusResponseModel CreateSyllabus(SyllabusRequestModel syllabusRequestModel)
         {
-            SyllabusDto createSyllabusResult = null;
+            var createSyllabusResult = new SyllabusResponseModel();
 
             var syllabusModel = new SyllabusModel();
             syllabusModel.UserId = syllabusRequestModel.UserId;

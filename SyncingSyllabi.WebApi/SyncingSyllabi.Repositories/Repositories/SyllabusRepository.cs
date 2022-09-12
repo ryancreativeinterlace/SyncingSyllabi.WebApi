@@ -14,9 +14,11 @@ namespace SyncingSyllabi.Repositories.Repositories
 {
     public partial class SyllabusBaseRepository
     {
-        public SyllabusDto CreateSyllabus(SyllabusDto syllabusDto)
+        public SyllabusResponseModel CreateSyllabus(SyllabusDto syllabusDto)
         {
-            SyllabusDto result = null;
+            var result = new SyllabusResponseModel();
+
+            var erroList = new List<string>();
 
             var syllabus = _mapper.Map<SyllabusEntity>(syllabusDto);
 
@@ -25,8 +27,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 var getSyllabus = ctx.Syllabus
                                  .AsNoTracking()
                                  .Where(w =>
-                                        (w.ClassCode.ToLower() == syllabus.ClassCode.ToLower() ||
-                                        w.ClassName.ToLower() == syllabus.ClassName.ToLower()) &&
+                                        (w.ClassName.ToLower() == syllabus.ClassName.ToLower()) &&
                                         w.UserId == syllabus.UserId &&
                                         w.IsActive.Value)
                                  .Select(s => _mapper.Map<SyllabusEntity>(s))
@@ -40,10 +41,18 @@ namespace SyncingSyllabi.Repositories.Repositories
                     ctx.Syllabus.Add(syllabus);
 
                     ctx.SaveChanges();
-
-                    result = _mapper.Map<SyllabusDto>(syllabus);
+                }
+                else
+                {
+                    erroList.Add("Class exist on this user.");
                 }
             });
+
+            if(erroList.Count > 0)
+            {
+                result.Errors = erroList;
+                result.Data.Success = false;
+            }
 
             return result;
         }

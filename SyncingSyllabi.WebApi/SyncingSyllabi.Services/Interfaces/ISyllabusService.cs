@@ -9,7 +9,7 @@ namespace SyncingSyllabi.Services.Interfaces
 {
     public interface ISyllabusService
     {
-        SyllabusDto CreateSyllabus(SyllabusRequestModel syllabusRequestModel);
+        SyllabusResponseModel CreateSyllabus(SyllabusRequestModel syllabusRequestModel);
         SyllabusDto UpdateSyllabus(SyllabusRequestModel syllabusRequestModel);
         SyllabusDto GetSyllabus(long syllabusId, long userId);
         PaginatedResultDto<SyllabusDataOutputModel> GetSyllabusDetailsList(SyllabusRequestModel syllabusRequestModel);

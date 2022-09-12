@@ -36,36 +36,36 @@ namespace SyncingSyllabi.WebApi.Controllers
             try
             {
                 var result = _syllabusService.CreateSyllabus(syllabusRequestModel);
-                var item = _mapper.Map<SyllabusModel>(result);
+                //var item = _mapper.Map<SyllabusModel>(result);
 
-                var response = new SyllabusResponseModel();
+                //var response = new SyllabusResponseModel();
 
-                if (item != null)
-                {
-                    var itemResult = new SyllabusDataOutputModel()
-                    {
-                        Id = item.Id,
-                        UserId = item.UserId,
-                        ClassCode = item.ClassCode,
-                        ClassName = item.ClassName,
-                        TeacherName = item.TeacherName,
-                        ColorInHex = item.ColorInHex,
-                        ClassSchedule = item.ClassSchedule.Split("|").ToList(),
-                        CreatedBy = item.CreatedBy,
-                        DateCreated = item.DateCreated,
-                        UpdatedBy = item.UpdatedBy,
-                        DateUpdated = item.DateUpdated,
-                        IsActive = item.IsActive
-                    };
+                //if (item != null)
+                //{
+                //    var itemResult = new SyllabusDataOutputModel()
+                //    {
+                //        Id = item.Id,
+                //        UserId = item.UserId,
+                //        ClassCode = item.ClassCode,
+                //        ClassName = item.ClassName,
+                //        TeacherName = item.TeacherName,
+                //        ColorInHex = item.ColorInHex,
+                //        ClassSchedule = item.ClassSchedule.Split("|").ToList(),
+                //        CreatedBy = item.CreatedBy,
+                //        DateCreated = item.DateCreated,
+                //        UpdatedBy = item.UpdatedBy,
+                //        DateUpdated = item.DateUpdated,
+                //        IsActive = item.IsActive
+                //    };
 
-                    response.Data.Item = itemResult;
-                }
-                else
-                {
-                    response.Data.Success = false;
-                }
+                //    response.Data.Item = itemResult;
+                //}
+                //else
+                //{
+                //    response.Data.Success = false;
+                //}
 
-                return Ok(response);
+                return Ok(result);
             }
             catch (Exception ex)
             {
