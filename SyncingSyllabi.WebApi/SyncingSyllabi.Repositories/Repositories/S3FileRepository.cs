@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Http;
 using Aspose;
 using Aspose.Pdf.Devices;
 using SyncingSyllabi.Data.Enums;
+using System.Globalization;
 
 namespace SyncingSyllabi.Repositories.Repositories
 {
@@ -816,7 +817,15 @@ namespace SyncingSyllabi.Repositories.Repositories
                                         dateStart.Name = DateTime.Now.ToShortDateString();
                                         dateStart.ConfidenceScore = item.ConfidenceScore;
 
-                                        dateEnd.Name = deadline.First();
+                                        if(deadline.First().Contains("."))
+                                        {
+                                            dateEnd.Name = this.DateTimeConversion(deadline.First().Remove(3, 1).Replace(".", "").ToString());
+                                        }
+                                        else
+                                        {
+                                            dateEnd.Name = deadline.First();
+                                        }
+
                                         dateEnd.ConfidenceScore = item.ConfidenceScore;
                                     }
 
@@ -858,6 +867,21 @@ namespace SyncingSyllabi.Repositories.Repositories
             //await this.UploadFile(directory, externalKey, buffer);
 
             return syllabusModel;
+        }
+
+        private string DateTimeConversion(string dtstr)
+        {
+            DateTime dt;
+
+            string[] formats = new string[] 
+            { 
+                "MMM d\\s\\t", "MMM d\\n\\d",
+                "MMM d\\r\\d", "MMM d\\t\\h"
+            };
+
+            bool dateConversion = DateTime.TryParseExact(dtstr, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+
+            return dt.ToShortDateString();
         }
     }
 }
