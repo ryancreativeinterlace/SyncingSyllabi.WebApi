@@ -224,13 +224,19 @@ namespace SyncingSyllabi.WebApi.Controllers
 
                 var response = new OcrScanResponseModel();
 
-                if(result != null && (result.OcrSyllabusModel != null || result.OcrAssignmentModel != null))
+                if(result != null && (result.OcrSyllabusModel != null || result.OcrAssignmentModel.Count() > 0))
                 {
                     response.Data = result;
                 }
                 else
                 {
+                    var errorList = new List<string>()
+                    {
+                        "Can't read formats properly"
+                    };
+
                     response.Data.Success = false;
+                    response.Errors = errorList;
                 }
 
                 return Ok(response);

@@ -23,6 +23,7 @@ using Aspose;
 using Aspose.Pdf.Devices;
 using SyncingSyllabi.Data.Enums;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace SyncingSyllabi.Repositories.Repositories
 {
@@ -613,23 +614,27 @@ namespace SyncingSyllabi.Repositories.Repositories
                 else
                 {
 
-                    // Assignement
+                    // Assignement Table Format
                     var assignmentQueries = new List<Query>()
+                    {
+                        new Query()
                         {
-                            new Query()
-                            {
-                                Text = "Assignments",
-                                Alias = "Assignment"
-                            },
-                            new Query()
-                            {
-                                Text = "Assignment Title"
-                            },
-                            new Query()
-                            {
-                                Text = "Title"
-                            }
-                        };
+                            Text = "Assignments",
+                            Alias = "Assignment"
+                        },
+                        new Query()
+                        {
+                            Text = "Assignments and Activities"
+                        },
+                        new Query()
+                        {
+                            Text = "Assignment Title"
+                        },
+                        new Query()
+                        {
+                            Text = "Title"
+                        }
+                    };
 
 
                     queryConfig.Queries = assignmentQueries;
@@ -651,12 +656,15 @@ namespace SyncingSyllabi.Repositories.Repositories
                     var query = assignmentAnalyze.Blocks.Where(w => w.BlockType.Value == "QUERY_RESULT").ToList();
                     var line = assignmentAnalyze.Blocks.Where(w => w.BlockType.Value == "LINE").ToList();
 
+
                     // Loop each row
                     var counter = assignmentAnalyze.Blocks.Where(w => w.BlockType.Value == "CELL").Select(s => s.RowIndex).GroupBy(gb => new { gb }).Count() + 1;
 
                     var deadlineFilter = new List<string>()
                     {
                         "week of",
+                        "due",
+                        "date",
                         "due date",
                         "deadline"
                     };
@@ -665,6 +673,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     {
                         "assignment",
                         "assignments",
+                        "assignments and activities",
                         "homework",
                         "homeworks"
                     };
@@ -754,18 +763,6 @@ namespace SyncingSyllabi.Repositories.Repositories
                         }
                     }
 
-                    //var getColumnHeaderValue = assignmentAnalyze.Blocks
-                    //                           .Where(w => columnHeader
-                    //                           .Any(ch => ch.Relationships
-                    //                           .Any(ra => ra.Ids
-                    //                           .Contains(w.Id))) && w.BlockType == "WORD")
-                    //                           .ToList();
-
-                    //var assignment = assignmentAnalyze.Blocks.Where(w => w.Text != null && w.BlockType != null && (w.BlockType.Value == "QUERY_RESULT" || w.BlockType.Value == "TABLE" || w.BlockType.Value == "CELL" || w.BlockType.Value == "LINE"))
-                    //                                         .GroupBy(gp => gp.Text)
-                    //                                         .Select(s => s.FirstOrDefault())
-                    //                                         .ToList();
-
                     var assignmentResponseModel = new List<OcrAssignmentResponseModel>();
 
                     if(tableDetails.Count > 0)
@@ -784,104 +781,191 @@ namespace SyncingSyllabi.Repositories.Repositories
                                                .Select(s => new { s.RowIndex, s.ColumnIndex })
                                                .FirstOrDefault();
 
-                        for (int i = 2; i < counter; i++)
+                        if(getAssignmentHeader != null || deadlineHeader != null)
+                        {
+                            for (int i = 2; i < counter; i++)
+                            {
+                                var assgn = new OcrAssignmentResponseModel();
+
+                                // Skip header
+                                foreach (var item in tableDetails.Where(w => w.RowIndex == i && w.ColumnIndex == getAssignmentHeader.ColumnIndex))
+                                {
+                                    if (getAssignmentHeader != null && item.ColumnIndex == getAssignmentHeader.ColumnIndex && item.Value != null)
+                                    {
+                                        var title = new AssignmentTitleModel()
+                                        {
+                                            Name = item.Value,
+                                            ConfidenceScore = item.ConfidenceScore
+                                        };
+
+                                        assgn.AssignmentTitle = title;
+                                    }
+                                }
+
+                                foreach (var item in tableDetails.Where(w => w.RowIndex == i && w.ColumnIndex == deadlineHeader.ColumnIndex))
+                                {
+                                    if (getAssignmentHeader != null && item.ColumnIndex == deadlineHeader.ColumnIndex && item.Value != null)
+                                    {
+                                        var dateStart = new AssignmentStartDateModel();
+                                        var dateEnd = new AssignmentEndDateModel();
+
+                                        var deadline = item.Value.Split("-");
+
+                                        if (deadline.Count() == 0 || deadline.Count() == 1)
+                                        {
+                                            dateStart.Name = DateTime.Now.ToShortDateString();
+                                            dateStart.ConfidenceScore = item.ConfidenceScore;
+
+                                            if (deadline.First().Contains("."))
+                                            {
+                                                dateEnd.Name = this.DateConversion(deadline.First().Remove(3, 1).Replace(".", "").ToString());
+                                            }
+                                            else
+                                            {
+
+                                                dateEnd.Name = this.ValidateDateFormat(deadline.First());
+                                            }
+
+                                            dateEnd.ConfidenceScore = item.ConfidenceScore;
+                                        }
+
+                                        if (deadline.Count() > 1)
+                                        {
+                                            dateStart.Name = deadline[0];
+                                            dateStart.ConfidenceScore = item.ConfidenceScore;
+
+                                            dateEnd.Name = deadline[1];
+                                            dateEnd.ConfidenceScore = item.ConfidenceScore;
+                                        }
+
+                                        assgn.AssignmentDateStart = dateStart;
+                                        assgn.AssignmentDateEnd = dateEnd;
+                                    }
+                                }
+
+                                assgnList.Add(assgn);
+                            }
+                        }
+                    }
+
+                    if(assgnList.Count == 0)
+                    {
+
+                        var bulletFormat = line
+                                           .Where(w => w.Text != null && deadlineFilter.Any(a => w.Text.ToLower().Contains(a)))
+                                           .ToList();
+
+                        foreach(var item in bulletFormat)
                         {
                             var assgn = new OcrAssignmentResponseModel();
 
-                            // Skip header
-                            foreach (var item in tableDetails.Where(w => w.RowIndex == i && w.ColumnIndex == getAssignmentHeader.ColumnIndex))
-                            {
-                                if (getAssignmentHeader != null && item.ColumnIndex == getAssignmentHeader.ColumnIndex && item.Value != null)
-                                {
-                                    var title = new AssignmentTitleModel()
-                                    {
-                                        Name = item.Value,
-                                        ConfidenceScore = item.ConfidenceScore
-                                    };
+                            var dateStart = new AssignmentStartDateModel();
+                            var dateEnd = new AssignmentEndDateModel();
 
-                                    assgn.AssignmentTitle = title;
-                                }
+                            var title = new AssignmentTitleModel()
+                            {
+                                Name = item.Text,
+                                ConfidenceScore = item.Confidence
+                            };
+
+                            assgn.AssignmentTitle = title;
+
+                            var getDate = this.GetDateInString(item.Text.Replace(".", "").Replace(",", ""));
+
+                            dateStart.Name = DateTime.Now.ToShortDateString();
+                            dateStart.ConfidenceScore = item.Confidence;
+
+                            if(getDate.Count() > 0)
+                            {
+                                dateEnd.Name = this.DateConversion(getDate.FirstOrDefault());
+                                dateEnd.ConfidenceScore = item.Confidence;
                             }
 
-                            foreach (var item in tableDetails.Where(w => w.RowIndex == i && w.ColumnIndex == deadlineHeader.ColumnIndex))
-                            {
-                                if (getAssignmentHeader != null && item.ColumnIndex == deadlineHeader.ColumnIndex && item.Value != null)
-                                {
-                                    var dateStart = new AssignmentStartDateModel();
-                                    var dateEnd = new AssignmentEndDateModel();
-
-                                    var deadline = item.Value.Split("-");
-
-                                    if (deadline.Count() == 0 || deadline.Count() == 1)
-                                    {
-                                        dateStart.Name = DateTime.Now.ToShortDateString();
-                                        dateStart.ConfidenceScore = item.ConfidenceScore;
-
-                                        if(deadline.First().Contains("."))
-                                        {
-                                            dateEnd.Name = this.DateTimeConversion(deadline.First().Remove(3, 1).Replace(".", "").ToString());
-                                        }
-                                        else
-                                        {
-                                            dateEnd.Name = deadline.First();
-                                        }
-
-                                        dateEnd.ConfidenceScore = item.ConfidenceScore;
-                                    }
-
-                                    if (deadline.Count() > 1)
-                                    {
-                                        dateStart.Name = deadline[0];
-                                        dateStart.ConfidenceScore = item.ConfidenceScore;
-
-                                        dateEnd.Name = deadline[1];
-                                        dateEnd.ConfidenceScore = item.ConfidenceScore;
-                                    }
-
-                                    assgn.AssignmentDateStart = dateStart;
-                                    assgn.AssignmentDateEnd = dateEnd;
-                                }
-                            }
+                            assgn.AssignmentDateStart = dateStart;
+                            assgn.AssignmentDateEnd = dateEnd;
 
                             assgnList.Add(assgn);
                         }
                     }
 
-                    //if (assignment.Count > 0)
-                    //{
-                    //    assignmentTitleList.AddRange(assignment
-                    //                                .Select(s => new
-                    //                                AssignmentTitleModel
-                    //                                {
-                    //                                    Name = s.Text,
-                    //                                    ConfidenceScore = s.Confidence
-                    //                                }));
-                    //}
-
-                    //syllabusModel.OcrAssignmentModel.AssignmentTitle = assignmentTitleList.GroupBy(gp => gp.Name).Select(s => s.FirstOrDefault()).ToList();
+                    syllabusModel.OcrAssignmentModel = assgnList;
                 }
             }
-
-            syllabusModel.OcrAssignmentModel = assgnList;
-
             //await this.UploadFile(directory, externalKey, buffer);
 
             return syllabusModel;
         }
 
-        private string DateTimeConversion(string dtstr)
+        private IEnumerable<string> GetDateInString(string val)
+        {
+            var dates = new List<string>();
+            MatchCollection mc = null;
+
+            var formats = new List<string>()
+            {
+                @"(([0-2][0-9]|[3][0-1]|[0-9])[-/./_///://|/$/\s+]([0][0-9]|[0-9]|[1][0-2]|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march|april|may|june|july|augu|september|october|november|december)[-/./_///:/|/$/\s+][0-9]{2,4})",
+                @"(([0][0-9]|[0-9]|[1][0-2]|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march|april|may|june|july|augu|september|october|november|december)[-/./_///://|/$/\s+]([0-2][0-9]|[3][0-1]|[0-9])[-/./_///:/|/$/\s+][0-9]{2,4})"
+            };
+
+            string newStrstr = Regex.Replace(val.ToLower(), " {2,}", " ");//remove more than whitespace
+            string newst = Regex.Replace(newStrstr, @"([\s+][-/./_///://|/$/\s+]|[-/./_///://|/$/\s+][\s+])", "/");// remove unwanted whitespace eg 21 -dec- 2017 to 21-07-2017
+            newStrstr = newst.Trim();
+            Regex rx = new Regex(@"(st|nd|th|rd)");//21st-01-2017 to 21-01-2017
+            
+            string sp = rx.Replace(newStrstr, "");
+
+            foreach(var item in formats)
+            {
+                rx = new Regex(item);
+
+                //rx = new Regex(@"(([0-2][0-9]|[3][0-1]|[0-9])[-/./_///://|/$/\s+]([0][0-9]|[0-9]|[1][0-2]|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march|april|may|june|july|augu|september|october|november|december)[-/./_///:/|/$/\s+][0-9]{2,4})");//a pattern for regex to check date format. For August we check Augu since we replaced the st earlier
+                //rx2 = new Regex(@"(([0][0-9]|[0-9]|[1][0-2]|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|january|february|march|april|may|june|july|augu|september|october|november|december)[-/./_///://|/$/\s+]([0-2][0-9]|[3][0-1]|[0-9])[-/./_///:/|/$/\s+][0-9]{2,4})");
+
+                mc = rx.Matches(sp);//look for strings that satisfy the above pattern regex
+            }
+
+            foreach (Match m in mc)
+            {
+                string getDate = Regex.Replace(m.ToString(), "augu", "august");
+                dates.Add(getDate);
+            }
+
+            return dates;
+        }
+
+        private string DateConversion(string dtstr)
         {
             DateTime dt;
 
             string[] formats = new string[] 
             { 
                 "MMM d\\s\\t", "MMM d\\n\\d",
-                "MMM d\\r\\d", "MMM d\\t\\h"
+                "MMM d\\r\\d", "MMM d\\t\\h",
+                "MMM d\\s\\t yyyy", "MMM d\\n\\d yyyy",
+                "MMM d\\r\\d yyyy", "MMM d\\t\\h yyyy",
+                "MMM dd yyyy", "MMM 0:d yyyy"
             };
 
             bool dateConversion = DateTime.TryParseExact(dtstr, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
 
             return dt.ToShortDateString();
+        }
+
+        private string ValidateDateFormat(string validatedDate)
+        {
+            string result = string.Empty;
+            DateTime dDate;
+
+            if (DateTime.TryParse(validatedDate, out dDate))
+            {
+                result = dDate.ToShortDateString();
+            }
+            else
+            {
+                result = validatedDate;
+            }
+
+            return result;
         }
     }
 }
