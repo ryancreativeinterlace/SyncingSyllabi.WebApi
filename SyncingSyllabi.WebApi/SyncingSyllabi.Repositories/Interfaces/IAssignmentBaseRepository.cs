@@ -8,7 +8,7 @@ namespace SyncingSyllabi.Repositories.Interfaces
 {
     public interface IAssignmentBaseRepository
     {
-        AssignmentDto CreateAssignment(AssignmentDto assignmentDto);
+        AssignmentResponseModel CreateAssignment(AssignmentDto assignmentDto);
         AssignmentDto UpdateAssignment(AssignmentDto assignmentDto);
         AssignmentDto GetAssignment(long assignmentId, long userId);
         AssignmentListResponseModel GetAssignmentDetailsList(long userId, bool? isCompleted, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination, DateRangeDto dateRange);

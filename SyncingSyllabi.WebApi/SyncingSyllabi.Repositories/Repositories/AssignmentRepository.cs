@@ -14,9 +14,13 @@ namespace SyncingSyllabi.Repositories.Repositories
 {
     public partial class AssignmentBaseRepository
     {
-        public AssignmentDto CreateAssignment(AssignmentDto assignmentDto)
+        public AssignmentResponseModel CreateAssignment(AssignmentDto assignmentDto)
         {
-            AssignmentDto result = null;
+            var result = new AssignmentResponseModel();
+
+            var errorList = new List<string>();
+
+            AssignmentDto assignmentDetail = null;
 
             var assignment = _mapper.Map<AssignmentEntity>(assignmentDto);
 
@@ -40,9 +44,24 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     ctx.SaveChanges();
 
-                    result = _mapper.Map<AssignmentDto>(assignment);
+                    assignmentDetail = _mapper.Map<AssignmentDto>(assignment);
                 }
             });
+
+            if(assignmentDetail == null)
+            {
+                errorList.Add("Assignment exist.");
+            }
+            else
+            {
+                result.Data.Item = _mapper.Map<AssignmentModel>(assignmentDetail);
+            }
+
+            if(errorList.Count > 0)
+            {
+                result.Errors = errorList;
+                result.Data.Success = false;
+            }
 
             return result;
         }

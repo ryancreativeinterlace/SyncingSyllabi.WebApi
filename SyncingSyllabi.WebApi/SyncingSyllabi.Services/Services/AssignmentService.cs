@@ -35,9 +35,9 @@ namespace SyncingSyllabi.Services.Services
             _s3Settings = s3Settings;
         }
 
-        public AssignmentDto CreateAssignment(AssignmentRequestModel assignmentRequestModel)
+        public AssignmentResponseModel CreateAssignment(AssignmentRequestModel assignmentRequestModel)
         {
-            AssignmentDto creteAssignmentResult = null;
+            AssignmentResponseModel creteAssignmentResult = null;
 
             var assignmentModel = new AssignmentModel();
             assignmentModel.UserId = assignmentRequestModel.UserId;

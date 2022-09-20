@@ -36,20 +36,20 @@ namespace SyncingSyllabi.WebApi.Controllers
             try
             {
                 var result = _assignmentService.CreateAssignment(assignmentRequestModel);
-                var item = _mapper.Map<AssignmentModel>(result);
+                //var item = _mapper.Map<AssignmentModel>(result);
 
-                var response = new AssignmentResponseModel();
+                //var response = new AssignmentResponseModel();
 
-                if (item != null)
-                {
-                    response.Data.Item = item;
-                }
-                else
-                {
-                    response.Data.Success = false;
-                }
+                //if (item != null)
+                //{
+                //    response.Data.Item = item;
+                //}
+                //else
+                //{
+                //    response.Data.Success = false;
+                //}
 
-                return Ok(response);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpGet]
         [Route("GetAssignmentDetails/{assignmentId}/{userId}")]
-        public IActionResult GetSyllabusDetails(long assignmentId, long userId)
+        public IActionResult GetAssignmentDetails(long assignmentId, long userId)
         {
             try
             {
