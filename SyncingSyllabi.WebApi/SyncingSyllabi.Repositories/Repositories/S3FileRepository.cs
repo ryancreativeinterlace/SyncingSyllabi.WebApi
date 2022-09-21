@@ -662,6 +662,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     var deadlineFilter = new List<string>()
                     {
+                        "week",
                         "week of",
                         "due",
                         "date",
@@ -673,6 +674,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     {
                         "assignment",
                         "assignments",
+                        "assignments & exams",
                         "assignments and activities",
                         "homework",
                         "homeworks"
@@ -769,19 +771,19 @@ namespace SyncingSyllabi.Repositories.Repositories
                     {
                         var getAssignmentHeader = tableDetails
                                                    .Where(w => w.Value != null && assignmentFilter
-                                                   .Any(a => a
-                                                   .Contains(w.Value.ToLower())))
+                                                   .Any(a => w.Value.ToLower()
+                                                   .Contains(a)))
                                                    .Select(s => new { s.RowIndex, s.ColumnIndex })
                                                    .FirstOrDefault();
 
                         var deadlineHeader = tableDetails
                                                .Where(w => w.Value != null && deadlineFilter
-                                               .Any(a => a
-                                               .Contains(w.Value.ToLower())))
+                                               .Any(a => w.Value.ToLower()
+                                               .Contains(a)))
                                                .Select(s => new { s.RowIndex, s.ColumnIndex })
                                                .FirstOrDefault();
 
-                        if(getAssignmentHeader != null || deadlineHeader != null)
+                        if(getAssignmentHeader != null && deadlineHeader != null)
                         {
                             for (int i = 2; i < counter; i++)
                             {
