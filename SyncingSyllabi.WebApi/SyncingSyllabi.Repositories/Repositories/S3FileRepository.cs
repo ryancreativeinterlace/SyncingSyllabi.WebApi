@@ -672,12 +672,10 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     var assignmentFilter = new List<string>()
                     {
+                        "lecture",
+                        "chapter",
                         "assignment",
-                        "assignments",
-                        "assignments & exams",
-                        "assignments and activities",
                         "homework",
-                        "homeworks"
                     };
 
                     if(counter > 0)
@@ -697,6 +695,10 @@ namespace SyncingSyllabi.Repositories.Repositories
                                                        w.BlockType.Value == "MERGED_CELL") &&
                                                        w.EntityTypes.Contains("COLUMN_HEADER") &&
                                                        w.RowIndex == 1).ToList();
+                                if(columnDetails.Count == 0)
+                                {
+                                    break;
+                                }
                             }
                             else
                             {
@@ -759,7 +761,20 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                                 if(columnValue.Count > 0)
                                 {
-                                    details.Value = columnValue.FirstOrDefault().Text;
+                                    int stringCounter = 1;
+
+                                    foreach (var item in columnValue)
+                                    {
+                                        if(stringCounter == 1)
+                                        {
+                                            details.Value = item.Text;
+                                            stringCounter++;
+                                        }
+                                        else
+                                        {
+                                            details.Value += $" {item.Text}";
+                                        }
+                                    }
                                 }
                             }
                         }
