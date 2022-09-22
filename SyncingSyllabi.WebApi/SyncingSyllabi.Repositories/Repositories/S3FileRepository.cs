@@ -680,9 +680,12 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     if(counter > 0)
                     {
+                        bool headerFound = false;
+                        bool headerAdded = false;
 
                         for (int tableCounter = 1; tableCounter < counter; tableCounter++)
-                        {
+                        { 
+
                             var columnDetails = new List<Block>();
 
                             if (tableCounter == 1)
@@ -695,10 +698,19 @@ namespace SyncingSyllabi.Repositories.Repositories
                                                        w.BlockType.Value == "MERGED_CELL") &&
                                                        w.EntityTypes.Contains("COLUMN_HEADER") &&
                                                        w.RowIndex == 1).ToList();
-                                if(columnDetails.Count == 0)
-                                {
-                                    break;
-                                }
+
+                            }
+                            else if(tableCounter > 1 && !headerFound)
+                            {
+                                // Get column header on second row or more
+                                columnDetails = assignmentAnalyze
+                                                .Blocks
+                                                .Where(w =>
+                                                      (w.BlockType.Value == "CELL" ||
+                                                       w.BlockType.Value == "MERGED_CELL") &&
+                                                       w.EntityTypes.Contains("COLUMN_HEADER") &&
+                                                       w.RowIndex == tableCounter).ToList();
+
                             }
                             else
                             {
@@ -714,6 +726,12 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                             }
 
+                            // set columnHeader flag if columnHeader is found
+                            if (columnDetails.Count > 0)
+                            {
+                                headerFound = true;
+                            }
+
                             foreach (var data in columnDetails)
                             {
                                 var tableData = new TableDetailModel();
@@ -727,6 +745,11 @@ namespace SyncingSyllabi.Repositories.Repositories
                                 if(tableCounter == 1)
                                 {
                                     tableData.IsHeader = true;
+                                }
+                                else if(tableCounter > 1 && headerFound && !headerAdded)
+                                {
+                                    tableData.IsHeader = true;
+                                    headerAdded = true;
                                 }
                                 else
                                 {
@@ -800,7 +823,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                         if(getAssignmentHeader != null && deadlineHeader != null)
                         {
-                            for (int i = 2; i < counter; i++)
+                            for (int i = (getAssignmentHeader.RowIndex + 1); i < counter; i++)
                             {
                                 var assgn = new OcrAssignmentResponseModel();
 
