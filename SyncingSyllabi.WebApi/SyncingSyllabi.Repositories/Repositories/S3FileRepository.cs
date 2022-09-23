@@ -676,6 +676,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                         "chapter",
                         "assignment",
                         "homework",
+                        "topic"
                     };
 
                     if(counter > 0)
@@ -858,7 +859,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                                             if (deadline.First().Contains("."))
                                             {
-                                                dateEnd.Name = this.DateConversion(deadline.First().Remove(3, 1).Replace(".", "").ToString());
+                                                dateEnd.Name = this.DateConversion(deadline.First().Remove(3, 1).Replace(".", "").Replace(",", "").ToString());
                                             }
                                             else
                                             {
@@ -977,16 +978,61 @@ namespace SyncingSyllabi.Repositories.Repositories
         {
             DateTime dt;
 
+            int counter = 1;
+
+            string filterDate = string.Empty; 
+
+            var removeDays = new List<string>()
+            {
+                "mon",
+                "monday",
+                "tue",
+                "tuesday",
+                "wed",
+                "wednesday",
+                "thu",
+                "thur",
+                "thursday",
+                "fri",
+                "friday",
+                "sat",
+                "saturday",
+                "sun",
+                "sunday"
+            };
+
+            var validateDate = dtstr.ToLower().Split(" ").ToList();
+
+            validateDate = validateDate
+                            .Where(w => !removeDays.Any(a => w.Contains(a)))
+                            .ToList();
+
+            foreach(var item in validateDate)
+            {
+                if(counter == 1)
+                {
+                    filterDate = item;
+                }
+                else
+                {
+                    filterDate += $" {item}";
+                }
+
+                counter++;
+            }
+
             string[] formats = new string[] 
             { 
                 "MMM d\\s\\t", "MMM d\\n\\d",
                 "MMM d\\r\\d", "MMM d\\t\\h",
                 "MMM d\\s\\t yyyy", "MMM d\\n\\d yyyy",
                 "MMM d\\r\\d yyyy", "MMM d\\t\\h yyyy",
-                "MMM dd yyyy", "MMM 0:d yyyy"
+                "MMM dd yyyy", "MMM d yyyy",
+                "MMM dd", "MMM dd yyyy",
+                "MMM d", "MMM d yyyy",
             };
 
-            bool dateConversion = DateTime.TryParseExact(dtstr, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+            bool dateConversion = DateTime.TryParseExact(filterDate, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
 
             return dt.ToShortDateString();
         }
