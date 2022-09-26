@@ -15,5 +15,6 @@ namespace SyncingSyllabi.Services.Interfaces
         AssignmentListResponseModel GetAssignmentDetailsList(AssignmentListRequestModel assignmentRequestModel);
         bool DeleteAssignment(long assignmentId, long userId);
         bool DeleteAssignmentAttachment(long assignmentId);
+        bool DeleteAllAssignmentByUserId(long userId);
     }
 }

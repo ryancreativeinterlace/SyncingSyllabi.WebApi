@@ -169,5 +169,35 @@ namespace SyncingSyllabi.Services.Services
         {
             return _assignmentBaseRepository.DeleteAssignmentAttachment(assignmentId);
         }
+
+        public bool DeleteAllAssignmentByUserId(long userId)
+        {
+            bool result = false;
+
+            var paginationDto = new PaginationDto()
+            {
+                Take = 9999,
+                Skip = 0,
+                IncludeTotal = true
+            };
+
+            var getUserAssignment = _assignmentBaseRepository.GetAssignmentDetailsList(userId, false, null, paginationDto, null);
+
+            if(getUserAssignment.Data.Items.Count() > 0)
+            {
+                foreach(var assgn in getUserAssignment.Data.Items)
+                {
+                    assgn.IsActive = false;
+
+                    AssignmentDto assignment = _mapper.Map<AssignmentDto>(assgn);
+
+                    _assignmentBaseRepository.UpdateAssignment(assignment);
+
+                    result = true;
+                }
+            }
+
+            return result;
+        }
     }
 }

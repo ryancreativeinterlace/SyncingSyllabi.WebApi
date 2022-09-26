@@ -168,5 +168,25 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("DeleteAllAssignmentByUserId/{userId}")]
+        public IActionResult DeleteAllAssignmentByUserId(long userId)
+        {
+            try
+            {
+                var result = _assignmentService.DeleteAllAssignmentByUserId(userId);
+
+                var response = new DeleteResponseModel();
+
+                response.Data.Success = result;
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

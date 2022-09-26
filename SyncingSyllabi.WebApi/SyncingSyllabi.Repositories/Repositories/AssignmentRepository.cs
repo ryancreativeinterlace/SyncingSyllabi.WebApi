@@ -157,7 +157,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                                        .Where(w => w.UserId == userId &&
                                               w.IsActive.Value &&
                                               w.IsCompleted.Value == isCompleted.Value &&
-                                              w.AssignmentDateEnd >= dateRange.StartDate && w.AssignmentDateEnd <= dateRange.EndDate)
+                                              w.AssignmentDateStart >= dateRange.StartDate && w.AssignmentDateEnd <= dateRange.EndDate)
                                        .Select(s => _mapper.Map<AssignmentDto>(s))
                                        .ToList();
                 }
@@ -166,7 +166,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 {
                     getAssignmentListResult = _mapper.Map<IEnumerable<AssignmentModel>>(getAssignmentList);
 
-                    if (sortColumn.Count() > 0)
+                    if (sortColumn != null && sortColumn.Count() > 0)
                     {
                         getAssignmentListResult = getAssignmentListResult.MultipleSort<AssignmentModel>(sortColumn.ToList(), SortTypeEnum.Assignment).ToList();
                     }
