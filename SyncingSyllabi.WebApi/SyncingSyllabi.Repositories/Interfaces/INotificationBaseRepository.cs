@@ -13,5 +13,6 @@ namespace SyncingSyllabi.Repositories.Interfaces
         UserNotificationListResponseModel GetUserNoficationList(long userId, UserNotificationStatusEnum userNotificationStatusEnum, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination);
         UserNotificationDto GetUserNoficaitonById(long noficaitionId);
         UserNotificationDto UpdateNofication(UserNotificationDto userNotificationDto);
+        UserNotificationDto GetUserNoficaitonByReferenceId(long referenceId);
     }
 }

@@ -28,6 +28,8 @@ namespace SyncingSyllabi.Data.Models.Response
 
     public class NotificationDueDateResponseDataModel
     {
+        public IEnumerable<Int64> AssignmentIds { get; set; }
+        public IEnumerable<Int64> GoalIds { get; set; }
         public bool HasDueNotification { get; set; }
         public bool Success { get; set; } = true;
     }

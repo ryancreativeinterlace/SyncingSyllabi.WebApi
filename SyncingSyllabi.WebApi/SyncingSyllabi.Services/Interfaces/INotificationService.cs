@@ -17,5 +17,6 @@ namespace SyncingSyllabi.Services.Interfaces
         Task<NotificationDueDateResponseModel> GetGoalDueDate(DateTime dateTime);
         Task<NotificationDueDateResponseModel> GetAssignmentDueDate(DateTime dateTime);
         Task<NotificationDueDateResponseModel> GetDues(DateTime dateTime);
+        NotificationReferenceReponseModel GetReferenceDetails(long referenceId);
     }
 }

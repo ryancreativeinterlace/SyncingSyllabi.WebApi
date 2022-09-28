@@ -10,7 +10,7 @@ namespace SyncingSyllabi.Repositories.Interfaces
     {
         AssignmentResponseModel CreateAssignment(AssignmentDto assignmentDto);
         AssignmentDto UpdateAssignment(AssignmentDto assignmentDto);
-        AssignmentDto GetAssignment(long assignmentId, long userId);
+        AssignmentDto GetAssignment(long assignmentId);
         AssignmentListResponseModel GetAssignmentDetailsList(long userId, bool? isCompleted, IEnumerable<SortColumnDto> sortColumn, PaginationDto pagination, DateRangeDto dateRange);
         bool DeleteAssignment(long assignmentId, long userId);
         IEnumerable<AssignmentDto> GetDueAssignments(DateTime dateTime);

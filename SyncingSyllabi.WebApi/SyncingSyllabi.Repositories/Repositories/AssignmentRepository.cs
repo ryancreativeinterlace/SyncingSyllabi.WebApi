@@ -107,7 +107,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
-        public AssignmentDto GetAssignment(long assignmentId, long userId)
+        public AssignmentDto GetAssignment(long assignmentId)
         {
             AssignmentDto result = null;
 
@@ -116,7 +116,7 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                 var getAssignment = ctx.Assignments
                                      .AsNoTracking()
-                                     .Where(w => w.Id == assignmentId && w.UserId == userId && w.IsActive.Value)
+                                     .Where(w => w.Id == assignmentId && w.IsActive.Value)
                                      .Select(s => _mapper.Map<AssignmentEntity>(s))
                                      .FirstOrDefault();
 

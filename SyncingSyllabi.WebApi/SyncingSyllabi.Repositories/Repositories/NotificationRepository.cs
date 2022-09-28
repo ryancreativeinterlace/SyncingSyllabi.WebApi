@@ -177,5 +177,27 @@ namespace SyncingSyllabi.Repositories.Repositories
 
             return result;
         }
+
+        public UserNotificationDto GetUserNoficaitonByReferenceId(long referenceId)
+        {
+            UserNotificationDto result = null;
+
+            UseDataContext(ctx =>
+            {
+                var getNotification = ctx.UserNotifications
+                                     .AsNoTracking()
+                                     .Where(w => w.ReferenceId == referenceId &&
+                                            w.IsActive.Value)
+                                     .Select(s => _mapper.Map<UserNotificationEntity>(s))
+                                     .FirstOrDefault();
+
+                if (getNotification != null)
+                {
+                    result = _mapper.Map<UserNotificationDto>(getNotification);
+                }
+            });
+
+            return result;
+        }
     }
 }

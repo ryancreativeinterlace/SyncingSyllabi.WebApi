@@ -3,7 +3,7 @@
 	id bigint IDENTITY(1,1) PRIMARY KEY,
 	syllabus_id bigint NULL,
 	[user_id] bigint NULL,
-	assignment_title varchar(100) NULL,
+	assignment_title varchar(800) NULL,
 	notes varchar(500) NULL,
 	assignment_date_start datetime NULL,
 	assignment_date_end datetime NULL,

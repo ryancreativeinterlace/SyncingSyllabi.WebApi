@@ -122,13 +122,13 @@ namespace SyncingSyllabi.Services.Services
             return creteAssignmentResult;
         }
 
-        public AssignmentDto GetAssignment(long assignmentId, long userId)
+        public AssignmentDto GetAssignment(long assignmentId)
         {
             AssignmentDto getAssignmentResult = null;
 
-            getAssignmentResult = _assignmentBaseRepository.GetAssignment(assignmentId, userId);
+            getAssignmentResult = _assignmentBaseRepository.GetAssignment(assignmentId);
 
-            if (!string.IsNullOrEmpty(getAssignmentResult.Attachment))
+            if (getAssignmentResult != null && !string.IsNullOrEmpty(getAssignmentResult.Attachment))
             {
                 // Get Presigned URL
                 getAssignmentResult.Attachment = _s3FileRepository.GetPreSignedUrl(_s3Settings.AssignmentAttachmentDirectory, getAssignmentResult.Attachment, string.Empty, string.Empty, DateTime.Now.AddDays(2));

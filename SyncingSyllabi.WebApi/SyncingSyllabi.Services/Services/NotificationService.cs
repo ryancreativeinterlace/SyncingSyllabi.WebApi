@@ -70,8 +70,28 @@ namespace SyncingSyllabi.Services.Services
             sendNoty.UserId = sendNotificationRequestModel.UserId;
             sendNoty.Title = sendNotificationRequestModel.Title;
             sendNoty.Message = sendNotificationRequestModel.Message;
+            sendNoty.ReferenceId = sendNotificationRequestModel.ReferenceId;
             sendNoty.IsActive = true;
             sendNoty.IsRead = false;
+
+            switch(sendNotificationRequestModel.NotificationType)
+            {
+                case NotificationTypeEnum.Assignment:
+                    {
+                        sendNoty.NotificationType = NotificationTypeEnum.Assignment;
+                        sendNoty.NotificationTypeName = NotificationTypeEnum.Assignment.ToString();
+
+                        break;
+                    }
+
+                case NotificationTypeEnum.Goal:
+                    {
+                        sendNoty.NotificationType = NotificationTypeEnum.Goal;
+                        sendNoty.NotificationTypeName = NotificationTypeEnum.Goal.ToString();
+
+                        break;
+                    }
+            }
 
             var getUser = _userBaseRepository.GetUserById(sendNoty.UserId);
 
@@ -248,6 +268,8 @@ namespace SyncingSyllabi.Services.Services
             var errorList = new List<string>();
 
             var dues = new NotificationDueDateResponseModel();
+            var assingmentIds = new List<Int64>();
+            var goalIds = new List<Int64>();
 
             var getAssignmentsDue = _assignmentBaseRepository.GetDueAssignments(dateTime.AddDays(1));
             var getGoalsDue = _goalBaseRepository.GetDueGoals(dateTime.AddDays(1));
@@ -256,13 +278,22 @@ namespace SyncingSyllabi.Services.Services
             {
                 foreach (var dueAssignment in getAssignmentsDue)
                 {
-                    var sendNoty = new SendNotificationRequestModel();
+                    var reference = this.GetReferenceDetails(dueAssignment.Id);
 
-                    sendNoty.UserId = dueAssignment.UserId;
-                    sendNoty.Title = $"Assignment {dueAssignment.AssignmentTitle} is due tommorow";
-                    sendNoty.Message = $"Due Date: {dueAssignment.AssignmentDateEnd.Value.ToShortDateString()} | {dueAssignment.AssignmentDateEnd.Value.ToString("hh:mm tt")}";
+                    if(reference.Data.NotificationItem == null)
+                    {
+                        var sendNoty = new SendNotificationRequestModel();
 
-                    await this.SendNotification(sendNoty);
+                        sendNoty.UserId = dueAssignment.UserId;
+                        sendNoty.Title = $"Assignment {dueAssignment.AssignmentTitle} is due tommorow";
+                        sendNoty.Message = $"Due Date: {dueAssignment.AssignmentDateEnd.Value.ToShortDateString()} | {dueAssignment.AssignmentDateEnd.Value.ToString("hh:mm tt")}";
+                        sendNoty.NotificationType = NotificationTypeEnum.Assignment;
+                        sendNoty.ReferenceId = dueAssignment.Id;
+
+                        await this.SendNotification(sendNoty);
+
+                        assingmentIds.Add(dueAssignment.Id);
+                    }
                 }
             }
 
@@ -270,22 +301,52 @@ namespace SyncingSyllabi.Services.Services
             {
                 foreach (var dueGoal in getGoalsDue)
                 {
-                    var sendNoty = new SendNotificationRequestModel();
+                    var reference = this.GetReferenceDetails(dueGoal.Id);
 
-                    sendNoty.UserId = dueGoal.UserId;
-                    sendNoty.Title = $"Goal {dueGoal.GoalTitle} is almost done";
-                    sendNoty.Message = $"{dueGoal.GoalDateEnd.Value.ToShortDateString()} | {dueGoal.GoalDateEnd.Value.ToString("hh:mm tt")}";
+                    if(reference.Data.NotificationItem == null)
+                    {
+                        var sendNoty = new SendNotificationRequestModel();
 
-                    await this.SendNotification(sendNoty);
+                        sendNoty.UserId = dueGoal.UserId;
+                        sendNoty.Title = $"Goal {dueGoal.GoalTitle} is almost done";
+                        sendNoty.Message = $"{dueGoal.GoalDateEnd.Value.ToShortDateString()} | {dueGoal.GoalDateEnd.Value.ToString("hh:mm tt")}";
+                        sendNoty.NotificationType = NotificationTypeEnum.Goal;
+                        sendNoty.ReferenceId = dueGoal.Id;
+
+                        await this.SendNotification(sendNoty);
+
+                        goalIds.Add(dueGoal.Id);
+                    }
                 }
             }
 
-            if(getAssignmentsDue.Count() > 0 || getGoalsDue.Count() > 0)
+            if(assingmentIds.Count() > 0 || goalIds.Count() > 0)
             {
+                dues.Data.AssignmentIds = assingmentIds;
+                dues.Data.GoalIds = goalIds;
                 dues.Data.HasDueNotification = true;
             }
 
             return dues;
+        }
+
+        public NotificationReferenceReponseModel GetReferenceDetails(long referenceId)
+        {
+            var referenceResult = new NotificationReferenceReponseModel();
+
+            var getNotification = _notificationBaseRepository.GetUserNoficaitonByReferenceId(referenceId);
+
+            if (getNotification != null)
+            {
+                referenceResult.Data.NotificationItem = _mapper.Map<UserNotificationModel>(getNotification);
+            }
+
+            if(getNotification == null)
+            {
+                referenceResult.Data.Success = false;
+            }
+
+            return referenceResult;
         }
     }
 }

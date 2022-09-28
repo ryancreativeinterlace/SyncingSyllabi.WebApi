@@ -125,5 +125,21 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetNotificationByReferenceId/{referenceId}")]
+        public IActionResult GetNotificationByReferenceId(long referenceId)
+        {
+            try
+            {
+                var result = _notificationService.GetReferenceDetails(referenceId);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
