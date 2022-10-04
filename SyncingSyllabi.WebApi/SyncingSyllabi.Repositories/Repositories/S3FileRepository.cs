@@ -662,8 +662,8 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                     var deadlineFilter = new List<string>()
                     {
-                        "week",
                         "week of",
+                        "week",
                         "due",
                         "date",
                         "due date",
@@ -674,9 +674,9 @@ namespace SyncingSyllabi.Repositories.Repositories
                     {
                         "lecture",
                         "chapter",
+                        "topic",
                         "assignment",
-                        "homework",
-                        "topic"
+                        "homework"
                     };
 
                     if(counter > 0)
@@ -689,29 +689,57 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                             var columnDetails = new List<Block>();
 
+                            var checkHeader = cell.Where(w => w.EntityTypes.Count > 0).ToList();
+
                             if (tableCounter == 1)
                             {
                                 // Get column header for table format
-                                columnDetails = assignmentAnalyze
-                                                .Blocks
-                                                .Where(w =>
-                                                      (w.BlockType.Value == "CELL" ||
-                                                       w.BlockType.Value == "MERGED_CELL") &&
-                                                       w.EntityTypes.Contains("COLUMN_HEADER") &&
-                                                       w.RowIndex == 1).ToList();
+                                if (checkHeader.Count > 0)
+                                {
+                                    columnDetails = assignmentAnalyze
+                                                    .Blocks
+                                                    .Where(w =>
+                                                          (w.BlockType.Value == "CELL" ||
+                                                           w.BlockType.Value == "MERGED_CELL") &&
+                                                           w.RowIndex == 1 &&
+                                                           w.EntityTypes.Contains("COLUMN_HEADER")).ToList();
+
+
+                                }
+                                else
+                                {
+                                    columnDetails = assignmentAnalyze
+                                                    .Blocks
+                                                    .Where(w =>
+                                                          (w.BlockType.Value == "CELL" ||
+                                                           w.BlockType.Value == "MERGED_CELL") &&
+                                                           w.RowIndex == 1).ToList();
+                                }
 
                             }
                             else if(tableCounter > 1 && !headerFound)
                             {
                                 // Get column header on second row or more
-                                columnDetails = assignmentAnalyze
-                                                .Blocks
-                                                .Where(w =>
-                                                      (w.BlockType.Value == "CELL" ||
-                                                       w.BlockType.Value == "MERGED_CELL") &&
-                                                       w.EntityTypes.Contains("COLUMN_HEADER") &&
-                                                       w.RowIndex == tableCounter).ToList();
-
+                             
+                                if(checkHeader.Count > 0)
+                                {
+                                    columnDetails = assignmentAnalyze
+                                                    .Blocks
+                                                    .Where(w =>
+                                                          (w.BlockType.Value == "CELL" ||
+                                                           w.BlockType.Value == "MERGED_CELL") &&
+                                                           w.RowIndex == tableCounter &&
+                                                           w.EntityTypes.Contains("COLUMN_HEADER")).ToList();
+                                }
+                                else
+                                {
+                                    columnDetails = assignmentAnalyze
+                                                    .Blocks
+                                                    .Where(w =>
+                                                          (w.BlockType.Value == "CELL" ||
+                                                           w.BlockType.Value == "MERGED_CELL") &&
+                                                           w.RowIndex == tableCounter).ToList();
+                                }
                             }
                             else
                             {
@@ -818,7 +846,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                         var deadlineHeader = tableDetails
                                                .Where(w => w.Value != null && deadlineFilter
                                                .Any(a => w.Value.ToLower()
-                                               .Contains(a)))
+                                               .Contains(a) && !w.Value.Contains("#")))
                                                .Select(s => new { s.RowIndex, s.ColumnIndex })
                                                .FirstOrDefault();
 
@@ -850,7 +878,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                                         var dateStart = new AssignmentStartDateModel();
                                         var dateEnd = new AssignmentEndDateModel();
 
-                                        var deadline = item.Value.Split("-");
+                                        var deadline = item.Value.Trim().Split("-");
 
                                         if (deadline.Count() == 0 || deadline.Count() == 1)
                                         {
@@ -872,10 +900,10 @@ namespace SyncingSyllabi.Repositories.Repositories
 
                                         if (deadline.Count() > 1)
                                         {
-                                            dateStart.Name = deadline[0];
+                                            dateStart.Name = this.DateConversion(deadline[0].Trim());
                                             dateStart.ConfidenceScore = item.ConfidenceScore;
 
-                                            dateEnd.Name = deadline[1];
+                                            dateEnd.Name = this.DateConversion(deadline[1].Trim());
                                             dateEnd.ConfidenceScore = item.ConfidenceScore;
                                         }
 
@@ -1001,13 +1029,13 @@ namespace SyncingSyllabi.Repositories.Repositories
                 "sunday"
             };
 
-            var validateDate = dtstr.ToLower().Split(" ").ToList();
+            var validDate = dtstr.ToLower().Split(" ").ToList();
 
-            validateDate = validateDate
-                            .Where(w => !removeDays.Any(a => w.Contains(a)))
-                            .ToList();
+            validDate = validDate
+                        .Where(w => !removeDays.Any(a => w.Contains(a)))
+                        .ToList();
 
-            foreach(var item in validateDate)
+            foreach(var item in validDate)
             {
                 if(counter == 1)
                 {
@@ -1030,6 +1058,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                 "MMM dd yyyy", "MMM d yyyy",
                 "MMM dd", "MMM dd yyyy",
                 "MMM d", "MMM d yyyy",
+                "MM/dd", "MM/dd/yyyy"
             };
 
             bool dateConversion = DateTime.TryParseExact(filterDate, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
@@ -1037,18 +1066,34 @@ namespace SyncingSyllabi.Repositories.Repositories
             return dt.ToShortDateString();
         }
 
-        private string ValidateDateFormat(string validatedDate)
+        private string ValidateDateFormat(string validDate)
         {
             string result = string.Empty;
+
+            var removeList = new List<string>()
+            {
+                "(M)",
+                "(T)",
+                "(W)",
+                "(TH)",
+                "(F)",
+                "(S)"
+            };
+
+            foreach (var c in removeList)
+            {
+                validDate = validDate.Replace(c, string.Empty);
+            }
+
             DateTime dDate;
 
-            if (DateTime.TryParse(validatedDate, out dDate))
+            if (DateTime.TryParse(validDate, out dDate))
             {
                 result = dDate.ToShortDateString();
             }
             else
             {
-                result = validatedDate;
+                result = validDate;
             }
 
             return result;
