@@ -1077,7 +1077,9 @@ namespace SyncingSyllabi.Repositories.Repositories
                 "(W)",
                 "(TH)",
                 "(F)",
-                "(S)"
+                "(S)",
+                "(T)",
+                "(R)"
             };
 
             foreach (var c in removeList)
