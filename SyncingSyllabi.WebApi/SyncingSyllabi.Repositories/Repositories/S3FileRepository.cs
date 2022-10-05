@@ -549,30 +549,64 @@ namespace SyncingSyllabi.Repositories.Repositories
                             },
                             new Query()
                             {
-                                Text = "Monday",
-                                Alias = "Mon"
+                                Text = "Lecture",
+                                Alias = "Lectures"
+                            },
+                            //new Query()
+                            //{
+                            //    Text = "Monday",
+                            //    Alias = "Mon"
+                            //},
+                            //new Query()
+                            //{
+                            //    Text = "Tuesday",
+                            //    Alias = "Tue"
+                            //},
+                            //new Query()
+                            //{
+                            //    Text = "Wednesday",
+                            //    Alias = "Wed"
+                            //},
+                            //new Query()
+                            //{
+                            //    Text = "Thursday",
+                            //    Alias = "Thu"
+                            //},
+                            //new Query()
+                            //{
+                            //    Text = "Friday",
+                            //    Alias = "Fri"
+                            //},
+                            //new Query()
+                            //{
+                            //    Text = "Saturday",
+                            //    Alias = "Sat"
+                            //},
+                            new Query()
+                            {
+                                Text = "Mon",
+                                Alias = "Monday"
                             },
                             new Query()
                             {
-                                Text = "Tuesday",
-                                Alias = "Tue"
+                                Text = "Tue",
+                                Alias = "Tuesday"
                             },
                             new Query()
                             {
-                                Text = "Wednesday",
-                                Alias = "Wed"
+                                Text = "Wed",
+                                Alias = "Wednesday"
                             },
                             new Query()
                             {
-                                Text = "Thursday",
-                                Alias = "Thur"
+                                Text = "Thu",
+                                Alias = "Thursday"
                             },
-                             new Query()
+                            new Query()
                             {
-                                Text = "Friday",
-                                Alias = "Fri"
-                            },
-
+                                Text = "Fri",
+                                Alias = "Friday"
+                            }
                         };
 
                     queryConfig.Queries = scheduleQueries;
