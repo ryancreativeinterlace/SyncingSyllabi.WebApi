@@ -55,7 +55,7 @@ namespace SyncingSyllabi.Repositories.Repositories
             {
                 var getUser = ctx.Users
                              .AsNoTracking()
-                             .Where(w => w.Id == user.Id)
+                             .Where(w => w.Id == user.Id && w.IsActive.Value)
                              .Select(s => _mapper.Map<UserEntity>(s))
                              .FirstOrDefault();
 

@@ -254,5 +254,31 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("DeleteUserAccount/{userId}")]
+        public IActionResult DeleteUserAccount(long userId)
+        {
+            try
+            {
+                var result = _userService.DeleteUserAccount(userId);
+                var response = new UserPasswordResponseModel();
+
+                if (result)
+                {
+                    response.Data.Success = true;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

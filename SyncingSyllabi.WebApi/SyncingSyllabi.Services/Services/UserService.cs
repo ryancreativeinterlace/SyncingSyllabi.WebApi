@@ -338,5 +338,29 @@ namespace SyncingSyllabi.Services.Services
 
             return decryptedPassword;
         }
+
+        public bool DeleteUserAccount(long userId)
+        {
+            bool deletedUserAccount = false;
+
+            var getUser = _userBaseRepository.GetUserById(userId);
+
+            if (getUser != null)
+            {
+                UserDto updateUser = new UserDto();
+
+                updateUser.Id = getUser.Id;
+                updateUser.IsActive = false;
+
+                var updateUserPassword = _userBaseRepository.UpdateUser(updateUser);
+
+                if (updateUserPassword != null)
+                {
+                    deletedUserAccount = true;
+                }
+            }
+
+            return deletedUserAccount;
+        }
     }
 }
