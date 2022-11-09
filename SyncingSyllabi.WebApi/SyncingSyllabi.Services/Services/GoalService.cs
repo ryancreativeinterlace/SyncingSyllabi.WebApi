@@ -119,10 +119,86 @@ namespace SyncingSyllabi.Services.Services
 
         public PaginatedResultDto<GoalModel> GetGoalDetailsList(GoalRequestModel goalRequestModel)
         {
+            PaginatedResultDto<GoalModel> result = null;
+
             var paginationDto = goalRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(goalRequestModel.Pagination) : null;
             var sortColumnDto = goalRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
 
-            return _goalBaseRepository.GetGoalDetailsList(goalRequestModel.UserId, sortColumnDto, paginationDto);
+            if(goalRequestModel.UserId == 0)
+            {
+                // Dummy Data
+                result = new PaginatedResultDto<GoalModel>()
+                {
+                    Items = new List<GoalModel>()
+                    {
+                        new GoalModel()
+                        {
+                             Id = 0,
+                            UserId = 0,
+                            GoalTitle = "My Long Time Goal",
+                            GoalDescription = "Long Term Goal",
+                            IsActive = true,
+                            IsArchived = false,
+                            GoalType = GoalTypeEnum.LongTerm,
+                            GoalTypeName = GoalTypeEnum.LongTerm.ToString(),
+                            IsCompleted = false,
+                            GoalDateStart = DateTime.Now.AddDays(-3),
+                            GoalDateEnd = DateTime.Now.AddDays(1),
+                            CreatedBy = 1,
+                            DateCreated = DateTime.Now.AddDays(-3),
+                            UpdatedBy = 1,
+                            DateUpdated = DateTime.Now.AddDays(-3),
+                        },
+                        new GoalModel()
+                        {   
+                            Id = 0,
+                            UserId = 0,
+                            GoalTitle = "My Mid Time Goal",
+                            GoalDescription = "Mid Term Goal",
+                            IsActive = true,
+                            IsArchived = false,
+                            GoalType = GoalTypeEnum.MediumTerm,
+                            GoalTypeName = GoalTypeEnum.MediumTerm.ToString(),
+                            IsCompleted = false,
+                            GoalDateStart = DateTime.Now.AddDays(-3),
+                            GoalDateEnd = DateTime.Now,
+                            CreatedBy = 1,
+                            DateCreated = DateTime.Now.AddDays(-3),
+                            UpdatedBy = 1,
+                            DateUpdated = DateTime.Now.AddDays(-3),
+                        },
+                        new GoalModel()
+                        {
+                            Id = 0,
+                            UserId = 0,
+                            GoalTitle = "My Short Time Goal",
+                            GoalDescription = "Short Term Goal",
+                            IsActive = true,
+                            IsArchived = false,
+                            GoalType = GoalTypeEnum.ShortTerm,
+                            GoalTypeName = GoalTypeEnum.ShortTerm.ToString(),
+                            IsCompleted = false,
+                            GoalDateStart = DateTime.Now.AddDays(-3),
+                            GoalDateEnd = DateTime.Now.AddDays(-1),
+                            CreatedBy = 1,
+                            DateCreated = DateTime.Now.AddDays(-3),
+                            UpdatedBy = 1,
+                            DateUpdated = DateTime.Now.AddDays(-3)
+                        }
+                    },
+                    Success = true,
+                    TotalCount = 3,
+                    Take = 3,
+                    Skip = 0
+                };
+
+            }
+            else
+            {
+                result = _goalBaseRepository.GetGoalDetailsList(goalRequestModel.UserId, sortColumnDto, paginationDto);
+            }
+
+            return result;
         }
 
         public bool DeleteGoal(long goalId, long userId)
