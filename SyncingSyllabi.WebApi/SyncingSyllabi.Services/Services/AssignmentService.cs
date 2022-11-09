@@ -143,18 +143,74 @@ namespace SyncingSyllabi.Services.Services
             var sortColumnDto = assignmentRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
             var dateRangeDto = assignmentRequestModel.DateRange.StartDate != null ? _mapper.Map<DateRangeDto>(assignmentRequestModel.DateRange) : null;
 
-            var getAssignmentList = _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
+            AssignmentListResponseModel getAssignmentList = null;
 
-            if (getAssignmentList.Data.Items.Count() > 0)
+            if(assignmentRequestModel.UserId == 0)
             {
-                foreach (var assignment in getAssignmentList.Data.Items)
+                getAssignmentList = new AssignmentListResponseModel()
                 {
-                    if (assignment.Attachment != null)
+                    Data = new PaginatedResultDto<AssignmentModel>()
                     {
-                        // Get Presigned URL
-                        assignment.Attachment = _s3FileRepository.GetPreSignedUrl(_s3Settings.AssignmentAttachmentDirectory, assignment.Attachment, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+                        Items = new List<AssignmentModel>()
+                        {
+                            new AssignmentModel()
+                            {
+                                Id = 0,
+                                UserId = 0,
+                                SyllabusId = 0,
+                                AssignmentTitle = "My Assignment Today",
+                                Notes = "My Assignment Notes Today",
+                                AssignmentDateStart = DateTime.Now.AddDays(-3),
+                                AssignmentDateEnd = DateTime.Now.AddDays(1),
+                                ColorInHex = "#0000FF",
+                                IsActive = true,
+                                IsCompleted = false,
+                                CreatedBy = 1,
+                                DateCreated = DateTime.Now.AddDays(-3),
+                                UpdatedBy = 1,
+                                DateUpdated = DateTime.Now.AddDays(-3)
+                            },
+                            new AssignmentModel()
+                            {
+                                Id = 0,
+                                UserId = 0,
+                                SyllabusId = 0,
+                                AssignmentTitle = "My Assignment Tomorrow",
+                                Notes = "My Assignment Notes Tomorrow",
+                                AssignmentDateStart = DateTime.Now.AddDays(-3),
+                                AssignmentDateEnd = DateTime.Now,
+                                ColorInHex = "#FF0000",
+                                IsActive = true,
+                                IsCompleted = false,
+                                CreatedBy = 1,
+                                DateCreated = DateTime.Now.AddDays(-3),
+                                UpdatedBy = 1,
+                                DateUpdated = DateTime.Now.AddDays(-3)
+                            }
+                        },
+                        Success = true,
+                        TotalCount = 2,
+                        Take = 2,
+                        Skip = 0
+                    }
+                };
+            }
+            else
+            {
+                getAssignmentList = _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
+
+                if (getAssignmentList.Data.Items.Count() > 0)
+                {
+                    foreach (var assignment in getAssignmentList.Data.Items)
+                    {
+                        if (assignment.Attachment != null)
+                        {
+                            // Get Presigned URL
+                            assignment.Attachment = _s3FileRepository.GetPreSignedUrl(_s3Settings.AssignmentAttachmentDirectory, assignment.Attachment, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+                        }
                     }
                 }
+
             }
 
             return getAssignmentList;
