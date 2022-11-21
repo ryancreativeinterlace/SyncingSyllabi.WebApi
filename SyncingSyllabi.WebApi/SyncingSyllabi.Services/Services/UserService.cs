@@ -339,7 +339,7 @@ namespace SyncingSyllabi.Services.Services
             return decryptedPassword;
         }
 
-        public bool DeleteUserAccount(long userId)
+        public bool DeleteUserAccount(long userId, bool isActive)
         {
             bool deletedUserAccount = false;
 
@@ -350,7 +350,15 @@ namespace SyncingSyllabi.Services.Services
                 UserDto updateUser = new UserDto();
 
                 updateUser.Id = getUser.Id;
-                updateUser.IsActive = false;
+
+                if(!isActive)
+                {
+                    updateUser.IsActive = false;
+                }
+                else
+                {
+                    updateUser.IsActive = true;
+                }
 
                 var updateUserPassword = _userBaseRepository.UpdateUser(updateUser);
 

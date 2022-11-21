@@ -256,12 +256,12 @@ namespace SyncingSyllabi.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("DeleteUserAccount/{userId}")]
-        public IActionResult DeleteUserAccount(long userId)
+        [Route("DeleteUserAccount/{userId}/{isActive}")]
+        public IActionResult DeleteUserAccount(long userId, bool isActive)
         {
             try
             {
-                var result = _userService.DeleteUserAccount(userId);
+                var result = _userService.DeleteUserAccount(userId, isActive);
                 var response = new UserPasswordResponseModel();
 
                 if (result)

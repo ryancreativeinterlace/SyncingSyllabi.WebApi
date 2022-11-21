@@ -19,6 +19,6 @@ namespace SyncingSyllabi.Services.Interfaces
         bool VerifyUserCode(UserCodeRequestModel userCodeRequestModel);
         bool ResetPassword(UserPasswordRequestModel userPasswordRequestModel);
         string DecryptPassword(UserPasswordDecryptRequestModel userPasswordDecryptRequestModel);
-        bool DeleteUserAccount(long userId);
+        bool DeleteUserAccount(long userId, bool isActive);
     }
 }
