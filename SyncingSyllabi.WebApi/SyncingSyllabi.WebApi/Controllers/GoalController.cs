@@ -116,6 +116,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("GetGoalDetailsList")]
+        [AllowAnonymous]
         public IActionResult GetGoalDetailsList([FromBody] GoalRequestModel goalRequestModel)
         {
             try

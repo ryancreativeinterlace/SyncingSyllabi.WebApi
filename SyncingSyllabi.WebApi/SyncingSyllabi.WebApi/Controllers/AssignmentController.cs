@@ -115,6 +115,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("GetAssignmentDetailsList")]
+        [AllowAnonymous]
         public IActionResult GetAssignmentDetailsList([FromBody] AssignmentListRequestModel assignmentRequestModel)
         {
             try
