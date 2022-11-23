@@ -109,7 +109,63 @@ namespace SyncingSyllabi.Services.Services
             var paginationDto = syllabusRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(syllabusRequestModel.Pagination) : null;
             var sortColumnDto = syllabusRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
 
-            return _syllabusBaseRepository.GetSyllabusDetailsList(syllabusRequestModel.UserId, sortColumnDto, paginationDto);
+            PaginatedResultDto<SyllabusDataOutputModel> getSyllabusList = null;
+
+            if(syllabusRequestModel.UserId == 0)
+            {
+                getSyllabusList = new PaginatedResultDto<SyllabusDataOutputModel>()
+                {
+                    Items = new List<SyllabusDataOutputModel>()
+                    {
+                        new SyllabusDataOutputModel()
+                        {
+                            Id = 0,
+                            UserId = 0,
+                            ClassCode = "101",
+                            ClassName = "Algebra",
+                            TeacherName = "Dr.William Smith",
+                            ClassSchedule = new List<string>()
+                            {
+                                "Friday - 4:00 - 5:00 PM"
+                            },
+                            ColorInHex = "#0000FF",
+                            CreatedBy = 1,
+                            DateCreated = DateTime.Now,
+                            UpdatedBy = 1,
+                            DateUpdated = DateTime.Now,
+                            IsActive = true
+                        },
+                        new SyllabusDataOutputModel()
+                        {
+                            Id = 0,
+                            UserId = 0,
+                            ClassCode = "102",
+                            ClassName = "History",
+                            TeacherName = "Dr.Angelina Jolie",
+                            ClassSchedule = new List<string>()
+                            {
+                                "Monday - 10:00 - 11:00 AM"
+                            },
+                            ColorInHex = "#Ff0000",
+                            CreatedBy = 1,
+                            DateCreated = DateTime.Now,
+                            UpdatedBy = 1,
+                            DateUpdated = DateTime.Now,
+                            IsActive = true
+                        }
+                    },
+                    Take = 2,
+                    Skip = 0,
+                    TotalCount = 2,
+                    Success = true
+                };
+            }
+            else
+            {
+                getSyllabusList = _syllabusBaseRepository.GetSyllabusDetailsList(syllabusRequestModel.UserId, sortColumnDto, paginationDto);
+            }
+
+            return getSyllabusList;
         }
 
         public bool DeleteSyllabus(long syllabusId, long userId)

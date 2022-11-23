@@ -163,6 +163,7 @@ namespace SyncingSyllabi.WebApi.Controllers
 
         [HttpPost]
         [Route("GetSyllabusDetailsList")]
+        [AllowAnonymous]
         public IActionResult GetSyllabusDetailsList([FromBody] SyllabusRequestModel syllabusRequestModel)
         {
             try
