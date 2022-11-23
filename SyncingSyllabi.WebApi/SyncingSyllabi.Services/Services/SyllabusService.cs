@@ -119,7 +119,7 @@ namespace SyncingSyllabi.Services.Services
                     {
                         new SyllabusDataOutputModel()
                         {
-                            Id = 0,
+                            Id = 99998,
                             UserId = 0,
                             ClassCode = "101",
                             ClassName = "Algebra",
@@ -137,7 +137,7 @@ namespace SyncingSyllabi.Services.Services
                         },
                         new SyllabusDataOutputModel()
                         {
-                            Id = 0,
+                            Id = 99999,
                             UserId = 0,
                             ClassCode = "102",
                             ClassName = "History",

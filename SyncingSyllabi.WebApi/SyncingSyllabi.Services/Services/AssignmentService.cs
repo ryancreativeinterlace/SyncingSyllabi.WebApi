@@ -155,8 +155,8 @@ namespace SyncingSyllabi.Services.Services
                         {
                             new AssignmentModel()
                             {
-                                Id = 0,
-                                UserId = 0,
+                                Id = 1000001,
+                                UserId = 99998,
                                 SyllabusId = 0,
                                 AssignmentTitle = "My Assignment Today",
                                 Notes = "My Assignment Notes Today",
@@ -172,9 +172,9 @@ namespace SyncingSyllabi.Services.Services
                             },
                             new AssignmentModel()
                             {
-                                Id = 0,
+                                Id = 1000002,
                                 UserId = 0,
-                                SyllabusId = 0,
+                                SyllabusId = 99999,
                                 AssignmentTitle = "My Assignment Yesterday",
                                 Notes = "My Assignment Notes Yesterday",
                                 AssignmentDateStart = DateTime.Now.AddDays(-3),
