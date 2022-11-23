@@ -128,7 +128,7 @@ namespace SyncingSyllabi.Services.Services
                             {
                                 "Friday - 4:00 - 5:00 PM"
                             },
-                            ColorInHex = "#0000FF",
+                            ColorInHex = "0",
                             CreatedBy = 1,
                             DateCreated = DateTime.Now,
                             UpdatedBy = 1,
@@ -146,7 +146,7 @@ namespace SyncingSyllabi.Services.Services
                             {
                                 "Monday - 10:00 - 11:00 AM"
                             },
-                            ColorInHex = "#Ff0000",
+                            ColorInHex = "1",
                             CreatedBy = 1,
                             DateCreated = DateTime.Now,
                             UpdatedBy = 1,
