@@ -19,5 +19,19 @@ namespace SyncingSyllabi.Data.Models.Response
         public AssignmentModel Item { get; set; }
         public bool Success { get; set; } = true;
     }
+
+    public class AssignmentAttachmentResponseModel : BaseResponseModel<AssignmentAttachmentResponseDataModel>
+    {
+        public AssignmentAttachmentResponseModel()
+        {
+            Data = new AssignmentAttachmentResponseDataModel();
+        }
+    }
+
+    public class AssignmentAttachmentResponseDataModel
+    {
+        public string AttachmentUrl { get; set; }
+        public bool Success { get; set; } = true;
+    }
 }
 

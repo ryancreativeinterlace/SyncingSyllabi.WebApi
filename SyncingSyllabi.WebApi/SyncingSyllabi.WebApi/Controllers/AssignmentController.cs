@@ -189,5 +189,21 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetAssignmentAttachment/{assignmentId}")]
+        public IActionResult GetAssignmentAttachment(long assignmentId)
+        {
+            try
+            {
+                var response = _assignmentService.AssignmentAttachment(assignmentId);
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

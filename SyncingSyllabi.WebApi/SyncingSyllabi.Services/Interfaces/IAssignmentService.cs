@@ -16,5 +16,6 @@ namespace SyncingSyllabi.Services.Interfaces
         bool DeleteAssignment(long assignmentId, long userId);
         bool DeleteAssignmentAttachment(long assignmentId);
         bool DeleteAllAssignmentByUserId(long userId);
+        AssignmentAttachmentResponseModel AssignmentAttachment(long assignmentId);
     }
 }

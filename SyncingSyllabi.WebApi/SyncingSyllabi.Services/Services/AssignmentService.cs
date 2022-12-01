@@ -145,7 +145,7 @@ namespace SyncingSyllabi.Services.Services
 
             AssignmentListResponseModel getAssignmentList = null;
 
-            if(assignmentRequestModel.UserId == 0)
+            if (assignmentRequestModel.UserId == 0)
             {
                 getAssignmentList = new AssignmentListResponseModel()
                 {
@@ -239,9 +239,9 @@ namespace SyncingSyllabi.Services.Services
 
             var getUserAssignment = _assignmentBaseRepository.GetAssignmentDetailsList(userId, false, null, paginationDto, null);
 
-            if(getUserAssignment.Data.Items.Count() > 0)
+            if (getUserAssignment.Data.Items.Count() > 0)
             {
-                foreach(var assgn in getUserAssignment.Data.Items)
+                foreach (var assgn in getUserAssignment.Data.Items)
                 {
                     assgn.IsActive = false;
 
@@ -251,6 +251,40 @@ namespace SyncingSyllabi.Services.Services
 
                     result = true;
                 }
+            }
+
+            return result;
+        }
+
+        public AssignmentAttachmentResponseModel AssignmentAttachment(long assignmentId)
+        {
+            var result = new AssignmentAttachmentResponseModel();
+            var errorList = new List<string>();
+
+
+            var getUserAssignment = _assignmentBaseRepository.GetAssignment(assignmentId);
+
+            if (getUserAssignment != null)
+            {
+                if (getUserAssignment.Attachment != null)
+                {
+                    // Get Presigned URL
+                    result.Data.AttachmentUrl = _s3FileRepository.GetPreSignedUrl(_s3Settings.AssignmentAttachmentDirectory, getUserAssignment.Attachment, string.Empty, string.Empty, DateTime.Now.AddDays(2));
+                }
+                else
+                {
+                    errorList.Add("Assignment exist, but no attachment");
+                }
+            }
+            else
+            {
+                errorList.Add("Assignment don't exist");
+            }
+
+            if(errorList.Count > 0)
+            {
+                result.Data.Success = false;
+                result.Errors = errorList;
             }
 
             return result;
