@@ -17,4 +17,18 @@ namespace SyncingSyllabi.Data.Models.Response
     {
         public string DecryptedPassword { get; set; }
     }
+
+    public class AppleAuthResponseModel : BaseResponseModel<AppleAuthDataModel>
+    {
+        public AppleAuthResponseModel()
+        {
+            Data = new AppleAuthDataModel();
+        }
+    }
+
+    public class AppleAuthDataModel
+    {
+        public string AppleToken { get; set; }
+        public bool Success { get; set; } = true;
+    }
 }

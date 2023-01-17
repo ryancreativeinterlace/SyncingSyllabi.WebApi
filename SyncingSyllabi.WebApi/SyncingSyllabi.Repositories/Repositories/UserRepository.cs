@@ -347,5 +347,30 @@ namespace SyncingSyllabi.Repositories.Repositories
             return result;
         }
 
+        public bool HardDeleteUser(string email)
+        {
+            bool result = false;
+
+            UseDataContext(ctx =>
+            {
+                var getUser = ctx.Users
+                             .AsNoTracking()
+                             .Where(w =>
+                                    w.Email.ToLower() == email.ToLower())
+                             .FirstOrDefault();
+
+                if(getUser != null)
+                {
+                    ctx.Users.Remove(getUser);
+                    ctx.SaveChanges();
+
+                    result = true;
+                }
+
+            });
+
+            return result;
+        }
+
     }
 }

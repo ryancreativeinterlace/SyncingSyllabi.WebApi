@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 using SyncingSyllabi.Common.Tools.Helpers;
 using SyncingSyllabi.Data.Constants;
 using SyncingSyllabi.Data.Dtos.Core;
@@ -11,6 +13,7 @@ using SyncingSyllabi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace SyncingSyllabi.Services.Services
@@ -369,6 +372,36 @@ namespace SyncingSyllabi.Services.Services
             }
 
             return deletedUserAccount;
+        }
+
+        public bool HardDeleteUserAccount(string email)
+        {
+            return _userBaseRepository.HardDeleteUser(email);
+        }
+
+        public string GetAppleUserToken()
+        {
+            string iss = "9TY3337JV3"; // your account's team ID found in the dev portal
+            string aud = "https://appleid.apple.com";
+            string sub = "com.creativeinterlace.SyncingSyllabi"; // same as client_id
+            var now = DateTime.UtcNow;
+
+            // contents of your .p8 file
+            string privateKey = @"MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgud2CMsMufRM/0aENJ5CSeM9Gix2sGsoSfK9Uxp1RLRagCgYIKoZIzj0DAQehRANCAATPQed9UW33Dcx2tzCl8BuQguUp+EdYZB2ER8X9002cIJtHzuc3f7L22xjy1Z15b+Zb3zI6tqXOdzTEBIHY9wUr";
+            var ecdsa = ECDsa.Create();
+            ecdsa.ImportPkcs8PrivateKey(Convert.FromBase64String(privateKey), out _);
+
+            var handler = new JsonWebTokenHandler();
+            return handler.CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = iss,
+                Audience = aud,
+                Claims = new Dictionary<string, object> { { "sub", sub } },
+                Expires = now.AddDays(1), // expiry can be a maximum of 6 months - generate one per request or re-use until expiration
+                IssuedAt = now,
+                NotBefore = now,
+                SigningCredentials = new SigningCredentials(new ECDsaSecurityKey(ecdsa), SecurityAlgorithms.EcdsaSha256)
+            });
         }
     }
 }

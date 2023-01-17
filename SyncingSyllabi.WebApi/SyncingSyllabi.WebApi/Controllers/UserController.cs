@@ -280,5 +280,60 @@ namespace SyncingSyllabi.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetAppleUserToken")]
+        [AllowAnonymous]
+        public IActionResult GetAppleUserToken()
+        {
+            try
+            {
+                var result = _userService.GetAppleUserToken();
+                var response = new AppleAuthResponseModel();
+
+                if (!string.IsNullOrEmpty(result))
+                {
+                    response.Data.AppleToken = result;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("HardDeleteUser/{email}")]
+        [AllowAnonymous]
+        public IActionResult HardDeleteUser(string email)
+        {
+            try
+            {
+                var result = _userService.HardDeleteUserAccount(email);
+                var response = new UserPasswordResponseModel();
+
+                if (result)
+                {
+                    response.Data.Success = true;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
