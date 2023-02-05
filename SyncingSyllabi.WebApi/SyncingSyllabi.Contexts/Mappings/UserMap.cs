@@ -30,6 +30,7 @@ namespace SyncingSyllabi.Contexts.Mappings
             builder.Property(e => e.IsResetPassword).HasColumnName("is_reset_password");
             builder.Property(e => e.IsGoogle).HasColumnName("is_google");
             builder.Property(e => e.NotificationToken).HasColumnName("notification_token");
+            builder.Property(e => e.TimeZone).HasColumnName("time_zone");
         }
     }
 }

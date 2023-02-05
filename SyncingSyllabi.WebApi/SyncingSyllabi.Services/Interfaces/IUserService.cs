@@ -21,6 +21,7 @@ namespace SyncingSyllabi.Services.Interfaces
         string DecryptPassword(UserPasswordDecryptRequestModel userPasswordDecryptRequestModel);
         bool DeleteUserAccount(long userId, bool isActive);
         bool HardDeleteUserAccount(string email);
+        bool UpdateUserTimeZone(UserTimeZoneRequestModel request);
         string GetAppleUserToken();
     }
 }

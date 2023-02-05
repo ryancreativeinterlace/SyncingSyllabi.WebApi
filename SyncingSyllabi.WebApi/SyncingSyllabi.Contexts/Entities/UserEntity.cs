@@ -20,5 +20,6 @@ namespace SyncingSyllabi.Contexts.Entities
         public bool? IsResetPassword { get; set; }
         public bool? IsGoogle { get; set; }
         public string NotificationToken { get; set; }
+        public string TimeZone { get; set; }
     }
 }

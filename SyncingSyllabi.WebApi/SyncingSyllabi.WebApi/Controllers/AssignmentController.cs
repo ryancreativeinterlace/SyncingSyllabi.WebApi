@@ -86,12 +86,12 @@ namespace SyncingSyllabi.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetAssignmentDetails/{assignmentId}")]
-        public IActionResult GetAssignmentDetails(long assignmentId)
+        [Route("GetAssignmentDetails/{assignmentId}/{userId}")]
+        public IActionResult GetAssignmentDetails(long assignmentId, long userId)
         {
             try
             {
-                var result = _assignmentService.GetAssignment(assignmentId);
+                var result = _assignmentService.GetAssignment(assignmentId, userId);
                 var item = _mapper.Map<AssignmentModel>(result);
 
                 var response = new AssignmentResponseModel();

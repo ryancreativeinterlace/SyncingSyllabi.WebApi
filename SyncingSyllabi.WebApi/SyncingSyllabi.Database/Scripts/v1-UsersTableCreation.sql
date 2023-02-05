@@ -18,7 +18,8 @@
 	is_google bit NULL,
 	is_reset_password bit NULL,
 	is_active bit NULL,
-	notification_token varchar(800) NULL
+	notification_token varchar(800) NULL,
+	time_zone varchar(30) NULL
 );
 
 

@@ -708,7 +708,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     {
                         "lecture",
                         "chapter",
-                        "topic",
+                        //"topic",
                         "assignment",
                         "homework"
                     };

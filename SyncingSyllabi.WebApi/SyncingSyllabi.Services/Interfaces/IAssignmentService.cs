@@ -11,7 +11,7 @@ namespace SyncingSyllabi.Services.Interfaces
     {
         AssignmentResponseModel CreateAssignment(AssignmentRequestModel assignmentRequestModel);
         AssignmentDto UpdateAssignment(AssignmentRequestModel assignmentRequestModel);
-        AssignmentDto GetAssignment(long assignmentId);
+        AssignmentDto GetAssignment(long assignmentId, long userId);
         AssignmentListResponseModel GetAssignmentDetailsList(AssignmentListRequestModel assignmentRequestModel);
         bool DeleteAssignment(long assignmentId, long userId);
         bool DeleteAssignmentAttachment(long assignmentId);

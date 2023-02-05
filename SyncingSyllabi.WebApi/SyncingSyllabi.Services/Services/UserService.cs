@@ -379,6 +379,30 @@ namespace SyncingSyllabi.Services.Services
             return _userBaseRepository.HardDeleteUser(email);
         }
 
+        public bool UpdateUserTimeZone(UserTimeZoneRequestModel request)
+        {
+            bool timeZone = false;
+
+            var getUser = _userBaseRepository.GetUserById(request.UserId);
+
+            if (getUser != null)
+            {
+                UserDto updateUser = new UserDto();
+
+                updateUser.Id = getUser.Id;
+                updateUser.TimeZone = request.TimeZone;
+
+                var getUpdatdeUser = _userBaseRepository.UpdateUser(updateUser);
+
+                if (getUpdatdeUser != null)
+                {
+                    timeZone = true;
+                }
+            }
+
+            return timeZone;
+        }
+
         public string GetAppleUserToken()
         {
             string iss = "9TY3337JV3"; // your account's team ID found in the dev portal

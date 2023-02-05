@@ -17,6 +17,7 @@ namespace SyncingSyllabi.Services.Services
     public class AssignmentService : IAssignmentService
     {
         private readonly IMapper _mapper;
+        private readonly IUserBaseRepository _userBaseRepository;
         private readonly IAssignmentBaseRepository _assignmentBaseRepository;
         private readonly IS3FileRepository _s3FileRepository;
         private readonly S3Settings _s3Settings;
@@ -24,12 +25,14 @@ namespace SyncingSyllabi.Services.Services
         public AssignmentService
         (
             IMapper mapper,
+            IUserBaseRepository userBaseRepository,
             IAssignmentBaseRepository assignmentBaseRepository,
             IS3FileRepository s3FileRepository,
             S3Settings s3Settings
         )
         {
             _mapper = mapper;
+            _userBaseRepository = userBaseRepository;
             _assignmentBaseRepository = assignmentBaseRepository;
             _s3FileRepository = s3FileRepository;
             _s3Settings = s3Settings;
@@ -122,11 +125,18 @@ namespace SyncingSyllabi.Services.Services
             return creteAssignmentResult;
         }
 
-        public AssignmentDto GetAssignment(long assignmentId)
+        public AssignmentDto GetAssignment(long assignmentId, long userId)
         {
             AssignmentDto getAssignmentResult = null;
 
             getAssignmentResult = _assignmentBaseRepository.GetAssignment(assignmentId);
+
+            // get user timeZone
+            var user = _userBaseRepository.GetUserById(userId);
+
+            // convert to user time zone
+            getAssignmentResult.AssignmentDateStart = TimeZoneHelper.ConvertToUserTimeZone(getAssignmentResult.AssignmentDateStart.Value, user.TimeZone);
+            getAssignmentResult.AssignmentDateEnd = TimeZoneHelper.ConvertToUserTimeZone(getAssignmentResult.AssignmentDateEnd.Value, user.TimeZone);
 
             if (getAssignmentResult != null && !string.IsNullOrEmpty(getAssignmentResult.Attachment))
             {
@@ -142,6 +152,9 @@ namespace SyncingSyllabi.Services.Services
             var paginationDto = assignmentRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(assignmentRequestModel.Pagination) : null;
             var sortColumnDto = assignmentRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
             var dateRangeDto = assignmentRequestModel.DateRange.StartDate != null ? _mapper.Map<DateRangeDto>(assignmentRequestModel.DateRange) : null;
+
+            // get user timeZone
+            var user = _userBaseRepository.GetUserById(assignmentRequestModel.UserId);
 
             AssignmentListResponseModel getAssignmentList = null;
 
@@ -197,12 +210,18 @@ namespace SyncingSyllabi.Services.Services
             }
             else
             {
-                getAssignmentList = _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, assignmentRequestModel.IsCompleted, sortColumnDto, paginationDto, dateRangeDto);
+                bool isCompleted = assignmentRequestModel.IsCompleted.HasValue ? assignmentRequestModel.IsCompleted.Value : false;
+
+                getAssignmentList = _assignmentBaseRepository.GetAssignmentDetailsList(assignmentRequestModel.UserId, isCompleted, sortColumnDto, paginationDto, dateRangeDto);
 
                 if (getAssignmentList.Data.Items.Count() > 0)
                 {
                     foreach (var assignment in getAssignmentList.Data.Items)
                     {
+                        // convert to user time zone
+                        assignment.AssignmentDateStart = TimeZoneHelper.ConvertToUserTimeZone(assignment.AssignmentDateStart.Value, user.TimeZone);
+                        assignment.AssignmentDateEnd = TimeZoneHelper.ConvertToUserTimeZone(assignment.AssignmentDateEnd.Value, user.TimeZone);
+
                         if (assignment.Attachment != null)
                         {
                             // Get Presigned URL

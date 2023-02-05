@@ -74,6 +74,7 @@ namespace SyncingSyllabi.Repositories.Repositories
                     getUser.IsGoogle = user.IsGoogle ?? getUser.IsGoogle;
                     getUser.ImageName = !string.IsNullOrEmpty(user.ImageName) ? user.ImageName : getUser.ImageName;
                     getUser.ImageUrl = !string.IsNullOrEmpty(user.ImageUrl) ? user.ImageUrl : getUser.ImageUrl;
+                    getUser.TimeZone = !string.IsNullOrEmpty(user.TimeZone) ? user.TimeZone : getUser.TimeZone;
 
                     getUser.FillCreated(getUser.Id);
                     getUser.FillUpdated(getUser.Id);

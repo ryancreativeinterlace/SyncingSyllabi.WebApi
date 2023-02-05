@@ -335,5 +335,31 @@ namespace SyncingSyllabi.WebApi.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("UpdateUserTimeZone")]
+        public IActionResult UpdateUserTimeZone([FromBody] UserTimeZoneRequestModel request)
+        {
+            try
+            {
+                var result = _userService.UpdateUserTimeZone(request);
+                var response = new UserPasswordResponseModel();
+
+                if (result)
+                {
+                    response.Data.Success = true;
+                }
+                else
+                {
+                    response.Data.Success = false;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
