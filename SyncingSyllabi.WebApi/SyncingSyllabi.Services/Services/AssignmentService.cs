@@ -221,6 +221,8 @@ namespace SyncingSyllabi.Services.Services
                         // convert to user time zone
                         assignment.AssignmentDateStart = TimeZoneHelper.ConvertToUserTimeZone(assignment.AssignmentDateStart.Value, user.TimeZone);
                         assignment.AssignmentDateEnd = TimeZoneHelper.ConvertToUserTimeZone(assignment.AssignmentDateEnd.Value, user.TimeZone);
+                        assignment.DateCreated = TimeZoneHelper.ConvertToUserTimeZone(assignment.DateCreated, user.TimeZone);
+                        assignment.DateUpdated = TimeZoneHelper.ConvertToUserTimeZone(assignment.DateUpdated, user.TimeZone);
 
                         if (assignment.Attachment != null)
                         {

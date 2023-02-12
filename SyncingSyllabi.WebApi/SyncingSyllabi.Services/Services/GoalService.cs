@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SyncingSyllabi.Common.Tools.Helpers;
 using SyncingSyllabi.Data.Dtos.Core;
 using SyncingSyllabi.Data.Enums;
 using SyncingSyllabi.Data.Models.Core;
@@ -16,15 +17,18 @@ namespace SyncingSyllabi.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IGoalBaseRepository _goalBaseRepository;
+        private readonly IUserBaseRepository _userBaseRepository;
 
         public GoalService
         (
             IMapper mapper,
-            IGoalBaseRepository goalBaseRepository
+            IGoalBaseRepository goalBaseRepository,
+            IUserBaseRepository userBaseRepository
         )
         {
             _mapper = mapper;
             _goalBaseRepository = goalBaseRepository;
+            _userBaseRepository = userBaseRepository;
         }
 
         public GoalDto CreateGoal(GoalRequestModel goalRequestModel)
@@ -124,7 +128,10 @@ namespace SyncingSyllabi.Services.Services
             var paginationDto = goalRequestModel.Pagination != null ? _mapper.Map<PaginationDto>(goalRequestModel.Pagination) : null;
             var sortColumnDto = goalRequestModel.Sort?.Select(f => _mapper.Map<SortColumnDto>(f));
 
-            if(goalRequestModel.UserId == 0)
+            // get user timeZone
+            var user = _userBaseRepository.GetUserById(goalRequestModel.UserId);
+
+            if (goalRequestModel.UserId == 0)
             {
                 // Dummy Data
                 result = new PaginatedResultDto<GoalModel>()
@@ -195,6 +202,20 @@ namespace SyncingSyllabi.Services.Services
             }
             else
             {
+                var goalList = _goalBaseRepository.GetGoalDetailsList(goalRequestModel.UserId, sortColumnDto, paginationDto);
+
+                if(goalList.Items.Count() > 0)
+                {
+                    foreach(var goalItem in goalList.Items)
+                    {
+                        // convert to user time zone
+                        goalItem.GoalDateStart = TimeZoneHelper.ConvertToUserTimeZone(goalItem.GoalDateStart.Value, user.TimeZone);
+                        goalItem.GoalDateEnd = TimeZoneHelper.ConvertToUserTimeZone(goalItem.GoalDateEnd.Value, user.TimeZone);
+                        goalItem.DateCreated = TimeZoneHelper.ConvertToUserTimeZone(goalItem.DateCreated, user.TimeZone);
+                        goalItem.DateUpdated = TimeZoneHelper.ConvertToUserTimeZone(goalItem.DateUpdated, user.TimeZone);
+                    }
+                }
+
                 result = _goalBaseRepository.GetGoalDetailsList(goalRequestModel.UserId, sortColumnDto, paginationDto);
             }
 
